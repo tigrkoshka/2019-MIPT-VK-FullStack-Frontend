@@ -13,5 +13,14 @@
  */
 
 export default function convertBytesToHuman(bytes) {
-  // your solution goes here
+  var size = [" B", " KB", " MB", " GB", " TB"];
+  if(typeof bytes !== "number" || bytes < 0){
+    return false;
+  }
+  var count = 0;
+  while(bytes >= 1024){
+    bytes /= 1024;
+    count++;
+  }
+  return +bytes.toFixed(2) + size[count];
 }

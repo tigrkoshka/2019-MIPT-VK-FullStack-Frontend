@@ -25,6 +25,23 @@ nonUniqueElements([10, 9, 10, 10, 9, 8]) == [10, 9, 10, 10, 9]
  */
 
 export default function nonUniqueElements(data) {
-  // your solution goes here
-  return data
+  var repeats = [];
+  var count = [];
+  for (var i = 0; i < data.length; i++) {
+    if (count[data[i]] == undefined) {
+      count[data[i]] = 1;
+    } else if (count[data[i]] == 1) {
+      count[data[i]]++;
+      repeats.push(data[i]);
+    }
+  }
+  var res = [];
+  for (var i = 0; i < data.length; i++) {
+    for (var j = 0; j < repeats.length; j++) {
+      if (repeats[j] == data[i]) {
+        res.push(data[i]);
+      }
+    }
+  }
+  return res;
 }
