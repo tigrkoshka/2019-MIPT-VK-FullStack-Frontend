@@ -20,10 +20,10 @@ template.innerHTML = `
     <div class="time"></div>
 `;
 
-class Message extends HTMLElement{
-  constructor () {
+class Message extends HTMLElement {
+  constructor() {
     super();
-    this._shadowRoot = this.attachShadow({mode: 'open'});
+    this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.$content = this._shadowRoot.querySelector('.content');
     this.$time = this._shadowRoot.querySelector('.time');
@@ -37,8 +37,8 @@ class Message extends HTMLElement{
     return this.$content.innerText;
   }
 
-  set time(new_time) {
-    this.$time.innerText = new_time;
+  set time(newTime) {
+    this.$time.innerText = newTime;
   }
 
   set content(text) {

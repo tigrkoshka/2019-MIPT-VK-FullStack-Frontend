@@ -51,49 +51,49 @@ template.innerHTML = `
 `;
 
 class MessageForm extends HTMLElement {
-    constructor () {
-        super();
-        this._shadowRoot = this.attachShadow({ mode: 'open' });
-        this._shadowRoot.appendChild(template.content.cloneNode(true));
-        this.$form = this._shadowRoot.querySelector('form');
-        this.$input = this._shadowRoot.querySelector('form-input');
-        this.$the_chat = this._shadowRoot.querySelector('.the-chat');
+  constructor() {
+    super();
+    this._shadowRoot = this.attachShadow({ mode: 'open' });
+    this._shadowRoot.appendChild(template.content.cloneNode(true));
+    this.$form = this._shadowRoot.querySelector('form');
+    this.$input = this._shadowRoot.querySelector('form-input');
+    this.$the_chat = this._shadowRoot.querySelector('.the-chat');
 
-        this.$messages = JSON.parse(localStorage.getItem('message-list')) || [];
+    this.$messages = JSON.parse(localStorage.getItem('message-list')) || [];
 
-        for(let i = 0; i < this.$messages.length; i++) {
-            const curr_message = document.createElement('one-message');
-            curr_message.content = this.$messages[i].content;
-            curr_message.time = this.$messages[i].time;
-            curr_message.classList.add('curr-message', 'mine');
-            this.$the_chat.insertBefore(curr_message, this.$the_chat.firstChild);
-        }
-
-        this.$form.addEventListener('submit', this._onSubmit.bind(this));
-        this.$form.addEventListener('keypress', this._onKeyPress.bind(this));
+    for (let i = 0; i < this.$messages.length; i += 1) {
+      const currMessage = document.createElement('one-message');
+      currMessage.content = this.$messages[i].content;
+      currMessage.time = this.$messages[i].time;
+      currMessage.classList.add('curr-message', 'mine');
+      this.$the_chat.insertBefore(currMessage, this.$the_chat.firstChild);
     }
 
-    _onSubmit (event) {
-        event.preventDefault();
-        const curr_text = this.$input.value.trim();
-        if (curr_text.length !== 0) {
-            const curr_message = document.createElement('one-message');
-            curr_message.classList.add('curr-message', 'mine');
-            curr_message.content = curr_text;
-            curr_message.time = (new Date()).toLocaleTimeString(navigator.language, {hour: '2-digit', minute: '2-digit'});
-            this.$messages.push({'content': curr_message.content, 'time': curr_message.time});
-            this.$the_chat.insertBefore(curr_message, this.$the_chat.firstChild);
-            localStorage.removeItem('message-list');
-            localStorage.setItem('message-list', JSON.stringify(this.$messages));
-            this.$input.clear();
-        }
-    }
+    this.$form.addEventListener('submit', this._onSubmit.bind(this));
+    this.$form.addEventListener('keypress', this._onKeyPress.bind(this));
+  }
 
-    _onKeyPress (event) {
-        if (event.keyCode == 13) {
-            this.$form.dispatchEvent(new Event('submit'));
-        }
+  _onSubmit(event) {
+    event.preventDefault();
+    const currText = this.$input.value.trim();
+    if (currText.length !== 0) {
+      const currMessage = document.createElement('one-message');
+      currMessage.classList.add('curr-message', 'mine');
+      currMessage.content = currText;
+      currMessage.time = (new Date()).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' });
+      this.$messages.push({ content: currMessage.content, time: currMessage.time });
+      this.$the_chat.insertBefore(currMessage, this.$the_chat.firstChild);
+      localStorage.removeItem('message-list');
+      localStorage.setItem('message-list', JSON.stringify(this.$messages));
+      this.$input.clear();
     }
+  }
+
+  _onKeyPress(event) {
+    if (event.keyCode === 13) {
+      this.$form.dispatchEvent(new Event('submit'));
+    }
+  }
 }
 
 customElements.define('message-form', MessageForm);
