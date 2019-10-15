@@ -1,6 +1,6 @@
 {
   "name": "track-mail-2019-tigrankoskelan",
-  "homepage": "https://your_gh_login.github.io/your_repo_name",
+  "homepage": "https://TIGRAN02.github.io/2019-2-Track-Frontend-T-Koshkelian",
   "description": "Mail.Ru Group Frontend Track course, 2019",
   "version": "0.1.0",
   "author": "Tigran Koshkelian",
@@ -37,15 +37,17 @@
     "babel-plugin-styled-components": "^1.10.6",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "check-engine": "^1.8.0",
+    "eslint": "^6.5.1",
     "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.4.0",
-    "husky": "^0.14.3",
     "gh-pages": "^2.1.1",
+    "husky": "^0.14.3",
     "jest": "^24.8.0",
     "jest-transform-stub": "^2.0.0",
     "jscpd": "^2.0.15",
@@ -90,7 +92,6 @@
     "lint:dup": "jscpd -g --threshold=1 client tests docker",
     "ci": "npm run test && npm run build && npm run test:sec"
   },
-  "homepage": "https://TIGRAN02.github.io/2019-2-Track-Frontend-T-Koshkelian",
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
