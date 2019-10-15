@@ -145,3 +145,8 @@ flow-typed/
 docs/_book/
 jest_*/
 .jscpd/
+
+web-components/false/
+
+web-components/.idea/
+
