@@ -37,8 +37,8 @@ class Message extends HTMLElement {
     return this.$content.innerText;
   }
 
-  set time(newTime) {
-    this.$time.innerText = newTime;
+  set time(time) {
+    this.$time.innerText = time;
   }
 
   set content(text) {

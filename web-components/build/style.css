@@ -1,5 +1,6 @@
 html {
     box-sizing: border-box;
+    height: 100%;
 }
 
 *,
@@ -9,6 +10,8 @@ html {
 }
 
 body {
+    height: 100%;
+    margin: 0;
     background-color: coral;
     color: #333;
     font-size: 22px;
