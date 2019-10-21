@@ -3,7 +3,7 @@ template.innerHTML = `
     <style>
         .content {
             margin: 10px 15px 5px;
-            color: blue;
+            color: #1C110A;
             word-break: normal;
         }
         
@@ -13,7 +13,7 @@ template.innerHTML = `
             margin-left: 2px;
             font-size: medium;
             text-align: right;
-            color: blue;
+            color: #1C110A;
         }
     </style>
     <div class="content"></div>

@@ -39,7 +39,7 @@ template.innerHTML = `
         }
         
         .name {
-            color: greenyellow;
+            color: #F6AA1C;
             position: absolute;
             bottom: 8px;
             left: 10px;
@@ -72,7 +72,7 @@ template.innerHTML = `
         }
         
         .indicator {
-            background-color: blue;
+            background-color: #7E52A0;
             color: white;
             border-radius: 10px;
             position: absolute;
@@ -107,7 +107,7 @@ template.innerHTML = `
 class Chat extends HTMLElement {
   constructor() {
     super();
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
+    this._shadowRoot = this.attachShadow({mode: 'open'});
     this._shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.$name = this._shadowRoot.querySelector('.name');
@@ -115,6 +115,42 @@ class Chat extends HTMLElement {
     this.$lastMessage = this._shadowRoot.querySelector('.last-message');
     this.$indicator = this._shadowRoot.querySelector('.indicator');
     this.$chat = this._shadowRoot.querySelector('.chat');
+  }
+
+  setAll(name) {
+    this.$name.innerText = name;
+
+    let messagesOfThisChat = JSON.parse(localStorage.getItem(this.$name.innerText)) || [];
+
+    if(messagesOfThisChat.length !== 0) {
+      let numberOfMessages = messagesOfThisChat.length;
+
+      this.$lastTime.innerText = messagesOfThisChat[numberOfMessages - 1].time;
+
+      let preLastMess = messagesOfThisChat[numberOfMessages - 1].content;
+      const arr = preLastMess.split(' ');
+      let i = 0;
+      let count = arr[i].length;
+      let res = '';
+      while (i < arr.length && count < 100) {
+        res += `${arr[i]} `;
+        i += 1;
+        if (i < arr.length) {
+          count += arr[i].length;
+        }
+      }
+      res = res.substr(0, res.length - 1);
+      if (i < arr.length) {
+        res += '...';
+      }
+
+      this.$lastMessage.innerText = res;
+      this.$indicator.innerText = numberOfMessages;
+    } else {
+      this.$lastTime.innerText = '';
+      this.$lastMessage.innerText = '';
+      this.$indicator.innerText = 0;
+    }
   }
 
   get chat() {
@@ -135,37 +171,6 @@ class Chat extends HTMLElement {
 
   get indicator() {
     return this.$indicator.innerText;
-  }
-
-  set name(name) {
-    this.$name.innerText = name;
-  }
-
-  set lastTime(lastTime) {
-    this.$lastTime.innerText = lastTime;
-  }
-
-  set lastMessage(lastMessage) {
-    let arr = lastMessage.split(' ');
-    let i = 0;
-    let count = arr[i].length;
-    let res = '';
-    while(i < arr.length && count < 100) {
-      res += arr[i] + ' ';
-      i += 1;
-      if(i < arr.length) {
-        count += arr[i].length;
-      }
-    }
-    res = res.substr(0, res.length - 1);
-    if(i < arr.length) {
-      res += '...';
-    }
-    this.$lastMessage.innerText = res;
-  }
-
-  set indicator(indicator) {
-    this.$indicator.innerText = indicator;
   }
 }
 

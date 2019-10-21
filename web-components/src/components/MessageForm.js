@@ -28,7 +28,7 @@ template.innerHTML = `
         .mine {
             margin-right: 5px;
             align-self: flex-end;
-            background: yellow;
+            background: #FFB732;
         }
 
         input[type=submit] {
@@ -53,14 +53,16 @@ template.innerHTML = `
 class MessageForm extends HTMLElement {
   constructor() {
     super();
-    this._shadowRoot = this.attachShadow({mode: 'open'});
+    this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.$form = this._shadowRoot.querySelector('form');
     this.$input = this._shadowRoot.querySelector('form-input');
     this.$theChat = this._shadowRoot.querySelector('.the-chat');
     this.$messageFormHeader = this._shadowRoot.querySelector('message-form-header');
 
-    this.$messages = JSON.parse(localStorage.getItem('message-list')) || [];
+    this.$name = this.getAttribute('name');
+
+    this.$messages = JSON.parse(localStorage.getItem(this.$name)) || [];
 
     for (let i = 0; i < this.$messages.length; i += 1) {
       const currMessage = document.createElement('one-message');
@@ -78,20 +80,28 @@ class MessageForm extends HTMLElement {
     return this.$messageFormHeader;
   }
 
+  get name() {
+    return this.$name;
+  }
+
   _onSubmit(event) {
     event.preventDefault();
     const currText = this.$input.value.trim();
     if (currText.length === 0) {
       return;
     }
+
     const currMessage = document.createElement('one-message');
     currMessage.classList.add('curr-message', 'mine');
     currMessage.content = currText;
-    currMessage.time = (new Date()).toLocaleTimeString(navigator.language, {hour: '2-digit', minute: '2-digit'});
-    this.$messages.push({content: currMessage.content, time: currMessage.time});
+    currMessage.time = (new Date()).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' });
+
+    this.$messages.push({ content: currMessage.content, time: currMessage.time, name: currMessage.name});
     this.$theChat.insertBefore(currMessage, this.$theChat.firstChild);
-    localStorage.removeItem('message-list');
-    localStorage.setItem('message-list', JSON.stringify(this.$messages));
+
+    localStorage.removeItem(this.$name);
+    localStorage.setItem(this.$name, JSON.stringify(this.$messages));
+
     this.$input.clear();
   }
 

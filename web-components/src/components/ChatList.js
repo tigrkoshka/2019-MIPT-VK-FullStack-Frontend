@@ -35,46 +35,37 @@ template.innerHTML = `
 class ChatList extends HTMLElement {
   constructor() {
     super();
-    this._shadowRoot = this.attachShadow({mode: 'open'});
+    this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.$chatsList = this._shadowRoot.querySelector('.chats');
     this.$header = this._shadowRoot.querySelector('chat-list-header');
 
-    this.$messages = JSON.parse(localStorage.getItem('message-list')) || [];
+    const data = ['Общество целых бокалов',
+      'Дженнифер Эшли',
+      'Антон Иванов',
+      'Серёга (должен 2000)',
+      'Общество разбитых бокалов',
+      'Сэм с Нижнего',
+      'Айрат работа',
+      'Кеша армия',
+      'Первый курс ФПМИ-Наука 2019-2020'];
 
-    this.$chats = JSON.parse(localStorage.getItem('chats-list')) || [];
+    data.sort(this.compareTime);
 
-    let data = ["Общество целых бокалов",
-      "Дженнифер Эшли",
-      "Антон Иванов",
-      "Серёга (должен 2000)",
-      "Общество разбитых бокалов",
-      "Сэм с Нижнего",
-      "Айрат работа",
-      "Кеша армия",
-      "Первый курс ФПМИ-Наука 2019-2020"];
+    for (let i = data.length - 1; i >= 0; i -= 1) {
+      if(localStorage.getItem(data[i]) === null) {
+        let a = [];
+        localStorage.setItem(data[i], JSON.stringify(a));
+      }
 
-    for(let i = data.length - 1; i >= 0; i -= 1){
       const currChat = document.createElement('one-chat');
-      currChat.name = data[i];
-      currChat.lastTime = this.$messages[this.$messages.length - 1].time;
-      currChat.lastMessage = this.$messages[this.$messages.length - 1].content;
-      currChat.indicator = this.$messages.length;
-      this.$chats.push({
-        name: currChat.name,
-        lastTime: currChat.lastTime,
-        lastMessage: currChat.lastMessage,
-        indicator: currChat.indicator,
-      });
+      currChat.setAll(data[i]);
+
       this.$chatsList.insertBefore(currChat, this.$chatsList.firstChild);
-      localStorage.removeItem('chats-list');
-      localStorage.setItem('chats-list', JSON.stringify(this.$chats));
     }
 
-
-
-
+    this.$chats = this._shadowRoot.querySelectorAll('one-chat');
   }
 
   get header() {
@@ -82,7 +73,33 @@ class ChatList extends HTMLElement {
   }
 
   get chats() {
-    return this.$chatsList;
+    return this.$chats;
+  }
+
+  compareTime(a, b) {
+    if(localStorage.getItem(a) === null) {
+      if(localStorage.getItem(b) === null) {
+        return 0;
+      } else {
+        return 1;
+      }
+    } else {
+      if(localStorage.getItem(b) === null) {
+        return -1;
+      } else {
+        let aLen = JSON.parse(localStorage.getItem(a)).length;
+        let bLen = JSON.parse(localStorage.getItem(b)).length;
+        if(aLen > bLen) {
+          return -1;
+        }
+        if(aLen === bLen) {
+          return 0;
+        }
+        if(aLen < bLen) {
+          return 1;
+        }
+      }
+    }
   }
 }
 
