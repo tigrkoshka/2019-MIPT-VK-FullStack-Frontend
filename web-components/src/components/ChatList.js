@@ -54,8 +54,8 @@ class ChatList extends HTMLElement {
     data.sort(this.compareTime);
 
     for (let i = data.length - 1; i >= 0; i -= 1) {
-      if(localStorage.getItem(data[i]) === null) {
-        let a = [];
+      if (localStorage.getItem(data[i]) === null) {
+        const a = [];
         localStorage.setItem(data[i], JSON.stringify(a));
       }
 
@@ -77,29 +77,27 @@ class ChatList extends HTMLElement {
   }
 
   compareTime(a, b) {
-    if(localStorage.getItem(a) === null) {
-      if(localStorage.getItem(b) === null) {
+    if (localStorage.getItem(a) === null) {
+      if (localStorage.getItem(b) === null) {
         return 0;
-      } else {
-        return 1;
       }
-    } else {
-      if(localStorage.getItem(b) === null) {
-        return -1;
-      } else {
-        let aLen = JSON.parse(localStorage.getItem(a)).length;
-        let bLen = JSON.parse(localStorage.getItem(b)).length;
-        if(aLen > bLen) {
-          return -1;
-        }
-        if(aLen === bLen) {
-          return 0;
-        }
-        if(aLen < bLen) {
-          return 1;
-        }
-      }
+      return 1;
     }
+    if (localStorage.getItem(b) === null) {
+      return -1;
+    }
+    const aLen = JSON.parse(localStorage.getItem(a)).length;
+    const bLen = JSON.parse(localStorage.getItem(b)).length;
+    if (aLen > bLen) {
+      return -1;
+    }
+    if (aLen === bLen) {
+      return 0;
+    }
+    if (aLen < bLen) {
+      return 1;
+    }
+    return 0;
   }
 }
 

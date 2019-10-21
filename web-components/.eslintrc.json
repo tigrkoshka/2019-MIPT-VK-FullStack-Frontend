@@ -3,6 +3,7 @@
   "rules": {
     "no-underscore-dangle": "off",
     "jsx-a11y/href-no-hash": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "max-len": "off"
   }
 }

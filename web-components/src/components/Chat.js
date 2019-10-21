@@ -107,7 +107,7 @@ template.innerHTML = `
 class Chat extends HTMLElement {
   constructor() {
     super();
-    this._shadowRoot = this.attachShadow({mode: 'open'});
+    this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.$name = this._shadowRoot.querySelector('.name');
@@ -120,14 +120,14 @@ class Chat extends HTMLElement {
   setAll(name) {
     this.$name.innerText = name;
 
-    let messagesOfThisChat = JSON.parse(localStorage.getItem(this.$name.innerText)) || [];
+    const messagesOfThisChat = JSON.parse(localStorage.getItem(this.$name.innerText)) || [];
 
-    if(messagesOfThisChat.length !== 0) {
-      let numberOfMessages = messagesOfThisChat.length;
+    if (messagesOfThisChat.length !== 0) {
+      const numberOfMessages = messagesOfThisChat.length;
 
       this.$lastTime.innerText = messagesOfThisChat[numberOfMessages - 1].time;
 
-      let preLastMess = messagesOfThisChat[numberOfMessages - 1].content;
+      const preLastMess = messagesOfThisChat[numberOfMessages - 1].content;
       const arr = preLastMess.split(' ');
       let i = 0;
       let count = arr[i].length;

@@ -31,13 +31,14 @@ class Page extends HTMLElement {
 
     this.$chatList = this._shadowRoot.querySelector('chat-list');
     this.$chats = this.$chatList.chats || [];
-    for(let i = 0; i < this.$chats.length; i += 1) {
+    for (let i = 0; i < this.$chats.length; i += 1) {
       this.$chats[i].addEventListener('click', this._onClickToMessages.bind(this, this.$chats[i].$name.innerText));
     }
   }
 
   _onClickToMessages(name, event) {
-    this.$container.innerHTML = '<message-form action="/" name=\'' + name + '\'></message-form>';
+    event.preventDefault();
+    this.$container.innerHTML = `<message-form action="/" name='${name}'></message-form>`;
 
     this.$messageForm = this._shadowRoot.querySelector('message-form');
     this.$messageFormHeader = this.$messageForm.header;
@@ -46,11 +47,12 @@ class Page extends HTMLElement {
   }
 
   _onClickToChats(event) {
+    event.preventDefault();
     this.$container.innerHTML = '<chat-list action="/"></chat-list>';
 
     this.$chatList = this._shadowRoot.querySelector('chat-list');
     this.$chats = this.$chatList.chats;
-    for(let i = 0; i < this.$chats.length; i += 1) {
+    for (let i = 0; i < this.$chats.length; i += 1) {
       this.$chats[i].addEventListener('click', this._onClickToMessages.bind(this, this.$chats[i].$name.innerText));
     }
   }

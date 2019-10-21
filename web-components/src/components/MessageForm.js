@@ -96,7 +96,7 @@ class MessageForm extends HTMLElement {
     currMessage.content = currText;
     currMessage.time = (new Date()).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' });
 
-    this.$messages.push({ content: currMessage.content, time: currMessage.time, name: currMessage.name});
+    this.$messages.push({ content: currMessage.content, time: currMessage.time, name: currMessage.name });
     this.$theChat.insertBefore(currMessage, this.$theChat.firstChild);
 
     localStorage.removeItem(this.$name);
