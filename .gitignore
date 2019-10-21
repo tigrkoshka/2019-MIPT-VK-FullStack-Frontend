@@ -155,3 +155,6 @@ web-components/build/
 build/
 
 package-lock.json
+
+web-components/package-lock.json
+
