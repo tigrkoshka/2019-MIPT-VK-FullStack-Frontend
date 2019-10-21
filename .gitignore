@@ -153,3 +153,5 @@ web-components/.idea/
 web-components/build/
 
 build/
+
+package-lock.json
