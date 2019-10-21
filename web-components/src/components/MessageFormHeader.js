@@ -13,7 +13,6 @@ template.innerHTML = `
             flex-direction: row;
             flex: 0 0 7%;
             height: 100%;
-            width: 100%;
         }
         
         .to-chats {
@@ -24,6 +23,25 @@ template.innerHTML = `
             color: white;
             font-family: "Cambria Math",serif;
         }       
+        
+        .chat-name {
+            display: flex;
+            flex-direction: row;
+            flex: 0 0 100%;
+        }
+        
+        .for-chat-name {
+            width: 86%;
+        }
+        
+        #name {
+            position: relative;
+            top: 4px;
+            color: white;
+            font-family: "Cambria Math", serif;
+            text-align: center;
+            vertical-align: center;
+        }
     </style>
     <div class="rectangle"> 
         <div class="button"> 
@@ -38,6 +56,13 @@ template.innerHTML = `
                 </tr>
             </table>
         </div>
+        <div class="chat-name">
+            <table class="for-chat-name">
+                <tr>
+                    <td id="name"></td>
+                </tr>
+            </table>
+        </div>
     </div>
 `;
 
@@ -47,11 +72,16 @@ class MessageFormHeader extends HTMLElement {
     this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
 
+    this.$chat_name = this._shadowRoot.querySelector('#name');
     this.$button = this._shadowRoot.querySelector('.button');
   }
 
   get button() {
     return this.$button;
+  }
+
+  set name(name) {
+    this.$chat_name.innerText = name;
   }
 }
 

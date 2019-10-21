@@ -43,8 +43,7 @@ template.innerHTML = `
             height: 100%;
         }
     </style>
-    <form>
-         <message-form-header id="header"></message-form-header>
+    <form class="form">
          <div class="the-chat"></div>
          <form-input name="message-text" placeholder="Введите сообщение"></form-input>
      </form>
@@ -55,14 +54,21 @@ class MessageForm extends HTMLElement {
     super();
     this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
-    this.$form = this._shadowRoot.querySelector('form');
+    this.$form = this._shadowRoot.querySelector('.form');
     this.$input = this._shadowRoot.querySelector('form-input');
     this.$theChat = this._shadowRoot.querySelector('.the-chat');
     this.$messageFormHeader = this._shadowRoot.querySelector('message-form-header');
 
     this.$name = this.getAttribute('name');
+    /* this.$messageFormHeader.setAttribute('name', this.$name);
+    debugger;
+    console.log(this.$messageFormHeader); */
 
     this.$messages = JSON.parse(localStorage.getItem(this.$name)) || [];
+
+    this.$messageFormHeader = document.createElement('message-form-header');
+    this.$messageFormHeader.name = this.$name;
+    this.$form.insertBefore(this.$messageFormHeader, this.$form.firstChild);
 
     for (let i = 0; i < this.$messages.length; i += 1) {
       const currMessage = document.createElement('one-message');
