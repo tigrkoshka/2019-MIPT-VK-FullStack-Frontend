@@ -66,8 +66,8 @@ module.exports = {
             template: './index.html'
         }),
         new CopyPlugin( [
-          { from: '/src/components/images/',
-            to: 'build/images/' }
+          { from: './src/components/images/',
+            to: './build/images/' }
         ])
     ]
 };
