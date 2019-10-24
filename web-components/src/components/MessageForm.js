@@ -5,17 +5,28 @@ template.innerHTML = `
             height: 100%;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+            transition: transform 2s;
+            position: relative;
+            left: -100%;
         }
         
         #header {
             display: flex;
             height: 7%;
-            flex: 0 1 7%;
         }
-    
-        form-input {
-            flex: 0 0 auto;
-        }   
+        
+        .the-chat {
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column-reverse;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .empty {
+            flex-basis: 5px;
+        }
         
         .curr-message {
             position: relative;
@@ -28,24 +39,17 @@ template.innerHTML = `
         .mine {
             margin-right: 5px;
             align-self: flex-end;
-            background: #FFB732;
+            background: #606163;
         }
 
         input[type=submit] {
             visibility: collapse;
         }  
-        
-        .the-chat {
-            overflow-y: scroll;
-            display: flex;
-            flex-direction: column-reverse;
-            width: 100%;
-            height: 100%;
-        }
     </style>
     <form class="form">
          <div class="the-chat"></div>
          <form-input name="message-text" placeholder="Введите сообщение"></form-input>
+         <div class="empty"></div>
      </form>
 `;
 
@@ -60,13 +64,11 @@ class MessageForm extends HTMLElement {
     this.$messageFormHeader = this._shadowRoot.querySelector('message-form-header');
 
     this.$name = this.getAttribute('name');
-    /* this.$messageFormHeader.setAttribute('name', this.$name);
-    debugger;
-    console.log(this.$messageFormHeader); */
 
     this.$messages = JSON.parse(localStorage.getItem(this.$name)) || [];
 
     this.$messageFormHeader = document.createElement('message-form-header');
+    this.$messageFormHeader.id = "header";
     this.$messageFormHeader.name = this.$name;
     this.$form.insertBefore(this.$messageFormHeader, this.$form.firstChild);
 
@@ -80,6 +82,10 @@ class MessageForm extends HTMLElement {
 
     this.$form.addEventListener('submit', this._onSubmit.bind(this));
     this.$form.addEventListener('keypress', this._onKeyPress.bind(this));
+  }
+
+  get form() {
+    return this.$form;
   }
 
   get header() {

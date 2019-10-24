@@ -5,12 +5,16 @@ template.innerHTML = `
             width: 100%;
         }
         tr, td {
-            height: 50px;
+            height: 40px;
             padding: 0;
         }
     
         .chat {
             width: 100%;
+        }
+        
+        .chat:hover {
+            background-color: #818285;
         }
         
         .for-pic {
@@ -28,7 +32,7 @@ template.innerHTML = `
         }
         
         .pic {
-            height: 135%;
+            height: 100%;
             width: auto;
             margin: 0 auto;
         }
@@ -39,31 +43,29 @@ template.innerHTML = `
         }
         
         .name {
-            color: #F6AA1C;
             position: absolute;
             bottom: 8px;
             left: 10px;
             font-size: 23px;
+            right: 20px;
         }
         
         .last-time {
-            color: darkgreen;
             text-align: right;
             position: absolute;
             bottom: 8px;
             right: 10px;
             font-size: 17px;
+            color: #A0A0A0
         }
         
         .second {
             vertical-align: top;
-            border-bottom: 2px solid lightcoral;
             padding: 4px;
-            position:relative;
+            position: relative;
         }
         
         .last-message {
-            color: darkgreen;
             position: absolute;
             top: 10px;
             left: 10px;
@@ -72,14 +74,23 @@ template.innerHTML = `
         }
         
         .indicator {
-            background-color: #7E52A0;
+            background-color: #898989;
             color: white;
-            border-radius: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 15px;
+            text-align: center;
             position: absolute;
             top: 10px;
             right: 10px;
             padding: 3px;
         }
+        
+        hr {
+            background-color: #404040;
+            margin: 5px 0;
+        }
+        
     </style>
     <div class="chat">
         <table>
@@ -102,6 +113,7 @@ template.innerHTML = `
             </tr>
         </table>
     </div>
+    <hr>
 `;
 
 class Chat extends HTMLElement {

@@ -3,35 +3,68 @@ template.innerHTML = `
     <style>
         .rectangle {
             width: 100%;
-            background-color: darkred;
-            position: relative;
+            background-color: #131313;
+            display: flex;
+            flex-direction: row;
         }
         
         .burger {
-            position: absolute;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-basis: 10%;
             height: 100%;
-            width: auto;
-            left: 10px;
+        }
+        
+        .vertical {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .horizontal {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-basis: 80%;
         }
         
         .messenger {
-            position: absolute;
             color: white;
-            top: 30%;
-            left: 47%;
+            font-family: "Cambria Math",serif;
+            cursor: default;
         }
+        
         .search {
-            position: absolute;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            flex-basis: 10%;
             height: 100%;
-            width: auto;
-            right: 10px;
-            top: 5px;
+        }
+        
+        .empty {
+            flex-basis: 20px;
         }
     </style>
     <div class="rectangle"> 
-        <div class="burger"><img src="/src/components/images/burger.png" height="100%" width="height" alt=""></div>
-        <div class="messenger">Messenger</div>
-        <div class="search"><img src="/src/components/images/search.png" height="80%" width="height" alt=""></div>
+        <div class="empty"></div>
+        <div class="burger"> 
+            <div class="vertical">
+                <img src="/src/components/images/burger.png" height="45px" width="height" alt="">
+            </div>
+        </div>
+        <div class="horizontal">
+            <div class="vertical">
+                <div class="messenger">Messenger</div>
+            </div>
+        </div>
+        <div class="search"> 
+            <div class="vertical">
+                <img src="/src/components/images/search.png" height="35px" width="height" alt="">
+            </div>
+        </div>
+        <div class="empty"></div>
     </div>
 `;
 

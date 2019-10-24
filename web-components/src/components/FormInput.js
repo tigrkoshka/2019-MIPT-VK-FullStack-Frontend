@@ -7,11 +7,18 @@ template.innerHTML = `
             width: calc(100% - 2px);
             height: 50px;
             font-size: 20px;
+            background-color: #707172;
+            color: #FFFFFF;
+            border-radius: 15px;
         }
 
         :host {
             display: inline-block;
             border: 1px solid rgba(25, 25, 25, 0.32);
+        }
+        
+        ::placeholder {
+            color: #DDDDDD;
         }
     </style>
     <input type="text">

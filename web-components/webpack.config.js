@@ -67,7 +67,7 @@ module.exports = {
         }),
         new CopyPlugin( [{
             from: '/src/components/images/',
-            to: 'build/images'
+            to: 'build/images/'
           }])
     ]
 };

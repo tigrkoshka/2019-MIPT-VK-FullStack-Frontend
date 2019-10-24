@@ -3,7 +3,7 @@ template.innerHTML = `
     <style>
         .rectangle {
             width: 100%;
-            background-color: darkred;
+            background-color: #131313;
             display: flex;
             flex-direction: row;
         }
@@ -11,57 +11,48 @@ template.innerHTML = `
         .button {
             display: flex;
             flex-direction: row;
-            flex: 0 0 7%;
+            flex-basis: 6%;
             height: 100%;
+            cursor: pointer;
         }
         
-        .to-chats {
-            height: 100%;
+        .vertical {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 20px;
         }
         
-        #chats {
-            color: white;
-            font-family: "Cambria Math",serif;
-        }       
-        
-        .chat-name {
+        .horizontal {
             display: flex;
             flex-direction: row;
-            flex: 0 0 100%;
-        }
-        
-        .for-chat-name {
+            justify-content: center;
             width: 86%;
         }
         
-        #name {
-            position: relative;
-            top: 4px;
+        .text {
             color: white;
-            font-family: "Cambria Math", serif;
-            text-align: center;
-            vertical-align: center;
+            font-family: "Cambria Math",serif;
+        }
+        
+        #name {
+            cursor: default;
+            font-size: 23px;
         }
     </style>
     <div class="rectangle"> 
         <div class="button"> 
-            <table class="to-chats">
-                <tr>
-                    <td class="chats-button">
-                        <img src="/src/components/images/toChats.png" height="30px" alt="">
-                    </td>
-                    <td id="chats">
-                        Chats
-                    </td>
-                </tr>
-            </table>
+            <div class="vertical">
+                <img src="/src/components/images/toChats.png" height="30px" alt="">
+            </div>
+            <div class="vertical">
+                <div class="text">Chats</div>
+            </div>  
         </div>
-        <div class="chat-name">
-            <table class="for-chat-name">
-                <tr>
-                    <td id="name"></td>
-                </tr>
-            </table>
+        <div class="horizontal">
+            <div class="vertical">
+                <div class="text" id="name"></div>
+            </div>
         </div>
     </div>
 `;

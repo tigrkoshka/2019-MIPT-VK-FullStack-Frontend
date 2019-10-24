@@ -3,17 +3,18 @@ template.innerHTML = `
     <style>
         .content {
             margin: 10px 15px 5px;
-            color: #1C110A;
+            color: #FFFFFF;
             word-break: normal;
+            cursor: default;
         }
         
         .time {
             margin-right: 10px;
             margin-bottom: 5px;
-            margin-left: 2px;
-            font-size: medium;
+            font-size: 15px;
             text-align: right;
-            color: #1C110A;
+            color: #CCCCCC;
+            cursor: default;
         }
     </style>
     <div class="content"></div>

@@ -5,11 +5,12 @@ template.innerHTML = `
             height: 100%;
             display: flex;
             flex-direction: column;
+            transition: transform 2s;
         }
         
         #header {
             display: flex;
-            flex: 0 1 7%;
+            flex-basis: 8%;
         }
         
         .chats {
@@ -18,6 +19,7 @@ template.innerHTML = `
             flex-direction: column;
             width: 100%;
             height: 100%;
+            cursor: pointer;
         }
         .new-chat {
             position: absolute;
@@ -51,7 +53,7 @@ class ChatList extends HTMLElement {
       'Кеша армия',
       'Первый курс ФПМИ-Наука 2019-2020'];
 
-    data.sort(this.compareTime);
+    data.sort(this.compareNumber);
 
     for (let i = data.length - 1; i >= 0; i -= 1) {
       if (localStorage.getItem(data[i]) === null) {
@@ -76,7 +78,11 @@ class ChatList extends HTMLElement {
     return this.$chats;
   }
 
-  compareTime(a, b) {
+  get container() {
+    return this._shadowRoot.querySelector('.container');
+  }
+
+  compareNumber(a, b) {
     if (localStorage.getItem(a) === null) {
       if (localStorage.getItem(b) === null) {
         return 0;

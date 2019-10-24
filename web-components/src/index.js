@@ -38,12 +38,15 @@ class Page extends HTMLElement {
 
   _onClickToMessages(name, event) {
     event.preventDefault();
+    this.$chatList.container.style.transform = 'translateX(100%)';
     this.$container.innerHTML = `<message-form action="/" name='${name}'></message-form>`;
 
     this.$messageForm = this._shadowRoot.querySelector('message-form');
     this.$messageFormHeader = this.$messageForm.header;
     this.$buttonToChats = this.$messageFormHeader.button;
     this.$buttonToChats.addEventListener('click', this._onClickToChats.bind(this));
+
+    this.$messageForm.form.style.transform = 'translateX(100%)';
   }
 
   _onClickToChats(event) {
