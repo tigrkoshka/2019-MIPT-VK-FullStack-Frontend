@@ -1,22 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Counter from '../components/Counter'
 import ActionTypes from '../constants/ActionTypes'
 import { incrementIfOdd } from '../actions/counter'
-import { connect } from 'react-redux'
 
 export class CounterContainer extends React.Component {
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    counter: PropTypes.number.isRequired,
-  }
-
   increment = () => {
-    this.props.dispatch({ type: ActionTypes.INCREMENT_COUNTER })
+    // eslint-disable-next-line react/prop-types
+    const { dispatch } = this.props
+    dispatch({ type: ActionTypes.INCREMENT_COUNTER })
   }
 
   decrement = () => {
-    this.props.dispatch({ type: ActionTypes.DECREMENT_COUNTER })
+    // eslint-disable-next-line react/prop-types
+    const { dispatch } = this.props
+    dispatch({ type: ActionTypes.DECREMENT_COUNTER })
   }
 
   incrementIfOdd = () => {
@@ -24,9 +23,11 @@ export class CounterContainer extends React.Component {
   }
 
   render() {
+    const { counter } = this.props
+
     return (
       <Counter
-        counter={this.props.counter}
+        counter={counter}
         increment={this.increment}
         decrement={this.decrement}
         incrementIfOdd={this.incrementIfOdd}
@@ -35,9 +36,14 @@ export class CounterContainer extends React.Component {
   }
 }
 
+CounterContainer.propTypes = {
+  counter: PropTypes.number.isRequired,
+}
+
 function mapStateToProps(state) {
   return {
     counter: state.counter,
+    dispatch: PropTypes.func.isRequired,
   }
 }
 

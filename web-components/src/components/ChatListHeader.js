@@ -1,4 +1,4 @@
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
     <style>
         .rectangle {
@@ -29,9 +29,9 @@ template.innerHTML = `
             flex-basis: 80%;
         }
         
-        .messenger {
+        .hummingbird {
             color: white;
-            font-family: "Cambria Math",serif;
+            font-family: "Cambria Math", serif;
             cursor: default;
         }
         
@@ -51,29 +51,29 @@ template.innerHTML = `
         <div class="empty"></div>
         <div class="burger"> 
             <div class="vertical">
-                <img src="/src/components/images/burger.png" height="45px" width="height" alt="">
+                <img src="../src/images/burger.png" height="45px" width="height" alt="">
             </div>
         </div>
         <div class="horizontal">
             <div class="vertical">
-                <div class="messenger">Messenger</div>
+                <div class="hummingbird">Hummingbird</div>
             </div>
         </div>
         <div class="search"> 
             <div class="vertical">
-                <img src="/src/components/images/search.png" height="35px" width="height" alt="">
+                <img src="../src/images/search.png" height="35px" width="height" alt="">
             </div>
         </div>
         <div class="empty"></div>
     </div>
-`;
+`
 
 class ChatListHeader extends HTMLElement {
   constructor() {
-    super();
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._shadowRoot.appendChild(template.content.cloneNode(true));
+    super()
+    this._shadowRoot = this.attachShadow({ mode: 'open' })
+    this._shadowRoot.appendChild(template.content.cloneNode(true))
   }
 }
 
-customElements.define('chat-list-header', ChatListHeader);
+customElements.define('chat-list-header', ChatListHeader)

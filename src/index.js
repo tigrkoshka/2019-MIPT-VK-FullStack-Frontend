@@ -2,13 +2,15 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './store'
-import Routes from './routes'
 import './styles/globalStyles.css'
 import * as serviceWorker from './utils/serviceWorker'
+import ChatList from './components/ChatList'
+import MessageForm from './components/MessageForm'
+import MyPage from './components/Page'
 
 render(
   <Provider store={store}>
-    <Routes />
+    <ChatList />
   </Provider>,
   document.getElementById('root'),
 )

@@ -9,6 +9,8 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read http://bit.ly/CRA-PWA
+/* eslint no-console: 0 */
+/* eslint no-param-reassign: 0 */
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||

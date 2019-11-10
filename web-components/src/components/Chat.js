@@ -1,4 +1,4 @@
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
     <style>
         table {
@@ -97,7 +97,7 @@ template.innerHTML = `
             <tr>
                 <td rowspan="2" class="for-pic">
                     <div class="photo">
-                        <img src="/src/components/images/profilePic.jpeg" alt="" class="pic">
+                        <img src="../src/images/profilePic.jpeg" alt="" class="pic">
                     </div>
                 </td>
                 <td class="first">
@@ -114,76 +114,76 @@ template.innerHTML = `
         </table>
     </div>
     <hr>
-`;
+`
 
 class Chat extends HTMLElement {
   constructor() {
-    super();
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._shadowRoot.appendChild(template.content.cloneNode(true));
+    super()
+    this._shadowRoot = this.attachShadow({ mode: 'open' })
+    this._shadowRoot.appendChild(template.content.cloneNode(true))
 
-    this.$name = this._shadowRoot.querySelector('.name');
-    this.$lastTime = this._shadowRoot.querySelector('.last-time');
-    this.$lastMessage = this._shadowRoot.querySelector('.last-message');
-    this.$indicator = this._shadowRoot.querySelector('.indicator');
-    this.$chat = this._shadowRoot.querySelector('.chat');
+    this.$name = this._shadowRoot.querySelector('.name')
+    this.$lastTime = this._shadowRoot.querySelector('.last-time')
+    this.$lastMessage = this._shadowRoot.querySelector('.last-message')
+    this.$indicator = this._shadowRoot.querySelector('.indicator')
+    this.$chat = this._shadowRoot.querySelector('.chat')
   }
 
   setAll(name) {
-    this.$name.innerText = name;
+    this.$name.innerText = name
 
-    const messagesOfThisChat = JSON.parse(localStorage.getItem(this.$name.innerText)) || [];
+    const messagesOfThisChat = JSON.parse(localStorage.getItem(this.$name.innerText)) || []
 
     if (messagesOfThisChat.length !== 0) {
-      const numberOfMessages = messagesOfThisChat.length;
+      const numberOfMessages = messagesOfThisChat.length
 
-      this.$lastTime.innerText = messagesOfThisChat[numberOfMessages - 1].time;
+      this.$lastTime.innerText = messagesOfThisChat[numberOfMessages - 1].time
 
-      const preLastMess = messagesOfThisChat[numberOfMessages - 1].content;
-      const arr = preLastMess.split(' ');
-      let i = 0;
-      let count = arr[i].length;
-      let res = '';
+      const preLastMess = messagesOfThisChat[numberOfMessages - 1].content
+      const arr = preLastMess.split(' ')
+      let i = 0
+      let count = arr[i].length
+      let res = ''
       while (i < arr.length && count < 100) {
-        res += `${arr[i]} `;
-        i += 1;
+        res += `${arr[i]} `
+        i += 1
         if (i < arr.length) {
-          count += arr[i].length;
+          count += arr[i].length
         }
       }
-      res = res.substr(0, res.length - 1);
+      res = res.substr(0, res.length - 1)
       if (i < arr.length) {
-        res += '...';
+        res += '...'
       }
 
-      this.$lastMessage.innerText = res;
-      this.$indicator.innerText = numberOfMessages;
+      this.$lastMessage.innerText = res
+      this.$indicator.innerText = numberOfMessages
     } else {
-      this.$lastTime.innerText = '';
-      this.$lastMessage.innerText = '';
-      this.$indicator.innerText = 0;
+      this.$lastTime.innerText = ''
+      this.$lastMessage.innerText = ''
+      this.$indicator.innerText = 0
     }
   }
 
   get chat() {
-    return this.$chat;
+    return this.$chat
   }
 
   get name() {
-    return this.$name.innerText;
+    return this.$name.innerText
   }
 
   get lastTime() {
-    return this.$lastTime.innerText;
+    return this.$lastTime.innerText
   }
 
   get lastMessage() {
-    return this.$lastMessage.innerText;
+    return this.$lastMessage.innerText
   }
 
   get indicator() {
-    return this.$indicator.innerText;
+    return this.$indicator.innerText
   }
 }
 
-customElements.define('one-chat', Chat);
+customElements.define('one-chat', Chat)

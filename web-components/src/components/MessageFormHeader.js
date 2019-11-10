@@ -1,4 +1,4 @@
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
     <style>
         .rectangle {
@@ -43,7 +43,7 @@ template.innerHTML = `
     <div class="rectangle"> 
         <div class="button"> 
             <div class="vertical">
-                <img src="/src/components/images/toChats.png" height="30px" alt="">
+                <img src="/src/images/toChats.png" height="30px" alt="">
             </div>
             <div class="vertical">
                 <div class="text">Chats</div>
@@ -55,25 +55,25 @@ template.innerHTML = `
             </div>
         </div>
     </div>
-`;
+`
 
 class MessageFormHeader extends HTMLElement {
   constructor() {
-    super();
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._shadowRoot.appendChild(template.content.cloneNode(true));
+    super()
+    this._shadowRoot = this.attachShadow({ mode: 'open' })
+    this._shadowRoot.appendChild(template.content.cloneNode(true))
 
-    this.$chat_name = this._shadowRoot.querySelector('#name');
-    this.$button = this._shadowRoot.querySelector('.button');
+    this.$chat_name = this._shadowRoot.querySelector('#name')
+    this.$button = this._shadowRoot.querySelector('.button')
   }
 
   get button() {
-    return this.$button;
+    return this.$button
   }
 
   set name(name) {
-    this.$chat_name.innerText = name;
+    this.$chat_name.innerText = name
   }
 }
 
-customElements.define('message-form-header', MessageFormHeader);
+customElements.define('message-form-header', MessageFormHeader)
