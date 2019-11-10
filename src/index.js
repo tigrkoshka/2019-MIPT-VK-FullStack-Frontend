@@ -5,8 +5,6 @@ import store from './store'
 import './styles/globalStyles.css'
 import * as serviceWorker from './utils/serviceWorker'
 import ChatList from './components/ChatList'
-import MessageForm from './components/MessageForm'
-import MyPage from './components/Page'
 
 render(
   <Provider store={store}>
