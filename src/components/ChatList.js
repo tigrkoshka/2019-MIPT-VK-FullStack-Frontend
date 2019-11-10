@@ -170,4 +170,5 @@ class ChatList extends React.Component {
     )
   }
 }
+
 export default ChatList
