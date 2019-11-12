@@ -148,3 +148,4 @@ jest_*/
 .jscpd/
 
 /web-components/false
+/.idea
