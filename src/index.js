@@ -7,12 +7,14 @@ import './styles/globalStyles.css'
 import * as serviceWorker from './utils/serviceWorker'
 import ChatList from './components/ChatList'
 import MessageForm from './components/MessageForm'
+import WelcomePage from './components/WelcomePage'
 
 render(
   <Provider store={store}>
     <Router basename="/">
       <Switch>
-        <Route exact path="/" component={ChatList} />
+        <Route exact path="/" component={WelcomePage} />
+        <Route path="/ChatList" component={ChatList} />
         <Route path="/MessageForm/:name" component={MessageForm} />
       </Switch>
     </Router>

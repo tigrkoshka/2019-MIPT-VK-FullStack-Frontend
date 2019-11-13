@@ -9,7 +9,7 @@ import formStyles from '../styles/messageFormStyles.module.scss'
 function Header(props) {
   return (
     <div className={headerStyles.rectangle}>
-      <Link to="/" className={headerStyles.button}>
+      <Link to="/ChatList" className={headerStyles.button}>
         <div className={headerStyles.vertical}>
           <img src={toChats} height="30px" alt="" />
         </div>

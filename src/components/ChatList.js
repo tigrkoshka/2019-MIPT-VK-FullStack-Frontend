@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import burger from '../images/burger.png'
 import search from '../images/search.png'
 import profilePic from '../images/profilePic.jpeg'
+import newChat from '../images/new-chat.png'
 import headerStyles from '../styles/chatListHeaderStyles.module.scss'
 import chatStyles from '../styles/singleChatStyles.module.scss'
 import chatListStyles from '../styles/chatListStyles.module.scss'
@@ -170,7 +171,7 @@ class ChatList extends React.Component {
         <Header className={chatListStyles.header} />
         <div className={chatListStyles.chats}>{this.state.chats}</div>
         <div className={chatListStyles.new_chat}>
-          <img src="../images/new-chat.png" height="70px" alt="" />
+          <img src={newChat} height="70px" alt="" />
         </div>
       </div>
     )
