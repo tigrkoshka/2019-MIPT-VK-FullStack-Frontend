@@ -1,6 +1,6 @@
 {
   "name": "track-mail-2019-tigrankoskelan",
-  "homepage": "https://your_gh_login.github.io/your_repo_name",
+  "homepage": "https://tigran02.github.io/2019-2-Track-Frontend-T-Koshkelian/",
   "description": "Mail.Ru Group Frontend Track course, 2019",
   "version": "0.1.0",
   "author": "Tigran Koshkelian",
@@ -8,6 +8,7 @@
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.22",
     "cross-env": "^6.0.3",
+    "history": "^4.10.1",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
     "react": "latest",

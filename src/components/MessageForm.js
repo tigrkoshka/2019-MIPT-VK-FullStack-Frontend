@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import toChats from '../images/toChats.png'
 import headerStyles from '../styles/messageFormHeaderStyles.module.scss'
 import messageStyles from '../styles/singleMessageStyles.module.scss'
 import formStyles from '../styles/messageFormStyles.module.scss'
@@ -7,14 +9,14 @@ import formStyles from '../styles/messageFormStyles.module.scss'
 function Header(props) {
   return (
     <div className={headerStyles.rectangle}>
-      <div className={headerStyles.button}>
+      <Link to="/" className={headerStyles.button}>
         <div className={headerStyles.vertical}>
-          <img src="../images/toChats.png" height="30px" alt="" />
+          <img src={toChats} height="30px" alt="" />
         </div>
         <div className={headerStyles.vertical}>
           <div className={headerStyles.text}>Chats</div>
         </div>
-      </div>
+      </Link>
       <div className={headerStyles.horizontal}>
         <div className={headerStyles.vertical}>
           <div className={headerStyles.name}>{props.name}</div>
@@ -46,11 +48,10 @@ singleMessage.propTypes = {
 
 class MessageForm extends React.Component {
   constructor(props) {
-    localStorage.clear()
     super(props)
     this.state = {
       value: '',
-      name: props.name,
+      name: this.props.match.params.name,
       messages: [],
     }
     const allMessages = JSON.parse(localStorage.getItem(this.state.name)) || []
@@ -114,7 +115,8 @@ class MessageForm extends React.Component {
 }
 
 MessageForm.propTypes = {
-  name: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  match: PropTypes.object.isRequired,
 }
 
 export default MessageForm

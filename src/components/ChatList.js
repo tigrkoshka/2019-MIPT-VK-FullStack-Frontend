@@ -1,5 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import burger from '../images/burger.png'
+import search from '../images/search.png'
+import profilePic from '../images/profilePic.jpeg'
 import headerStyles from '../styles/chatListHeaderStyles.module.scss'
 import chatStyles from '../styles/singleChatStyles.module.scss'
 import chatListStyles from '../styles/chatListStyles.module.scss'
@@ -22,7 +26,7 @@ function Header(props) {
       <div className={headerStyles.empty} />
       <div className={headerStyles.burger}>
         <div className={headerStyles.vertical}>
-          <img src="../images/burger.png" height="45px" width="height" alt="" />
+          <img src={burger} height="45px" width="height" alt="" />
         </div>
       </div>
       <div className={headerStyles.horizontal}>
@@ -32,7 +36,7 @@ function Header(props) {
       </div>
       <div className={headerStyles.search}>
         <div className={headerStyles.vertical}>
-          <img src="../images/search.png" height="35px" width="height" alt="" />
+          <img src={search} height="35px" width="height" alt="" />
         </div>
       </div>
       <div className={headerStyles.empty} />
@@ -43,29 +47,31 @@ function Header(props) {
 function SingleChat({ name, lastTime, lastMessage, indicator, key }) {
   return (
     <div key={key}>
-      <div className={chatStyles.chat}>
-        <table>
-          <tbody>
-            <tr>
-              <td rowSpan="2" className={chatStyles.for_pic}>
-                <div className={chatStyles.photo}>
-                  <img src="/src/images/profilePic.jpeg" alt="" className="pic" />
-                </div>
-              </td>
-              <td className={chatStyles.first}>
-                <div className={chatStyles.name}>{name}</div>
-                <div className={chatStyles.last_time}>{lastTime}</div>
-              </td>
-            </tr>
-            <tr>
-              <td className={chatStyles.second}>
-                <div className={chatStyles.last_message}>{lastMessage}</div>
-                <div className={chatStyles.indicator}>{indicator}</div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <Link to={`MessageForm/${name}`}>
+        <div className={chatStyles.chat}>
+          <table>
+            <tbody>
+              <tr>
+                <td rowSpan="2" className={chatStyles.for_pic}>
+                  <div className={chatStyles.photo}>
+                    <img src={profilePic} alt="" className="pic" height="100px" width="height" />
+                  </div>
+                </td>
+                <td className={chatStyles.first}>
+                  <div className={chatStyles.name}>{name}</div>
+                  <div className={chatStyles.last_time}>{lastTime}</div>
+                </td>
+              </tr>
+              <tr>
+                <td className={chatStyles.second}>
+                  <div className={chatStyles.last_message}>{lastMessage}</div>
+                  <div className={chatStyles.indicator}>{indicator}</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </Link>
       <hr />
     </div>
   )
