@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import Header from './Header'
 import burger from '../images/burger.png'
 import search from '../images/search.png'
 import profilePic from '../images/profilePic.jpeg'
 import newChat from '../images/new-chat.png'
-import headerStyles from '../styles/chatListHeaderStyles.module.scss'
 import chatStyles from '../styles/singleChatStyles.module.scss'
 import chatListStyles from '../styles/chatListStyles.module.scss'
 
@@ -21,30 +21,6 @@ const data = [
   'Первый курс ФПМИ-Наука 2019-2020',
 ]
 
-function Header(props) {
-  return (
-    <div className={headerStyles.rectangle}>
-      <div className={headerStyles.empty} />
-      <div className={headerStyles.burger}>
-        <div className={headerStyles.vertical}>
-          <img src={burger} height="45px" width="height" alt="" />
-        </div>
-      </div>
-      <div className={headerStyles.horizontal}>
-        <div className={headerStyles.vertical}>
-          <div className={headerStyles.hummingbird}>Hummingbird</div>
-        </div>
-      </div>
-      <div className={headerStyles.search}>
-        <div className={headerStyles.vertical}>
-          <img src={search} height="35px" width="height" alt="" />
-        </div>
-      </div>
-      <div className={headerStyles.empty} />
-    </div>
-  )
-}
-
 function SingleChat({ name, lastTime, lastMessage, indicator, key }) {
   return (
     <div key={key}>
@@ -55,7 +31,7 @@ function SingleChat({ name, lastTime, lastMessage, indicator, key }) {
               <tr>
                 <td rowSpan="2" className={chatStyles.for_pic}>
                   <div className={chatStyles.photo}>
-                    <img src={profilePic} alt="" className="pic" height="100px" width="height" />
+                    <img src={profilePic} alt="" className={chatStyles.pic} height="100px" width="height" />
                   </div>
                 </td>
                 <td className={chatStyles.first}>
@@ -98,7 +74,7 @@ function setAll(name) {
 
     props.lastTime = messagesOfThisChat[numberOfMessages - 1].time
 
-    const preLastMess = messagesOfThisChat[numberOfMessages - 1].content
+    const preLastMess = messagesOfThisChat[0].content
     const arr = preLastMess.split(' ')
     let i = 0
     let count = arr[i].length
@@ -167,8 +143,8 @@ class ChatList extends React.Component {
 
   render() {
     return (
-      <div className={chatListStyles}>
-        <Header className={chatListStyles.header} />
+      <div className={chatListStyles.container}>
+        <Header leftImg={burger} rightImg={search} leftLink="/UserProfile" name="Hummingbird" onRightClick={() => {}} />
         <div className={chatListStyles.chats}>{this.state.chats}</div>
         <div className={chatListStyles.new_chat}>
           <img src={newChat} height="70px" alt="" />

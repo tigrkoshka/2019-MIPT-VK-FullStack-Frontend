@@ -7,6 +7,7 @@ import './styles/globalStyles.css'
 import * as serviceWorker from './utils/serviceWorker'
 import ChatList from './components/ChatList'
 import MessageForm from './components/MessageForm'
+import UserProfile from './components/UserProfile'
 import WelcomePage from './components/WelcomePage'
 
 render(
@@ -16,6 +17,7 @@ render(
         <Route exact path="/" component={WelcomePage} />
         <Route path="/ChatList" component={ChatList} />
         <Route path="/MessageForm/:name" component={MessageForm} />
+        <Route path="/UserProfile" component={UserProfile} />
       </Switch>
     </Router>
   </Provider>,

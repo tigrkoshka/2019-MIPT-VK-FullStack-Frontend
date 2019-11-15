@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Counter from '../components/Counter'
+import CounterComp from '../../trash/CounterComp'
 import ActionTypes from '../constants/ActionTypes'
-import { incrementIfOdd } from '../actions/counter'
+import { incrementIfOdd } from '../../trash/counter'
 
 export class CounterContainer extends React.Component {
   increment = () => {
@@ -26,7 +26,7 @@ export class CounterContainer extends React.Component {
     const { counter } = this.props
 
     return (
-      <Counter
+      <CounterComp
         counter={counter}
         increment={this.increment}
         decrement={this.decrement}

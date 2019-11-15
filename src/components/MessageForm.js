@@ -1,34 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import Header from './Header'
 import toChats from '../images/toChats.png'
-import headerStyles from '../styles/messageFormHeaderStyles.module.scss'
 import messageStyles from '../styles/singleMessageStyles.module.scss'
 import formStyles from '../styles/messageFormStyles.module.scss'
-
-function Header(props) {
-  return (
-    <div className={headerStyles.rectangle}>
-      <Link to="/ChatList" className={headerStyles.button}>
-        <div className={headerStyles.vertical}>
-          <img src={toChats} height="30px" alt="" />
-        </div>
-        <div className={headerStyles.vertical}>
-          <div className={headerStyles.text}>Chats</div>
-        </div>
-      </Link>
-      <div className={headerStyles.horizontal}>
-        <div className={headerStyles.vertical}>
-          <div className={headerStyles.name}>{props.name}</div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-Header.propTypes = {
-  name: PropTypes.string.isRequired,
-}
 
 function singleMessage({ content, time, type, key }) {
   return (
@@ -99,12 +74,12 @@ class MessageForm extends React.Component {
   render() {
     return (
       <form className={formStyles.form} onSubmit={this.handleSubmit}>
-        <Header name={this.state.name} className={formStyles.header} />
+        <Header leftImg={toChats} rightImg="" leftLink="/ChatList" name={this.state.name} onRightClick={() => {}} />
         <div className={formStyles.the_chat}>{this.state.messages}</div>
         <input
           type="text"
           value={this.state.value}
-          placeholder="Введите сообщение"
+          placeholder="Your message"
           className={formStyles.input}
           onChange={this.handleChange}
         />

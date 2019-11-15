@@ -1,38 +1,54 @@
 import React from 'react'
-import styled from '@emotion/styled'
-import { keyframes } from '@emotion/core'
-import logo from '../assets/logo.svg'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import headerStyles from '../styles/headerStyles.module.scss'
 
-const year = new Date().getFullYear()
-
-const rotate360 = keyframes`
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
-`
-
-const TopBar = styled.div`
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: #fff;
-
-  .redux-logo {
-    animation: ${rotate360} infinite 20s linear;
-    height: 80px;
+function Header({ leftLink, leftImg, rightImg, name, onRightClick }) {
+  let toChats = null
+  let rightButton = null
+  if (leftLink === '/ChatList') {
+    toChats = (
+      <div className={headerStyles.vertical}>
+        <div className={headerStyles.text}>Chats</div>
+      </div>
+    )
   }
-`
-
-function Header() {
+  if (rightImg !== '') {
+    rightButton = (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+      <div className={headerStyles.rightButton} onClick={onRightClick}>
+        <div className={headerStyles.vertical}>
+          <img src={rightImg} height="35px" width="height" alt="" />
+        </div>
+      </div>
+    )
+  }
   return (
-    <TopBar>
-      <img src={logo} className="redux-logo" alt="logo" />
-      <h2>Track Mail.Ru, {year}</h2>
-    </TopBar>
+    <div className={headerStyles.rectangle}>
+      <div className={headerStyles.leftHorizontal}>
+        <Link to={leftLink} className={headerStyles.leftButton}>
+          <div className={headerStyles.vertical}>
+            <img src={leftImg} height="25px" width="height" alt="" />
+          </div>
+          {toChats}
+        </Link>
+      </div>
+      <div className={headerStyles.horizontal}>
+        <div className={headerStyles.vertical}>
+          <div className={headerStyles.name}>{name}</div>
+        </div>
+      </div>
+      <div className={headerStyles.rightHorizontal}>{rightButton}</div>
+    </div>
   )
+}
+
+Header.propTypes = {
+  leftLink: PropTypes.string.isRequired,
+  leftImg: PropTypes.string.isRequired,
+  rightImg: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onRightClick: PropTypes.func.isRequired,
 }
 
 export default Header

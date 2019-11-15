@@ -7,11 +7,6 @@
   overflow-x: hidden;
 }
 
-.header {
-  display: flex;
-  height: 8.5%;
-}
-
 .the_chat {
   overflow-y: scroll;
   display: flex;
@@ -39,10 +34,6 @@
   background: rgb(96, 97, 99);
 }
 
-.input[type='submit'] {
-  visibility: collapse;
-}
-
 .input {
   border-width: 0;
   outline: none;
@@ -52,11 +43,7 @@
   background-color: rgb(112, 113, 114);
   color: rgb(255, 255, 255);
   border-radius: 15px;
-
-  &:host {
-    display: inline-block;
-    border: 1px solid rgba(25, 25, 25, 0.32);
-  }
+  padding: 5px;
 }
 
 ::placeholder {
