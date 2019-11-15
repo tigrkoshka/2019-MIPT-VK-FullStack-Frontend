@@ -36,6 +36,16 @@ class UserProfile extends React.Component {
 
     localStorage.removeItem('userBio')
     localStorage.setItem('userBio', JSON.stringify(this.state.valueBio))
+
+    this.setState((state) => {
+      return {
+        initialValueName: state.valueName,
+        initialValueTag: state.valueTag,
+        initialValueBio: state.valueBio,
+        right: '',
+        onRightClick: () => {},
+      }
+    })
   }
 
   handleChangeName(event) {
