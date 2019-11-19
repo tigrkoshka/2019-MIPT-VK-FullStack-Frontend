@@ -19,12 +19,14 @@ module.exports = {
       true,
       {
         severity: 'warning',
-        ignore: ['flexbox', 'border-radius', 'calc', 'outline', 'word-break'],
+        ignore: ['flexbox', 'border-radius', 'calc', 'outline', 'word-break', 'transforms2d', 'css-animation'],
       },
     ],
 
     // a11y
     'a11y/content-property-no-static-value': true,
+
+    'a11y/media-prefers-reduced-motion': null,
 
     'scale-unlimited/declaration-strict-value': ['/color/', 'fill', 'stroke'],
   },

@@ -2,7 +2,6 @@ import React from 'react'
 import Header from './Header'
 import toChats from '../images/toChats.png'
 import tick from '../images/tick.png'
-import chatListStyles from '../styles/chatListStyles.module.scss'
 import profileStyles from '../styles/userProfileStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
 
@@ -76,7 +75,7 @@ class UserProfile extends React.Component {
     const bioInputClasses = `${profileStyles.input} ${profileStyles.inputBio}`
 
     return (
-      <div className={chatListStyles.container}>
+      <div className={profileStyles.container}>
         <Header
           leftImg={toChats}
           rightImg={this.state.right}
