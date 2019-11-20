@@ -52,6 +52,8 @@
     "class-methods-use-this": "off",
     "max-len": "off",
     "react/no-typos": "off",
-    "react/destructuring-assignment": "off"
+    "react/destructuring-assignment": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off"
   }
 }

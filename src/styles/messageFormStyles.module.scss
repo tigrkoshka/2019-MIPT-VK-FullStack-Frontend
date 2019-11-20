@@ -45,16 +45,28 @@
   background: rgb(96, 97, 99);
 }
 
+.horizontal {
+  display: flex;
+  flex-direction: row;
+  width: calc(100% - 2px);
+  height: 50px;
+}
+
 .input {
   border-width: 0;
   outline: none;
-  width: calc(100% - 2px);
-  height: 50px;
+  flex-grow: 1;
+  height: 100%;
   font-size: 20px;
   background-color: rgb(112, 113, 114);
   color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 5px;
+  margin: 0 5px;
+}
+
+.img {
+  margin: 5px 5px 0 5px;
 }
 
 ::placeholder {

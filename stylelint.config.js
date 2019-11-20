@@ -19,7 +19,16 @@ module.exports = {
       true,
       {
         severity: 'warning',
-        ignore: ['flexbox', 'border-radius', 'calc', 'outline', 'word-break', 'transforms2d', 'css-animation'],
+        ignore: [
+          'flexbox',
+          'border-radius',
+          'calc',
+          'outline',
+          'word-break',
+          'transforms2d',
+          'css-animation',
+          'object-fit',
+        ],
       },
     ],
 

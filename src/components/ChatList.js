@@ -14,11 +14,11 @@ const data = [
   'Дженнифер Эшли',
   'Антон Иванов',
   'Серёга (должен 2000)',
-  'Общество разбитых бокалов',
+  'Мартин',
   'Сэм с Нижнего',
   'Айрат работа',
   'Кеша армия',
-  'Первый курс ФПМИ-Наука 2019-2020',
+  'ФПМИ-Наука 2019-2020',
 ]
 
 function SingleChat({ name, lastTime, lastMessage, indicator, key }) {
@@ -74,23 +74,27 @@ function setAll(name) {
 
     props.lastTime = messagesOfThisChat[numberOfMessages - 1].time
 
-    const preLastMess = messagesOfThisChat[0].content
-    const arr = preLastMess.split(' ')
-    let i = 0
-    let count = arr[i].length
     let res = ''
-    while (i < arr.length && count < 100) {
-      res += `${arr[i]} `
-      i += 1
-      if (i < arr.length) {
-        count += arr[i].length
+    const lastMessage = messagesOfThisChat[0]
+    if (lastMessage.type === 'text') {
+      const lastMessContent = lastMessage.content
+      const arr = lastMessContent.split(' ')
+      let i = 0
+      let count = arr[i].length
+      while (i < arr.length && count < 100) {
+        res += `${arr[i]} `
+        i += 1
+        if (i < arr.length) {
+          count += arr[i].length
+        }
       }
+      res = res.substr(0, res.length - 1)
+      if (i < arr.length) {
+        res += '...'
+      }
+    } else {
+      res = lastMessage.name
     }
-    res = res.substr(0, res.length - 1)
-    if (i < arr.length) {
-      res += '...'
-    }
-
     props.lastMessage = res
     props.indicator = numberOfMessages
   } else {
