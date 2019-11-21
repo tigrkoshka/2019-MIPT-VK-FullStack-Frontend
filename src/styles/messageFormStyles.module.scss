@@ -62,10 +62,14 @@
   color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 5px;
-  margin: 0 5px;
 }
 
 .img {
+  bottom: 5px;
+  position: relative;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
   margin: 5px 5px 0 5px;
 }
 
