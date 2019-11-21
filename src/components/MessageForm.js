@@ -207,7 +207,7 @@ class MessageForm extends React.Component {
 
         const data = new FormData()
         data.append('image', files[i])
-        fetch('https://tt-front.now.sh/upload', {
+        fetch('https://tt-front.now.sh', {
           method: 'POST',
           body: data,
         }).then(() => {})
@@ -269,7 +269,7 @@ class MessageForm extends React.Component {
 
     const data = new FormData()
     data.append('audio', blob)
-    fetch('https://tt-front.now.sh/upload', {
+    fetch('https://tt-front.now.sh', {
       method: 'POST',
       body: data,
     }).then(() => {})
@@ -278,8 +278,9 @@ class MessageForm extends React.Component {
     localStorage.setItem('audio', JSON.stringify(audioURL))
 
     this.sendAudioMessage(audioURL)
-
-    URL.revokeObjectURL(audioURL)
+    this.messages.current.onload = () => {
+      window.URL.revokeObjectURL(audioURL)
+    }
   }
 
   async handleStartRecording(event) {
