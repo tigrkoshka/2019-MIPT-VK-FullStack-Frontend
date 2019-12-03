@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Header from './Header'
 import toChats from '../images/toChats.png'
 import tick from '../images/tick.png'
@@ -9,17 +10,30 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      initialValueName: JSON.parse(localStorage.getItem('userName')) || '',
-      initialValueTag: JSON.parse(localStorage.getItem('userTag')) || '',
-      initialValueBio: JSON.parse(localStorage.getItem('userBio')) || '',
-      valueName: JSON.parse(localStorage.getItem('userName')) || '',
-      valueTag: JSON.parse(localStorage.getItem('userTag')) || '',
-      valueBio: JSON.parse(localStorage.getItem('userBio')) || '',
-      right: '',
-      onRightClick: () => {},
-      onTickClick: this.onTickClick.bind(this),
+      initialUserName: '',
+      initialUserTag: '',
+      initialUserBio: '',
+      currentUserName: '',
+      currentUserTag: '',
+      currentUserBio: '',
+      userId: Number(this.props.match.params.userId),
+      isTick: false,
     }
 
+    fetch(`http://127.0.0.1:8000/users/profile/?id=${this.state.userId}`)
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({
+          initialUserName: user.name,
+          initialUserTag: user.tag,
+          initialUserBio: user.bio,
+          currentUserName: user.name,
+          currentUserTag: user.tag,
+          currentUserBio: user.bio,
+        })
+      })
+
+    this.onTickClick = this.onTickClick.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeTag = this.handleChangeTag.bind(this)
     this.handleChangeBio = this.handleChangeBio.bind(this)
@@ -27,45 +41,63 @@ class UserProfile extends React.Component {
 
   onTickClick(event) {
     event.preventDefault()
-    localStorage.removeItem('userName')
-    localStorage.setItem('userName', JSON.stringify(this.state.valueName))
 
-    localStorage.removeItem('userTag')
-    localStorage.setItem('userTag', JSON.stringify(this.state.valueTag))
+    const toSend = {
+      name: this.state.currentUserName,
+      tag: this.state.currentUserTag,
+      bio: this.state.currentUserBio,
+      old_tag: this.state.initialUserTag,
+    }
 
-    localStorage.removeItem('userBio')
-    localStorage.setItem('userBio', JSON.stringify(this.state.valueBio))
-
-    this.setState((state) => {
-      return {
-        initialValueName: state.valueName,
-        initialValueTag: state.valueTag,
-        initialValueBio: state.valueBio,
-        right: '',
-        onRightClick: () => {},
-      }
+    fetch('http://127.0.0.1:8000/users/set_user/', {
+      method: 'POST',
+      body: JSON.stringify(toSend),
     })
+      .then((res) => res.ok)
+      .then((accept) => {
+        if (accept) {
+          this.setState((state) => {
+            return {
+              initialUserName: state.currentUserName,
+              initialUserTag: state.currentUserTag,
+              initialUserBio: state.currentUserBio,
+              isTick: false,
+            }
+          })
+        } else {
+          this.setState((state) => {
+            return {
+              currentUserName: state.initialUserName,
+              currentUserTag: state.initialUserTag,
+              currentUserBio: state.initialUserBio,
+              isTick: false,
+            }
+          })
+        }
+      })
   }
 
   handleChangeName(event) {
     event.preventDefault()
     const temp = event.target.value
     this.setState((state) => {
-      return { valueName: temp, right: state.initialValueName === temp ? '' : tick, onRightClick: state.onTickClick }
+      return { currentUserName: temp, isTick: state.initialUserName !== temp }
     })
   }
 
   handleChangeTag(event) {
+    event.preventDefault()
     const temp = event.target.value
     this.setState((state) => {
-      return { valueTag: temp, right: state.initialValueTag === temp ? '' : tick, onRightClick: state.onTickClick }
+      return { currentUserTag: temp, isTick: state.initialUserTag !== temp }
     })
   }
 
   handleChangeBio(event) {
+    event.preventDefault()
     const temp = event.target.value
     this.setState((state) => {
-      return { valueBio: temp, right: state.initialValueBio === temp ? '' : tick, onRightClick: state.onTickClick }
+      return { currentUserBio: temp, isTick: state.initialUserBio !== temp }
     })
   }
 
@@ -78,10 +110,10 @@ class UserProfile extends React.Component {
       <div className={profileStyles.container}>
         <Header
           leftImg={toChats}
-          rightImg={this.state.right}
-          leftLink="/ChatList"
+          rightImg={this.state.isTick ? tick : ''}
+          leftLink={`/ChatList/${this.state.userId}`}
           name="Edit Profile"
-          onRightClick={this.state.onRightClick}
+          onRightClick={this.state.isTick ? this.onTickClick : () => {}}
         />
         <div className={profileStyles.horizontal}>
           <div className={profileStyles.vertical}>
@@ -92,20 +124,20 @@ class UserProfile extends React.Component {
             </div>
             <input
               type="text"
-              value={this.state.valueName}
+              value={this.state.currentUserName}
               placeholder="Your name"
               className={nameInputClasses}
               onChange={this.handleChangeName}
             />
             <input
               type="text"
-              value={this.state.valueTag}
+              value={this.state.currentUserTag}
               placeholder="Your tag"
               className={tagInputClasses}
               onChange={this.handleChangeTag}
             />
             <textarea
-              value={this.state.valueBio}
+              value={this.state.currentUserBio}
               placeholder="Tell something about yourself"
               className={bioInputClasses}
               onChange={this.handleChangeBio}
@@ -115,6 +147,11 @@ class UserProfile extends React.Component {
       </div>
     )
   }
+}
+
+UserProfile.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  match: PropTypes.object.isRequired,
 }
 
 export default UserProfile

@@ -9,22 +9,10 @@ import newChat from '../images/new-chat.png'
 import chatStyles from '../styles/singleChatStyles.module.scss'
 import chatListStyles from '../styles/chatListStyles.module.scss'
 
-const data = [
-  'Общество целых бокалов',
-  'Дженнифер Эшли',
-  'Антон Иванов',
-  'Серёга (должен 2000)',
-  'Мартин',
-  'Сэм с Нижнего',
-  'Айрат работа',
-  'Кеша армия',
-  'ФПМИ-Наука 2019-2020',
-]
-
-function SingleChat({ name, lastTime, lastMessage, indicator, key }) {
+function SingleChat({ name, tag, userId, lastTime, lastMessage, indicator, key }) {
   return (
     <div key={key}>
-      <Link to={`MessageForm/${name}`}>
+      <Link to={`/MessageForm/${tag}/${name}/${userId}`}>
         <div className={chatStyles.chat}>
           <table>
             <tbody>
@@ -56,54 +44,36 @@ function SingleChat({ name, lastTime, lastMessage, indicator, key }) {
 
 SingleChat.propTypes = {
   name: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
   lastTime: PropTypes.string.isRequired,
   lastMessage: PropTypes.string.isRequired,
   indicator: PropTypes.string.isRequired,
   key: PropTypes.number.isRequired,
 }
 
-function setAll(name) {
-  const props = {}
-
-  props.name = name
-
-  const messagesOfThisChat = JSON.parse(localStorage.getItem(name)) || []
-
-  if (messagesOfThisChat.length !== 0) {
-    const numberOfMessages = messagesOfThisChat.length
-
-    props.lastTime = messagesOfThisChat[numberOfMessages - 1].time
-
-    let res = ''
-    const lastMessage = messagesOfThisChat[0]
-    if (lastMessage.type === 'text') {
-      const lastMessContent = lastMessage.content
-      const arr = lastMessContent.split(' ')
-      let i = 0
-      let count = arr[i].length
-      while (i < arr.length && count < 100) {
-        res += `${arr[i]} `
-        i += 1
-        if (i < arr.length) {
-          count += arr[i].length
-        }
-      }
-      res = res.substr(0, res.length - 1)
+function getLastMessage({ lastMessage, lastType }) {
+  let res = ''
+  if (lastType === 'text') {
+    const arr = lastMessage.split(' ')
+    let i = 0
+    let count = arr[i].length
+    while (i < arr.length && count < 100) {
+      res += `${arr[i]} `
+      i += 1
       if (i < arr.length) {
-        res += '...'
+        count += arr[i].length
       }
-    } else {
-      res = lastMessage.name
     }
-    props.lastMessage = res
-    props.indicator = numberOfMessages
+    res = res.substr(0, res.length - 1)
+    if (i < arr.length) {
+      res += '...'
+    }
   } else {
-    props.lastTime = ''
-    props.lastMessage = ''
-    props.indicator = 0
+    res = lastType
   }
 
-  return props
+  return res
 }
 
 class ChatList extends React.Component {
@@ -111,28 +81,35 @@ class ChatList extends React.Component {
     super(props)
     this.state = {
       chats: [],
-    }
-    data.sort(this.compareNumber)
-    for (let i = 0; i < data.length; i += 1) {
-      const currProps = setAll(data[i])
-      currProps.key = i
-      const currChat = SingleChat(currProps)
-      this.state.chats.push(currChat)
+      userId: Number(this.props.match.params.userId),
     }
   }
 
+  componentDidMount() {
+    this.getChats()
+  }
+
+  getChats() {
+    fetch(`http://127.0.0.1:8000/chats/chat_list/?id=${this.state.userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const { chats } = data
+        chats.sort(this.compareNumber)
+        for (let i = 0; i < chats.length; i += 1) {
+          chats[i].key = i
+          chats[i].lastMessage = getLastMessage(chats[i])
+          chats[i].userId = this.state.userId
+          const currChat = SingleChat(chats[i])
+          this.setState((state) => {
+            return { chats: [...state.chats, currChat] }
+          })
+        }
+      })
+  }
+
   compareNumber(a, b) {
-    if (localStorage.getItem(a) === null) {
-      if (localStorage.getItem(b) === null) {
-        return 0
-      }
-      return 1
-    }
-    if (localStorage.getItem(b) === null) {
-      return -1
-    }
-    const aLen = JSON.parse(localStorage.getItem(a)).length
-    const bLen = JSON.parse(localStorage.getItem(b)).length
+    const aLen = a.indicator
+    const bLen = b.indicator
     if (aLen > bLen) {
       return -1
     }
@@ -148,7 +125,13 @@ class ChatList extends React.Component {
   render() {
     return (
       <div className={chatListStyles.container}>
-        <Header leftImg={burger} rightImg={search} leftLink="/UserProfile" name="Hummingbird" onRightClick={() => {}} />
+        <Header
+          leftImg={burger}
+          rightImg={search}
+          leftLink={`/UserProfile/${this.state.userId}`}
+          name="Hummingbird"
+          onRightClick={() => {}}
+        />
         <div className={chatListStyles.chats}>{this.state.chats}</div>
         <div className={chatListStyles.new_chat}>
           <img src={newChat} height="70px" alt="" />
@@ -156,6 +139,11 @@ class ChatList extends React.Component {
       </div>
     )
   }
+}
+
+ChatList.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  match: PropTypes.object.isRequired,
 }
 
 export default ChatList

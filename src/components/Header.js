@@ -6,7 +6,7 @@ import headerStyles from '../styles/headerStyles.module.scss'
 function Header({ leftLink, leftImg, rightImg, name, onRightClick }) {
   let toChats = null
   let rightButton = null
-  if (leftLink === '/ChatList') {
+  if (leftLink.substring(0, 9) === '/ChatList') {
     toChats = (
       <div className={headerStyles.vertical}>
         <div className={headerStyles.text}>Chats</div>

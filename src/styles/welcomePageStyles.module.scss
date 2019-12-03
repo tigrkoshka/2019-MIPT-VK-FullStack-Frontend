@@ -19,7 +19,7 @@
 .content {
   margin: 10px 15px 5px;
   color: rgb(255, 255, 255);
-  word-break: normal;
+  word-break: break-all;
   text-align: center;
   line-height: 28px;
 }
@@ -33,6 +33,35 @@
 }
 
 .curr_message {
+  width: 30%;
   border-radius: 0.8em;
   background: rgb(96, 97, 99);
+}
+
+.input {
+  border-width: 0;
+  width: 100%;
+  outline: none;
+  height: 100%;
+  font-size: 20px;
+  background-color: rgb(96, 97, 99);
+  color: rgb(255, 255, 255);
+  border-radius: 15px;
+  padding: 5px;
+  text-align: center;
+}
+
+::placeholder {
+  color: rgb(223, 223, 223);
+  text-align: center;
+}
+
+.empty {
+  flex-basis: 3%;
+  flex-shrink: 0;
+}
+
+.form {
+  width: 30%;
+  height: 130%;
 }

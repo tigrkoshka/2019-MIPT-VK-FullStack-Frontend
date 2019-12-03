@@ -15,9 +15,9 @@ render(
     <Router basename="/">
       <Switch>
         <Route exact path="/" component={WelcomePage} />
-        <Route path="/ChatList" component={ChatList} />
-        <Route path="/MessageForm/:name" component={MessageForm} />
-        <Route path="/UserProfile" component={UserProfile} />
+        <Route path="/ChatList/:userId" component={ChatList} />
+        <Route path="/MessageForm/:tag/:name/:userId" component={MessageForm} />
+        <Route path="/UserProfile/:userId" component={UserProfile} />
       </Switch>
     </Router>
   </Provider>,
