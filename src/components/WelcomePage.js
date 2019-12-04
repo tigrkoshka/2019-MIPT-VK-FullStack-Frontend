@@ -128,7 +128,7 @@ class WelcomePage extends React.Component {
             return false
           }}
         >
-          {"Don't have an account? Become a hummingbird!"}
+          Don&apos;t have an account? Become a hummingbird!
         </Link>
       </div>
     )

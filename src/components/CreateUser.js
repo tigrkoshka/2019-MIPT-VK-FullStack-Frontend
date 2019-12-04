@@ -50,7 +50,7 @@ class CreateUser extends React.Component {
     }).then((res) => {
       if (res.ok) {
         res.json().then(({ id }) => {
-          window.location.hash = `#/ChatList/${id}`
+          window.location.hash = `#/ChatList/${id[0].id}`
         })
       } else {
         this.setState({ isTagForm: 1 })
@@ -157,7 +157,7 @@ class CreateUser extends React.Component {
     } else {
       passwordForm = (
         <div className={textClasses} onClick={this.openPasswordForm}>
-          {"Passwords don't match. Tap to try again."}
+          Passwords don&apos;t match. Tap to try again.
         </div>
       )
     }
@@ -176,7 +176,7 @@ class CreateUser extends React.Component {
       )
     } else {
       tagForm = (
-        <div className={textClasses} style={{ margin: '30px 0' }} onClick={this.openTagForm}>
+        <div className={textClasses} style={{ margin: '30px 0', flexGrow: 0 }} onClick={this.openTagForm}>
           This tag already exists. Tap to choose another tag.
         </div>
       )

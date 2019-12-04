@@ -141,7 +141,7 @@ class MessageForm extends React.Component {
           currProps.time = messages[i].time
           currProps.whose = messages[i].whose
           currProps.userId = this.state.userId
-          currProps.key = i
+          currProps.key = messages.length - i
           let currMessage = null
           if (messages[i].type === 'text') {
             currProps.content = messages[i].content

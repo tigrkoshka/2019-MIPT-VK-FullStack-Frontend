@@ -76,7 +76,7 @@ class CreateChat extends React.Component {
 
         window.location.hash = `#/MessageForm/${realTag}/${this.state.chatName}/${this.state.userId}`
       } else {
-        this.setState({ isTagForm: 1 })
+        this.setState({ isMembersForm: 1 })
       }
     })
   }
@@ -183,13 +183,13 @@ class CreateChat extends React.Component {
       )
     } else if (this.state.isMembersForm === 1) {
       membersForm = (
-        <div className={textClasses} style={{ marginBottom: '30px', flexGrow: 0 }} onClick={this.openTagForm}>
-          {"Some users don't exist. Tap to try again."}
+        <div className={textClasses} style={{ marginBottom: '20px', flexGrow: 0 }} onClick={this.openMemberForm}>
+          Some users don&apos;t exist. Tap to try again.
         </div>
       )
     } else {
       membersForm = (
-        <div className={textClasses} style={{ marginBottom: '30px', flexGrow: 0 }} onClick={this.openMemberForm}>
+        <div className={textClasses} style={{ marginBottom: '20px', flexGrow: 0 }} onClick={this.openMemberForm}>
           Your chat must have members. Tap to choose.
         </div>
       )
