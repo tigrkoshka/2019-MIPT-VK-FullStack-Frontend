@@ -8,6 +8,8 @@ import newChat from '../images/new-chat.png'
 import chatStyles from '../styles/singleChatStyles.module.scss'
 import chatListStyles from '../styles/chatListStyles.module.scss'
 
+const baseServer = 'https://herokuhummingbird.herokuapp.com'
+
 function SingleChat({ name, tag, userId, lastTime, lastMessage, indicator, key }) {
   return (
     <div key={key}>
@@ -89,7 +91,7 @@ class ChatList extends React.Component {
   }
 
   getChats() {
-    fetch(`http://127.0.0.1:8000/chats/chat_list/?id=${this.state.userId}`)
+    fetch(`${baseServer}/chats/chat_list/?id=${this.state.userId}`)
       .then((res) => res.json())
       .then((data) => {
         const { chats } = data

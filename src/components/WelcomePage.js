@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import welcomePageStyles from '../styles/welcomePageStyles.module.scss'
 
+const baseServer = 'https://herokuhummingbird.herokuapp.com'
+
 class WelcomePage extends React.Component {
   constructor(props) {
     super(props)
@@ -47,7 +49,7 @@ class WelcomePage extends React.Component {
 
   handleAuth(event) {
     event.preventDefault()
-    fetch(`http://127.0.0.1:8000/users/auth/?tag=${this.state.tag}&password=${this.state.password}`)
+    fetch(`${baseServer}/users/auth/?tag=${this.state.tag}&password=${this.state.password}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then(({ id }) => {
         window.location.hash = `#/ChatList/${id}`

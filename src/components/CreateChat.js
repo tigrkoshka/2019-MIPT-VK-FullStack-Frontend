@@ -5,6 +5,8 @@ import toChats from '../images/back.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
 
+const baseServer = 'https://herokuhummingbird.herokuapp.com'
+
 class CreateChat extends React.Component {
   constructor(props) {
     super(props)
@@ -64,7 +66,7 @@ class CreateChat extends React.Component {
       is_channel: isChannel,
     }
 
-    fetch('http://127.0.0.1:8000/chats/create_chat/', {
+    fetch(`${baseServer}/chats/create_chat/`, {
       method: 'POST',
       body: JSON.stringify(toSend),
     }).then((res) => {

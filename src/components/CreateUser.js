@@ -5,6 +5,8 @@ import tick from '../images/tick.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
 
+const baseServer = 'https://herokuhummingbird.herokuapp.com'
+
 class CreateUser extends React.Component {
   constructor(props) {
     super(props)
@@ -44,7 +46,7 @@ class CreateUser extends React.Component {
       password: this.state.firstPassword,
     }
 
-    fetch('http://127.0.0.1:8000/users/create_user/', {
+    fetch(`${baseServer}/users/create_user/`, {
       method: 'POST',
       body: JSON.stringify(toSend),
     }).then((res) => {

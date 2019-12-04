@@ -6,6 +6,8 @@ import tick from '../images/tick.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
 
+const baseServer = 'https://herokuhummingbird.herokuapp.com'
+
 class UserProfile extends React.Component {
   constructor(props) {
     super(props)
@@ -23,7 +25,7 @@ class UserProfile extends React.Component {
       isTick: false,
     }
 
-    fetch(`http://127.0.0.1:8000/users/profile/?id=${this.state.userId}`)
+    fetch(`${baseServer}/users/profile/?id=${this.state.userId}`)
       .then((res) => res.json())
       .then((user) => {
         this.setState({
@@ -55,7 +57,7 @@ class UserProfile extends React.Component {
       old_tag: this.state.initialUserTag,
     }
 
-    fetch('http://127.0.0.1:8000/users/set_user/', {
+    fetch(`${baseServer}/users/set_user/`, {
       method: 'POST',
       body: JSON.stringify(toSend),
     })
@@ -89,7 +91,7 @@ class UserProfile extends React.Component {
             new_password: this.state.newPassword,
             tag,
           }
-          fetch('http://127.0.0.1:8000/users/change_password/', {
+          fetch(`${baseServer}/users/change_password/`, {
             method: 'POST',
             body: JSON.stringify(forPassChange),
           }).then((result) => {

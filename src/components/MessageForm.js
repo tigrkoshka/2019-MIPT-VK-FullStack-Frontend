@@ -9,6 +9,8 @@ import stop from '../images/stopRecording.png'
 import messageStyles from '../styles/singleMessageStyles.module.scss'
 import formStyles from '../styles/messageFormStyles.module.scss'
 
+const baseServer = 'https://herokuhummingbird.herokuapp.com'
+
 function singleTextMessage({ userId, content, time, whose, key }) {
   return (
     <div className={whose === userId ? messageStyles.mine : messageStyles.yours} style={{ maxWidth: '75%' }} key={key}>
@@ -92,7 +94,7 @@ class MessageForm extends React.Component {
       audioFlag: false,
     }
 
-    fetch(`http://127.0.0.1:8000/chats/chat_detail/?tag=${this.state.tag}`)
+    fetch(`${baseServer}/chats/chat_detail/?tag=${this.state.tag}`)
       .then((res) => res.json())
       .then(({ chat }) => {
         if (!chat[0].channel || chat[0].whose === this.state.userId) {
@@ -131,7 +133,7 @@ class MessageForm extends React.Component {
   // ______________messages_________________
 
   getMessages(tag) {
-    fetch(`http://127.0.0.1:8000/chats/chat/?tag=${tag}`)
+    fetch(`${baseServer}/chats/chat/?tag=${tag}`)
       .then((res) => res.json())
       .then((data) => {
         const { messages } = data
@@ -177,7 +179,7 @@ class MessageForm extends React.Component {
   // _______________texts____________________
 
   sendTextMessage(content) {
-    fetch('http://127.0.0.1:8000/chats/send_message/', {
+    fetch(`${baseServer}/chats/send_message/`, {
       method: 'POST',
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'text', content }),
     }).then(() => {})
@@ -199,7 +201,7 @@ class MessageForm extends React.Component {
   // _______________images__________________
 
   sendImageMessage(url) {
-    fetch('http://127.0.0.1:8000/chats/send_message/', {
+    fetch(`${baseServer}/chats/send_message/`, {
       method: 'POST',
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'image', url }),
     }).then(() => {})
@@ -228,7 +230,7 @@ class MessageForm extends React.Component {
   // _______________audio____________________
 
   sendAudioMessage(url) {
-    fetch('http://127.0.0.1:8000/chats/send_message/', {
+    fetch(`${baseServer}/chats/send_message/`, {
       method: 'POST',
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'audio', url }),
     }).then(() => {})
