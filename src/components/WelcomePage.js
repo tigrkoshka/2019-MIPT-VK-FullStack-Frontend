@@ -90,7 +90,13 @@ class WelcomePage extends React.Component {
             />
           </form>
         </div>
-        <div className={welcomePageStyles.empty} />
+        <div
+          className={welcomePageStyles.empty}
+          onClick={(event) => {
+            event.stopPropagation()
+            return false
+          }}
+        />
         <div className={welcomePageStyles.horiz}>
           <form onSubmit={this.handleAuth} className={welcomePageStyles.form}>
             <input
@@ -107,7 +113,13 @@ class WelcomePage extends React.Component {
             />
           </form>
         </div>
-        <div className={welcomePageStyles.empty} />
+        <div
+          className={welcomePageStyles.empty}
+          onClick={(event) => {
+            event.stopPropagation()
+            return false
+          }}
+        />
         <Link
           to="/CreateUser"
           className={welcomePageStyles.create}

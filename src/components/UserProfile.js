@@ -143,7 +143,7 @@ class UserProfile extends React.Component {
     const nameInputClasses = `${profileStyles.input} ${profileStyles.inputName}`
     const tagInputClasses = `${profileStyles.input} ${profileStyles.inputTag}`
     const bioInputClasses = `${profileStyles.input} ${profileStyles.inputBio}`
-    const passwordTextClasses = `${profileStyles.horizontal} ${profileStyles.passwordText}`
+    const passwordTextClasses = `${profileStyles.horizontal} ${profileStyles.interactiveText}`
 
     let passwordForm
 

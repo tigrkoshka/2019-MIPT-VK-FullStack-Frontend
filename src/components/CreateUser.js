@@ -126,11 +126,11 @@ class CreateUser extends React.Component {
   }
 
   render() {
-    const containerStyles = `${profileStyles.container} ${profileStyles.createAnim}`
+    const containerStyles = `${profileStyles.container} ${profileStyles.createUserAnim}`
     const nameInputClasses = `${profileStyles.input} ${profileStyles.inputName}`
     const tagInputClasses = `${profileStyles.input} ${profileStyles.inputTag}`
     const bioInputClasses = `${profileStyles.input} ${profileStyles.inputBio}`
-    const textClasses = `${profileStyles.horizontal} ${profileStyles.passwordText}`
+    const textClasses = `${profileStyles.horizontal} ${profileStyles.interactiveText}`
 
     let passwordForm
 

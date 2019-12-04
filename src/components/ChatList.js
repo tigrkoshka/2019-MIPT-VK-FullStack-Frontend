@@ -136,9 +136,9 @@ class ChatList extends React.Component {
           }}
         />
         <div className={chatListStyles.chats}>{this.state.chats}</div>
-        <div className={chatListStyles.new_chat}>
+        <Link to={`/CreateChat/${this.state.userId}`} className={chatListStyles.new_chat}>
           <img src={newChat} height="70px" alt="" />
-        </div>
+        </Link>
       </div>
     )
   }

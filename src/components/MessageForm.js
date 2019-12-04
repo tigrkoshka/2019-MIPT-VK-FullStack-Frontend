@@ -85,11 +85,20 @@ class MessageForm extends React.Component {
       name: this.props.match.params.name,
       tag: this.props.match.params.tag,
       userId: Number(this.props.match.params.userId),
+      notMyChannel: true,
       chatStyle: {},
       messages: [],
       chunks: [],
       audioFlag: false,
     }
+
+    fetch(`http://127.0.0.1:8000/chats/chat_detail/?tag=${this.state.tag}`)
+      .then((res) => res.json())
+      .then(({ chat }) => {
+        if (!chat[0].channel || chat[0].whose === this.state.userId) {
+          this.setState({ notMyChannel: false })
+        }
+      })
 
     this.handleTextSubmit = this.handleTextSubmit.bind(this)
     this.handleTextChange = this.handleTextChange.bind(this)
@@ -300,27 +309,10 @@ class MessageForm extends React.Component {
   // ______________render____________________
 
   render() {
-    return (
-      <form className={formStyles.form} onSubmit={this.handleTextSubmit}>
-        <Header
-          leftImg={toChats}
-          rightImg=""
-          rightText=""
-          leftLink={`/ChatList/${this.state.userId}`}
-          name={this.state.name}
-          onRightClick={() => {}}
-        />
-        <div
-          className={formStyles.the_chat}
-          style={this.state.chatStyle}
-          onDragEnter={this.handleDragEnter}
-          onDragLeave={this.handleDragLeave}
-          onDragOver={this.handleDragOver}
-          onDrop={this.handleDrop}
-          ref={this.messages}
-        >
-          {this.state.messages}
-        </div>
+    let formInput = null
+
+    if (!this.state.notMyChannel) {
+      formInput = (
         <div className={formStyles.horizontal}>
           <input
             type="file"
@@ -347,6 +339,31 @@ class MessageForm extends React.Component {
             onClick={this.state.audioFlag ? this.handleEndRecording : this.handleStartRecording}
           />
         </div>
+      )
+    }
+
+    return (
+      <form className={formStyles.form} onSubmit={this.handleTextSubmit}>
+        <Header
+          leftImg={toChats}
+          rightImg=""
+          rightText=""
+          leftLink={`/ChatList/${this.state.userId}`}
+          name={this.state.name}
+          onRightClick={() => {}}
+        />
+        <div
+          className={formStyles.the_chat}
+          style={this.state.chatStyle}
+          onDragEnter={this.handleDragEnter}
+          onDragLeave={this.handleDragLeave}
+          onDragOver={this.handleDragOver}
+          onDrop={this.handleDrop}
+          ref={this.messages}
+        >
+          {this.state.messages}
+        </div>
+        {formInput}
         <div className={formStyles.empty} />
       </form>
     )

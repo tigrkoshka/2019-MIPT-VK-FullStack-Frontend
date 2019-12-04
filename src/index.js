@@ -10,16 +10,18 @@ import MessageForm from './components/MessageForm'
 import UserProfile from './components/UserProfile'
 import WelcomePage from './components/WelcomePage'
 import CreateUser from './components/CreateUser'
+import CreateChat from './components/CreateChat'
 
 render(
   <Provider store={store}>
     <Router basename="/">
       <Switch>
         <Route exact path="/" component={WelcomePage} />
+        <Route path="/CreateUser" component={CreateUser} />
         <Route path="/ChatList/:userId" component={ChatList} />
         <Route path="/MessageForm/:tag/:name/:userId" component={MessageForm} />
         <Route path="/UserProfile/:userId" component={UserProfile} />
-        <Route path="/CreateUser" component={CreateUser} />
+        <Route path="/CreateChat/:userId" component={CreateChat} />
       </Switch>
     </Router>
   </Provider>,

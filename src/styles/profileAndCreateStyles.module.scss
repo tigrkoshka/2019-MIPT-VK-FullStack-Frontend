@@ -11,13 +11,27 @@
   animation: slideFromAbove 600ms ease;
 }
 
-.createAnim {
+.createUserAnim {
   animation: slideFromRight 600ms ease;
+}
+
+.createChatAnim {
+  animation: slideFromBelow 600ms ease;
 }
 
 @keyframes slideFromAbove {
   0% {
     transform: translate(-50%, -50%) scale(0, 0);
+  }
+
+  100% {
+    transform: translate(0%, 0%) scale(1, 1);
+  }
+}
+
+@keyframes slideFromBelow {
+  0% {
+    transform: translate(50%, 50%) scale(0, 0);
   }
 
   100% {
@@ -77,16 +91,15 @@
   line-height: 30px;
   padding: 5px;
   text-align: center;
+  border-radius: 5px;
 }
 
 .inputName {
   margin-bottom: 20px;
-  border-radius: 5px;
 }
 
 .inputTag {
   margin: 20px 0;
-  border-radius: 5px;
 }
 
 .inputBio {
@@ -98,12 +111,11 @@
 
 .inputPassword {
   flex-grow: 1;
-  border-radius: 5px;
 }
 
-.passwordText {
-  flex-grow: 0;
+.interactiveText {
   cursor: pointer;
+  text-align: center;
 
   &:hover,
   &:focus {
