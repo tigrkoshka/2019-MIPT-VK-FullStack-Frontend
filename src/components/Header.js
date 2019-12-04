@@ -3,22 +3,35 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import headerStyles from '../styles/headerStyles.module.scss'
 
-function Header({ leftLink, leftImg, rightImg, name, onRightClick }) {
-  let toChats = null
+function Header({ leftLink, leftImg, rightText, rightImg, name, onRightClick }) {
+  let backName = null
   let rightButton = null
   if (leftLink.substring(0, 9) === '/ChatList') {
-    toChats = (
+    backName = (
       <div className={headerStyles.vertical}>
         <div className={headerStyles.text}>Chats</div>
+      </div>
+    )
+  } else if (leftLink === '/') {
+    backName = (
+      <div className={headerStyles.vertical}>
+        <div className={headerStyles.text}>Home</div>
       </div>
     )
   }
   if (rightImg !== '') {
     rightButton = (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
       <div className={headerStyles.rightButton} onClick={onRightClick}>
         <div className={headerStyles.vertical}>
           <img src={rightImg} height="35px" width="height" alt="" />
+        </div>
+      </div>
+    )
+  } else if (rightText !== '') {
+    rightButton = (
+      <div className={headerStyles.rightButton} onClick={onRightClick}>
+        <div className={headerStyles.vertical}>
+          <div className={headerStyles.text}>{rightText}</div>
         </div>
       </div>
     )
@@ -30,7 +43,7 @@ function Header({ leftLink, leftImg, rightImg, name, onRightClick }) {
           <div className={headerStyles.vertical}>
             <img src={leftImg} height="25px" width="height" alt="" />
           </div>
-          {toChats}
+          {backName}
         </Link>
       </div>
       <div className={headerStyles.horizontal}>
@@ -46,6 +59,7 @@ function Header({ leftLink, leftImg, rightImg, name, onRightClick }) {
 Header.propTypes = {
   leftLink: PropTypes.string.isRequired,
   leftImg: PropTypes.string.isRequired,
+  rightText: PropTypes.string.isRequired,
   rightImg: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onRightClick: PropTypes.func.isRequired,

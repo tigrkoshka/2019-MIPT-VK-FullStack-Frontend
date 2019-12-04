@@ -5,7 +5,14 @@
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+}
+
+.profileAnim {
   animation: slideFromAbove 600ms ease;
+}
+
+.createAnim {
+  animation: slideFromRight 600ms ease;
 }
 
 @keyframes slideFromAbove {
@@ -15,6 +22,16 @@
 
   100% {
     transform: translate(0%, 0%) scale(1, 1);
+  }
+}
+
+@keyframes slideFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
   }
 }
 
@@ -55,7 +72,7 @@
   outline: none;
   word-break: break-all;
   font-size: 20px;
-  background-color: rgb(112, 113, 114);
+  background-color: rgb(100, 101, 102);
   color: rgb(255, 255, 255);
   line-height: 30px;
   padding: 5px;
@@ -63,21 +80,45 @@
 }
 
 .inputName {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border-radius: 5px;
 }
 
 .inputTag {
-  margin: 30px 0;
+  margin: 20px 0;
   border-radius: 5px;
 }
 
 .inputBio {
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 40px;
   height: 200px;
   border-radius: 10px;
 }
 
+.inputPassword {
+  flex-grow: 1;
+  border-radius: 5px;
+}
+
+.passwordText {
+  flex-grow: 0;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: rgb(240, 240, 240);
+    opacity: 0.7;
+    font-size: 23.5px;
+  }
+}
+
 ::placeholder {
   color: rgb(221, 221, 221);
+  opacity: 0.8;
+}
+
+.empty {
+  flex-basis: 5%;
+  flex-shrink: 0;
 }

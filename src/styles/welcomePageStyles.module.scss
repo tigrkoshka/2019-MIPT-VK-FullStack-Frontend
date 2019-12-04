@@ -1,5 +1,9 @@
 .vert {
   position: absolute;
+  background-image: url('../images/hummingbird.png'), url('../images/hummingbird.png');
+  background-position: left center, right center;
+  background-repeat: no-repeat;
+  background-size: 37%;
   height: 100%;
   width: 100%;
   color: rgb(223, 223, 223);
@@ -7,6 +11,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: scaleFromCenter 600ms ease;
+}
+
+@keyframes scaleFromCenter {
+  0% {
+    transform: scale(0, 0);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
 }
 
 .horiz {
@@ -33,9 +48,8 @@
 }
 
 .curr_message {
-  width: 30%;
   border-radius: 0.8em;
-  background: rgb(96, 97, 99);
+  background: rgb(66, 67, 69);
 }
 
 .input {
@@ -44,7 +58,7 @@
   outline: none;
   height: 100%;
   font-size: 20px;
-  background-color: rgb(96, 97, 99);
+  background-color: rgb(100, 101, 102);
   color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 5px;
@@ -53,6 +67,7 @@
 
 ::placeholder {
   color: rgb(223, 223, 223);
+  opacity: 0.8;
   text-align: center;
 }
 
@@ -64,4 +79,13 @@
 .form {
   width: 30%;
   height: 130%;
+}
+
+.create {
+  color: rgb(243, 243, 243);
+  font-size: 18px;
+  text-decoration: none;
+  align-self: center;
+  text-align: center;
+  line-height: 30px;
 }

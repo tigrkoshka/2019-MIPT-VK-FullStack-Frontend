@@ -27,6 +27,16 @@
   margin-left: 10px;
 }
 
+.rightButton {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+  height: 100%;
+  cursor: pointer;
+  flex-basis: auto;
+  margin-right: 10px;
+}
+
 .vertical {
   display: flex;
   flex-direction: column;
@@ -44,16 +54,6 @@
   color: rgb(255, 255, 255);
   font-family: 'Cambria Math', serif;
   cursor: default;
-}
-
-.rightButton {
-  display: flex;
-  flex-direction: row;
-  align-self: flex-end;
-  height: 100%;
-  cursor: pointer;
-  flex-basis: auto;
-  margin-right: 10px;
 }
 
 .text {

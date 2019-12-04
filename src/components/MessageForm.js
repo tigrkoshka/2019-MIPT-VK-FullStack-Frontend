@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Header from './Header'
-import toChats from '../images/toChats.png'
+import toChats from '../images/back.png'
 import attach from '../images/attachment.png'
 import geo from '../images/geolocation.png'
 import voice from '../images/voice.png'
@@ -305,6 +305,7 @@ class MessageForm extends React.Component {
         <Header
           leftImg={toChats}
           rightImg=""
+          rightText=""
           leftLink={`/ChatList/${this.state.userId}`}
           name={this.state.name}
           onRightClick={() => {}}

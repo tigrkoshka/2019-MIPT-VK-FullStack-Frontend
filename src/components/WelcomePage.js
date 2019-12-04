@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import welcomePageStyles from '../styles/welcomePageStyles.module.scss'
 
 class WelcomePage extends React.Component {
@@ -48,8 +49,8 @@ class WelcomePage extends React.Component {
     event.preventDefault()
     fetch(`http://127.0.0.1:8000/users/auth/?tag=${this.state.tag}&password=${this.state.password}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
-      .then((user) => {
-        window.location.hash = `#/ChatList/${user.id}`
+      .then(({ id }) => {
+        window.location.hash = `#/ChatList/${id}`
       })
       .catch(() => {
         this.setState({
@@ -66,7 +67,6 @@ class WelcomePage extends React.Component {
 
   render() {
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div className={welcomePageStyles.vert} onClick={this.handleAuth}>
         <div className={welcomePageStyles.horiz}>
           <div className={welcomePageStyles.curr_message}>
@@ -107,6 +107,17 @@ class WelcomePage extends React.Component {
             />
           </form>
         </div>
+        <div className={welcomePageStyles.empty} />
+        <Link
+          to="/CreateUser"
+          className={welcomePageStyles.create}
+          onClick={(event) => {
+            event.stopPropagation()
+            return false
+          }}
+        >
+          {"Don't have an account? Become a hummingbird!"}
+        </Link>
       </div>
     )
   }

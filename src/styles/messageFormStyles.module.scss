@@ -5,10 +5,10 @@
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  animation: slideFromLeft 600ms ease;
+  animation: slideFromRight 600ms ease;
 }
 
-@keyframes slideFromLeft {
+@keyframes slideFromRight {
   0% {
     transform: translateX(100%);
   }
@@ -39,12 +39,6 @@
   min-width: 60px;
 }
 
-.mine {
-  margin-right: 5px;
-  align-self: flex-end;
-  background: rgb(96, 97, 99);
-}
-
 .horizontal {
   display: flex;
   flex-direction: row;
@@ -58,7 +52,7 @@
   flex-grow: 1;
   height: 100%;
   font-size: 20px;
-  background-color: rgb(112, 113, 114);
+  background-color: rgb(100, 101, 102);
   color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 5px;
@@ -75,4 +69,5 @@
 
 ::placeholder {
   color: rgb(221, 221, 221);
+  opacity: 0.8;
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Header from './Header'
-import toChats from '../images/toChats.png'
+import toChats from '../images/back.png'
 import tick from '../images/tick.png'
-import profileStyles from '../styles/userProfileStyles.module.scss'
+import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
 
 class UserProfile extends React.Component {
@@ -16,6 +16,9 @@ class UserProfile extends React.Component {
       currentUserName: '',
       currentUserTag: '',
       currentUserBio: '',
+      oldPassword: '',
+      newPassword: '',
+      changePassword: 0,
       userId: Number(this.props.match.params.userId),
       isTick: false,
     }
@@ -34,8 +37,11 @@ class UserProfile extends React.Component {
       })
 
     this.onTickClick = this.onTickClick.bind(this)
+    this.openPasswordForm = this.openPasswordForm.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeTag = this.handleChangeTag.bind(this)
+    this.handleChangOldPassword = this.handleChangOldPassword.bind(this)
+    this.handleChangNewPassword = this.handleChangNewPassword.bind(this)
     this.handleChangeBio = this.handleChangeBio.bind(this)
   }
 
@@ -74,7 +80,28 @@ class UserProfile extends React.Component {
             }
           })
         }
+        return this.state.initialUserTag
       })
+      .then((tag) => {
+        if (this.state.newPassword !== '') {
+          const forPassChange = {
+            old_password: this.state.oldPassword,
+            new_password: this.state.newPassword,
+            tag,
+          }
+          fetch('http://127.0.0.1:8000/users/change_password/', {
+            method: 'POST',
+            body: JSON.stringify(forPassChange),
+          }).then((result) => {
+            this.setState({ newPassword: '', oldPassword: '', changePassword: result.ok ? 1 : 2 })
+          })
+        }
+      })
+  }
+
+  openPasswordForm(event) {
+    event.preventDefault()
+    this.setState({ changePassword: 0 })
   }
 
   handleChangeName(event) {
@@ -93,6 +120,16 @@ class UserProfile extends React.Component {
     })
   }
 
+  handleChangOldPassword(event) {
+    event.preventDefault()
+    this.setState({ oldPassword: event.target.value })
+  }
+
+  handleChangNewPassword(event) {
+    event.preventDefault()
+    this.setState({ newPassword: event.target.value, isTick: true })
+  }
+
   handleChangeBio(event) {
     event.preventDefault()
     const temp = event.target.value
@@ -102,16 +139,55 @@ class UserProfile extends React.Component {
   }
 
   render() {
+    const containerStyles = `${profileStyles.container} ${profileStyles.profileAnim}`
     const nameInputClasses = `${profileStyles.input} ${profileStyles.inputName}`
     const tagInputClasses = `${profileStyles.input} ${profileStyles.inputTag}`
     const bioInputClasses = `${profileStyles.input} ${profileStyles.inputBio}`
+    const passwordTextClasses = `${profileStyles.horizontal} ${profileStyles.passwordText}`
+
+    let passwordForm
+
+    if (this.state.changePassword === 0) {
+      passwordForm = (
+        <div className={profileStyles.horizontal} style={{ flexGrow: 0 }}>
+          <input
+            type="text"
+            value={this.state.oldPassword}
+            placeholder="Old password"
+            className={`${profileStyles.input} ${profileStyles.inputPassword}`}
+            onChange={this.handleChangOldPassword.bind(this)}
+          />
+          <div className={profileStyles.empty} />
+          <input
+            type="text"
+            value={this.state.newPassword}
+            placeholder="New password"
+            className={`${profileStyles.input} ${profileStyles.inputPassword}`}
+            onChange={this.handleChangNewPassword.bind(this)}
+          />
+        </div>
+      )
+    } else if (this.state.changePassword === 1) {
+      passwordForm = (
+        <div className={passwordTextClasses} onClick={this.openPasswordForm}>
+          Password successfully changed!
+        </div>
+      )
+    } else {
+      passwordForm = (
+        <div className={passwordTextClasses} onClick={this.openPasswordForm}>
+          Could not change password. Tap to try again.
+        </div>
+      )
+    }
 
     return (
-      <div className={profileStyles.container}>
+      <div className={containerStyles}>
         <Header
           leftImg={toChats}
-          rightImg={this.state.isTick ? tick : ''}
           leftLink={`/ChatList/${this.state.userId}`}
+          rightImg={this.state.isTick ? tick : ''}
+          rightText=""
           name="Edit Profile"
           onRightClick={this.state.isTick ? this.onTickClick : () => {}}
         />
@@ -142,6 +218,7 @@ class UserProfile extends React.Component {
               className={bioInputClasses}
               onChange={this.handleChangeBio}
             />
+            {passwordForm}
           </div>
         </div>
       </div>

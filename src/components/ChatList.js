@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Header from './Header'
 import burger from '../images/burger.png'
-import search from '../images/search.png'
 import profilePic from '../images/profilePic.jpeg'
 import newChat from '../images/new-chat.png'
 import chatStyles from '../styles/singleChatStyles.module.scss'
@@ -127,10 +126,14 @@ class ChatList extends React.Component {
       <div className={chatListStyles.container}>
         <Header
           leftImg={burger}
-          rightImg={search}
           leftLink={`/UserProfile/${this.state.userId}`}
+          rightImg=""
+          rightText="Exit"
           name="Hummingbird"
-          onRightClick={() => {}}
+          onRightClick={(event) => {
+            event.preventDefault()
+            window.location.hash = '#/'
+          }}
         />
         <div className={chatListStyles.chats}>{this.state.chats}</div>
         <div className={chatListStyles.new_chat}>

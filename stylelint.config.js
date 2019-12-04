@@ -21,6 +21,7 @@ module.exports = {
         severity: 'warning',
         ignore: [
           'flexbox',
+          'background-img-opts',
           'border-radius',
           'calc',
           'outline',
@@ -31,6 +32,8 @@ module.exports = {
         ],
       },
     ],
+
+    'plugin/stylelint-no-indistinguishable-colors': null,
 
     // a11y
     'a11y/content-property-no-static-value': true,
