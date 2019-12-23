@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import autoBind from 'react-autobind'
 import Header from './Header'
 import { baseServer } from '../settings'
 import toChats from '../images/back.png'
@@ -21,15 +22,7 @@ class CreateChat extends React.Component {
       isMembersForm: 0,
     }
 
-    this.onFillInfo = this.onFillInfo.bind(this)
-    this.onCreate = this.onCreate.bind(this)
-    this.openTagForm = this.openTagForm.bind(this)
-    this.openNameForm = this.openNameForm.bind(this)
-    this.openMemberForm = this.openMemberForm.bind(this)
-    this.handleChangeName = this.handleChangeName.bind(this)
-    this.handleChangeTag = this.handleChangeTag.bind(this)
-    this.handleChangeBio = this.handleChangeBio.bind(this)
-    this.handleChangeMembers = this.handleChangeMembers.bind(this)
+    autoBind(this)
   }
 
   onFillInfo(event) {

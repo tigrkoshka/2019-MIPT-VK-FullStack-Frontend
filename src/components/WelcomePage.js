@@ -1,4 +1,5 @@
 import React from 'react'
+import autoBind from 'react-autobind'
 import { Link } from 'react-router-dom'
 import { baseServer } from '../settings'
 import welcomePageStyles from '../styles/welcomePageStyles.module.scss'
@@ -12,10 +13,8 @@ class WelcomePage extends React.Component {
       password: '',
     }
 
-    this.handleTagChange = this.handleTagChange.bind(this)
-    this.handlePasswordChange = this.handlePasswordChange.bind(this)
-    this.handleTagSubmit = this.handleTagSubmit.bind(this)
-    this.handleAuth = this.handleAuth.bind(this)
+    autoBind(this)
+
     this.passwordInput = React.createRef()
   }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import autoBind from 'react-autobind'
 import Header from './Header'
 import { baseServer } from '../settings'
 import toChats from '../images/back.png'
@@ -101,22 +102,8 @@ class MessageForm extends React.Component {
         }
       })
 
-    this.handleTextSubmit = this.handleTextSubmit.bind(this)
-    this.handleTextChange = this.handleTextChange.bind(this)
-    this.handleImageSubmit = this.handleImageSubmit.bind(this)
-    this.handleImageChange = this.handleImageChange.bind(this)
-    this.sendTextMessage = this.sendTextMessage.bind(this)
-    this.sendImageMessage = this.sendImageMessage.bind(this)
-    this.sendAudioMessage = this.sendAudioMessage.bind(this)
-    this.sendGeo = this.sendGeo.bind(this)
-    this.handleDragEnter = this.handleDragEnter.bind(this)
-    this.handleDragLeave = this.handleDragLeave.bind(this)
-    this.handleDragOver = this.handleDragOver.bind(this)
-    this.handleDrop = this.handleDrop.bind(this)
-    this.handleStartRecording = this.handleStartRecording.bind(this)
-    this.handleEndRecording = this.handleEndRecording.bind(this)
-    this.dataAvailable = this.dataAvailable.bind(this)
-    this.stopRecording = this.stopRecording.bind(this)
+    autoBind(this)
+
     this.fileManager = React.createRef()
     this.messages = React.createRef()
     this.manageFiles = () => this.fileManager.current.click()

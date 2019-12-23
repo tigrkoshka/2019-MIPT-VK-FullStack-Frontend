@@ -1,4 +1,5 @@
 import React from 'react'
+import autoBind from 'react-autobind'
 import Header from './Header'
 import { baseServer } from '../settings'
 import toWelcome from '../images/back.png'
@@ -20,17 +21,7 @@ class CreateUser extends React.Component {
       isTick: false,
     }
 
-    this.onTickClick = this.onTickClick.bind(this)
-    this.openPasswordForm = this.openPasswordForm.bind(this)
-    this.openTagForm = this.openTagForm.bind(this)
-    this.handleChangeName = this.handleChangeName.bind(this)
-    this.handleChangeTag = this.handleChangeTag.bind(this)
-    this.handleChangeFirstPassword = this.handleChangeFirstPassword.bind(this)
-    this.handleChangeSecondPassword = this.handleChangeSecondPassword.bind(this)
-    this.handleChangeBio = this.handleChangeBio.bind(this)
-    this.setTick = this.setTick.bind(this)
-    this.getPasswordForm = this.getPasswordForm.bind(this)
-    this.getTagForm = this.getTagForm.bind(this)
+    autoBind(this)
   }
 
   onTickClick(event) {
