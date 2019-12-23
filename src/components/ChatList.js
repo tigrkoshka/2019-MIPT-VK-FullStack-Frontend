@@ -2,13 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Header from './Header'
+import { baseServer } from '../settings'
 import burger from '../images/burger.png'
 import profilePic from '../images/profilePic.jpeg'
 import newChat from '../images/new-chat.png'
 import chatStyles from '../styles/singleChatStyles.module.scss'
 import chatListStyles from '../styles/chatListStyles.module.scss'
-
-const baseServer = 'https://herokuhummingbird.herokuapp.com'
 
 function SingleChat({ name, tag, userId, lastTime, lastMessage, indicator, key }) {
   return (
@@ -53,22 +52,24 @@ SingleChat.propTypes = {
   key: PropTypes.number.isRequired,
 }
 
-function getLastMessage({ lastMessage, lastType }) {
+function getDisplayOfLastMessage({ lastMessage, lastType }) {
+  // what to display as last message (may be too long or not text)
   let res = ''
   if (lastType === 'text') {
     const arr = lastMessage.split(' ')
-    let i = 0
-    let count = arr[i].length
-    while (i < arr.length && count < 100) {
-      res += `${arr[i]} `
-      i += 1
-      if (i < arr.length) {
-        count += arr[i].length
+    let count = arr[0].length
+    let flag = false
+    for (const elem of arr) {
+      if (count >= 100) {
+        flag = true
+        break
       }
+      res += `${elem} `
+      count += elem.length
     }
     res = res.substr(0, res.length - 1)
-    if (i < arr.length) {
-      res += '...'
+    if (flag) {
+      res += '...' // last message too long to fully be displayed
     }
   } else {
     res = lastType
@@ -81,8 +82,8 @@ class ChatList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      chats: [],
       userId: Number(this.props.match.params.userId),
+      chats: [],
     }
   }
 
@@ -93,18 +94,9 @@ class ChatList extends React.Component {
   getChats() {
     fetch(`${baseServer}/chats/chat_list/?id=${this.state.userId}`)
       .then((res) => res.json())
-      .then((data) => {
-        const { chats } = data
+      .then(({ chats }) => {
         chats.sort(this.compareNumber)
-        for (let i = 0; i < chats.length; i += 1) {
-          chats[i].key = i
-          chats[i].lastMessage = getLastMessage(chats[i])
-          chats[i].userId = this.state.userId
-          const currChat = SingleChat(chats[i])
-          this.setState((state) => {
-            return { chats: [...state.chats, currChat] }
-          })
-        }
+        this.setState({ chats })
       })
   }
 
@@ -124,6 +116,17 @@ class ChatList extends React.Component {
   }
 
   render() {
+    let chatsToDisplay = []
+    let i = 0
+    for (const chat of this.state.chats) {
+      chat.key = i
+      i += 1
+      chat.lastMessage = getDisplayOfLastMessage(chat)
+      chat.userId = this.state.userId
+      const currChat = SingleChat(chat)
+      chatsToDisplay = [...chatsToDisplay, currChat]
+    }
+
     return (
       <div className={chatListStyles.container}>
         <Header
@@ -137,7 +140,7 @@ class ChatList extends React.Component {
             window.location.hash = '#/'
           }}
         />
-        <div className={chatListStyles.chats}>{this.state.chats}</div>
+        <div className={chatListStyles.chats}>{chatsToDisplay}</div>
         <Link to={`/CreateChat/${this.state.userId}`} className={chatListStyles.new_chat}>
           <img src={newChat} height="70px" alt="" />
         </Link>

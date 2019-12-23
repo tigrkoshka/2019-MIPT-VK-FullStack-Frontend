@@ -1,11 +1,10 @@
 import React from 'react'
 import Header from './Header'
+import { baseServer } from '../settings'
 import toWelcome from '../images/back.png'
 import tick from '../images/tick.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
-
-const baseServer = 'https://herokuhummingbird.herokuapp.com'
 
 class CreateUser extends React.Component {
   constructor(props) {
@@ -29,6 +28,9 @@ class CreateUser extends React.Component {
     this.handleChangeFirstPassword = this.handleChangeFirstPassword.bind(this)
     this.handleChangeSecondPassword = this.handleChangeSecondPassword.bind(this)
     this.handleChangeBio = this.handleChangeBio.bind(this)
+    this.setTick = this.setTick.bind(this)
+    this.getPasswordForm = this.getPasswordForm.bind(this)
+    this.getTagForm = this.getTagForm.bind(this)
   }
 
   onTickClick(event) {
@@ -60,20 +62,8 @@ class CreateUser extends React.Component {
     })
   }
 
-  openPasswordForm(event) {
-    event.preventDefault()
-    this.setState({ firstPassword: '', secondPassword: '', isPasswordForm: 0, isTick: false })
-  }
-
-  openTagForm(event) {
-    event.preventDefault()
-    this.setState({ userTag: '', isTagForm: 0, isTick: false })
-  }
-
-  handleChangeName(event) {
-    event.preventDefault()
-    this.setState({ userName: event.target.value })
-    if (event.target.value === '') {
+  setTick(string) {
+    if (string === '') {
       this.setState({ isTick: false })
     } else {
       this.setState((state) => {
@@ -83,61 +73,11 @@ class CreateUser extends React.Component {
     }
   }
 
-  handleChangeTag(event) {
-    event.preventDefault()
-    this.setState({ userTag: event.target.value })
-    if (event.target.value === '') {
-      this.setState({ isTick: false })
-    } else {
-      this.setState((state) => {
-        const f = state.userName !== '' && state.firstPassword !== '' && state.secondPassword !== ''
-        return { isTick: f }
-      })
-    }
-  }
-
-  handleChangeBio(event) {
-    event.preventDefault()
-    this.setState({ userBio: event.target.value })
-  }
-
-  handleChangeFirstPassword(event) {
-    event.preventDefault()
-    this.setState({ firstPassword: event.target.value })
-    if (event.target.value === '') {
-      this.setState({ isTick: false })
-    } else {
-      this.setState((state) => {
-        const f = state.userName !== '' && state.userTag !== '' && state.secondPassword !== ''
-        return { isTick: f }
-      })
-    }
-  }
-
-  handleChangeSecondPassword(event) {
-    event.preventDefault()
-    this.setState({ secondPassword: event.target.value })
-    if (event.target.value === '') {
-      this.setState({ isTick: false })
-    } else {
-      this.setState((state) => {
-        const f = state.userName !== '' && state.userTag !== '' && state.firstPassword !== ''
-        return { isTick: f }
-      })
-    }
-  }
-
-  render() {
-    const containerStyles = `${profileStyles.container} ${profileStyles.createUserAnim}`
-    const nameInputClasses = `${profileStyles.input} ${profileStyles.inputName}`
-    const tagInputClasses = `${profileStyles.input} ${profileStyles.inputTag}`
-    const bioInputClasses = `${profileStyles.input} ${profileStyles.inputBio}`
+  getPasswordForm() {
     const textClasses = `${profileStyles.horizontal} ${profileStyles.interactiveText}`
 
-    let passwordForm
-
     if (this.state.isPasswordForm === 0) {
-      passwordForm = (
+      return (
         <div className={profileStyles.horizontal} style={{ flexGrow: 0 }}>
           <input
             type="text"
@@ -156,18 +96,20 @@ class CreateUser extends React.Component {
           />
         </div>
       )
-    } else {
-      passwordForm = (
-        <div className={textClasses} onClick={this.openPasswordForm}>
-          Passwords don&apos;t match. Tap to try again.
-        </div>
-      )
     }
+    return (
+      <div className={textClasses} onClick={this.openPasswordForm}>
+        Passwords don&apos;t match. Tap to try again.
+      </div>
+    )
+  }
 
-    let tagForm
+  getTagForm() {
+    const tagInputClasses = `${profileStyles.input} ${profileStyles.inputTag}`
+    const textClasses = `${profileStyles.horizontal} ${profileStyles.interactiveText}`
 
     if (this.state.isTagForm === 0) {
-      tagForm = (
+      return (
         <input
           type="text"
           value={this.state.userTag}
@@ -176,13 +118,57 @@ class CreateUser extends React.Component {
           onChange={this.handleChangeTag}
         />
       )
-    } else {
-      tagForm = (
-        <div className={textClasses} style={{ margin: '30px 0', flexGrow: 0 }} onClick={this.openTagForm}>
-          This tag already exists. Tap to choose another tag.
-        </div>
-      )
     }
+    return (
+      <div className={textClasses} style={{ margin: '30px 0', flexGrow: 0 }} onClick={this.openTagForm}>
+        This tag already exists. Tap to choose another tag.
+      </div>
+    )
+  }
+
+  openPasswordForm(event) {
+    event.preventDefault()
+    this.setState({ firstPassword: '', secondPassword: '', isPasswordForm: 0, isTick: false })
+  }
+
+  openTagForm(event) {
+    event.preventDefault()
+    this.setState({ userTag: '', isTagForm: 0, isTick: false })
+  }
+
+  handleChangeName(event) {
+    event.preventDefault()
+    this.setState({ userName: event.target.value })
+    this.setTick(event.target.value)
+  }
+
+  handleChangeTag(event) {
+    event.preventDefault()
+    this.setState({ userTag: event.target.value })
+    this.setTick(event.target.value)
+  }
+
+  handleChangeBio(event) {
+    event.preventDefault()
+    this.setState({ userBio: event.target.value })
+  }
+
+  handleChangeFirstPassword(event) {
+    event.preventDefault()
+    this.setState({ firstPassword: event.target.value })
+    this.setTick(event.target.value)
+  }
+
+  handleChangeSecondPassword(event) {
+    event.preventDefault()
+    this.setState({ secondPassword: event.target.value })
+    this.setTick(event.target.value)
+  }
+
+  render() {
+    const containerStyles = `${profileStyles.container} ${profileStyles.createUserAnim}`
+    const nameInputClasses = `${profileStyles.input} ${profileStyles.inputName}`
+    const bioInputClasses = `${profileStyles.input} ${profileStyles.inputBio}`
 
     return (
       <div className={containerStyles}>
@@ -208,14 +194,14 @@ class CreateUser extends React.Component {
               className={nameInputClasses}
               onChange={this.handleChangeName}
             />
-            {tagForm}
+            {this.getTagForm()}
             <textarea
               value={this.state.userBio}
               placeholder="Tell something about yourself"
               className={bioInputClasses}
               onChange={this.handleChangeBio}
             />
-            {passwordForm}
+            {this.getPasswordForm()}
           </div>
         </div>
       </div>

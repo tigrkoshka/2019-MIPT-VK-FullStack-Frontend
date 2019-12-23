@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Header from './Header'
+import { baseServer } from '../settings'
 import toChats from '../images/back.png'
 import attach from '../images/attachment.png'
 import geo from '../images/geolocation.png'
@@ -8,8 +9,6 @@ import voice from '../images/voice.png'
 import stop from '../images/stopRecording.png'
 import messageStyles from '../styles/singleMessageStyles.module.scss'
 import formStyles from '../styles/messageFormStyles.module.scss'
-
-const baseServer = 'https://herokuhummingbird.herokuapp.com'
 
 function singleTextMessage({ userId, content, time, whose, key }) {
   return (
@@ -137,14 +136,14 @@ class MessageForm extends React.Component {
       .then((res) => res.json())
       .then((data) => {
         const { messages } = data
-        const count = messages.length - this.state.messages.length - 1
+        const count = messages.length - this.state.messages.length - 1 // идем не по всему массиву, а по его части, поэтому for, а не foreach
         for (let i = count; i >= 0; i -= 1) {
           const currProps = {}
           currProps.time = messages[i].time
           currProps.whose = messages[i].whose
           currProps.userId = this.state.userId
           currProps.key = messages.length - i
-          let currMessage = null
+          let currMessage
           if (messages[i].type === 'text') {
             currProps.content = messages[i].content
             currMessage = singleTextMessage(currProps)

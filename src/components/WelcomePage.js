@@ -1,22 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { baseServer } from '../settings'
 import welcomePageStyles from '../styles/welcomePageStyles.module.scss'
-
-const baseServer = 'https://herokuhummingbird.herokuapp.com'
 
 class WelcomePage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      message: (
-        <div className={welcomePageStyles.content}>
-          Thank you for choosing Hummingbird!
-          <br />
-          Enter your tag and password.
-          <br />
-          Then tap anywhere to continue.
-        </div>
-      ),
+      messageType: 0,
       tag: '',
       password: '',
     }
@@ -26,6 +17,28 @@ class WelcomePage extends React.Component {
     this.handleTagSubmit = this.handleTagSubmit.bind(this)
     this.handleAuth = this.handleAuth.bind(this)
     this.passwordInput = React.createRef()
+  }
+
+  getMessage() {
+    if (this.state.messageType === 0) {
+      return (
+        <div className={welcomePageStyles.content}>
+          Thank you for choosing Hummingbird!
+          <br />
+          Enter your tag and password.
+          <br />
+          Then tap anywhere to continue.
+        </div>
+      )
+    }
+
+    return (
+      <div className={welcomePageStyles.content}>
+        Incorrect tag of password.
+        <br />
+        Try again.
+      </div>
+    )
   }
 
   handleTagChange(event) {
@@ -55,15 +68,7 @@ class WelcomePage extends React.Component {
         window.location.hash = `#/ChatList/${id}`
       })
       .catch(() => {
-        this.setState({
-          message: (
-            <div className={welcomePageStyles.content}>
-              Incorrect tag of password.
-              <br />
-              Try again.
-            </div>
-          ),
-        })
+        this.setState({ messageType: 1 })
       })
   }
 
@@ -72,7 +77,7 @@ class WelcomePage extends React.Component {
       <div className={welcomePageStyles.vert} onClick={this.handleAuth}>
         <div className={welcomePageStyles.horiz}>
           <div className={welcomePageStyles.curr_message}>
-            {this.state.message}
+            {this.getMessage()}
             <div className={welcomePageStyles.time}>2:39</div>
           </div>
         </div>

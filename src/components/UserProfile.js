@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Header from './Header'
+import { baseServer } from '../settings'
 import toChats from '../images/back.png'
 import tick from '../images/tick.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
-
-const baseServer = 'https://herokuhummingbird.herokuapp.com'
 
 class UserProfile extends React.Component {
   constructor(props) {

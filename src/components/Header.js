@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import headerStyles from '../styles/headerStyles.module.scss'
 
 function Header({ leftLink, leftImg, rightText, rightImg, name, onRightClick }) {
-  let backName = null
-  let rightButton = null
+  let backName
+  let rightButton
   if (leftLink.substring(0, 9) === '/ChatList') {
     backName = (
       <div className={headerStyles.vertical}>
