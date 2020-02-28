@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chat page renders and acts correctly Should render normally 1`] = `
+<div
+  className="container createChatAnim"
+>
+  <div
+    className="rectangle"
+  >
+    <div
+      className="leftHorizontal"
+    >
+      <a
+        className="leftButton"
+        href="/ChatList/1"
+        onClick={[Function]}
+      >
+        <div
+          className="vertical"
+        >
+          <img
+            alt=""
+            height="25px"
+            src="back.png"
+            width="height"
+          />
+        </div>
+        <div
+          className="vertical"
+        >
+          <div
+            className="text"
+          >
+            Chats
+          </div>
+        </div>
+      </a>
+    </div>
+    <div
+      className="horizontal"
+    >
+      <div
+        className="vertical"
+      >
+        <div
+          className="name"
+        >
+          Create a chat
+        </div>
+      </div>
+    </div>
+    <div
+      className="rightHorizontal"
+    />
+  </div>
+  <div
+    className="horizontal"
+  >
+    <div
+      className="vertical"
+    >
+      <div
+        className="horizontalPhoto"
+      >
+        <div
+          className="photo"
+        >
+          <img
+            alt=""
+            className="pic"
+            height="130px"
+            src="profilePic.jpeg"
+            width="height"
+          />
+        </div>
+      </div>
+      <input
+        className="input inputName"
+        onChange={[Function]}
+        placeholder="Chat name"
+        type="text"
+        value=""
+      />
+      <input
+        className="input inputTag"
+        onChange={[Function]}
+        placeholder="Chat tag"
+        type="text"
+        value=""
+      />
+      <textarea
+        className="input inputBio"
+        onChange={[Function]}
+        placeholder="Tell something about your chat"
+        value=""
+      />
+      <div
+        className="horizontal"
+        style={
+          Object {
+            "flexGrow": 0,
+          }
+        }
+      >
+        <div
+          className="horizontal interactiveText"
+          onClick={[Function]}
+        >
+          Proceed to adding members
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

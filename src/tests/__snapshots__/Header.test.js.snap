@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders and acts correctly Should render normally 1`] = `
+<div
+  className="rectangle"
+>
+  <div
+    className="leftHorizontal"
+  >
+    <a
+      className="leftButton"
+      href="/ChatList/1"
+      onClick={[Function]}
+    >
+      <div
+        className="vertical"
+      >
+        <img
+          alt=""
+          height="25px"
+          src="back.png"
+          width="height"
+        />
+      </div>
+      <div
+        className="vertical"
+      >
+        <div
+          className="text"
+        >
+          Chats
+        </div>
+      </div>
+    </a>
+  </div>
+  <div
+    className="horizontal"
+  >
+    <div
+      className="vertical"
+    >
+      <div
+        className="name"
+      >
+        Test header
+      </div>
+    </div>
+  </div>
+  <div
+    className="rightHorizontal"
+  />
+</div>
+`;

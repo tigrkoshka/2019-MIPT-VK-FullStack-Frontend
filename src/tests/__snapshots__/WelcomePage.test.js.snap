@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome page renders and acts correctly Should render normally 1`] = `
+<div
+  className="vert"
+  onClick={[Function]}
+>
+  <div
+    className="horiz"
+  >
+    <div
+      className="curr_message"
+    >
+      <div
+        className="content"
+      >
+        Thank you for choosing Hummingbird!
+        <br />
+        Enter your tag and password.
+        <br />
+        Then tap anywhere to continue.
+      </div>
+      <div
+        className="time"
+      >
+        2:39
+      </div>
+    </div>
+  </div>
+  <div
+    className="empty"
+  />
+  <div
+    className="horiz"
+  >
+    <form
+      className="form"
+      onSubmit={[Function]}
+    >
+      <input
+        className="input"
+        onChange={[Function]}
+        onClick={[Function]}
+        placeholder="Enter your tag"
+        type="text"
+        value=""
+      />
+    </form>
+  </div>
+  <div
+    className="empty"
+    onClick={[Function]}
+  />
+  <div
+    className="horiz"
+  >
+    <form
+      className="form"
+      onSubmit={[Function]}
+    >
+      <input
+        className="input"
+        onChange={[Function]}
+        onClick={[Function]}
+        placeholder="Enter your password"
+        type="password"
+        value=""
+      />
+    </form>
+  </div>
+  <div
+    className="empty"
+    onClick={[Function]}
+  />
+  <a
+    className="create"
+    href="/CreateUser"
+    onClick={[Function]}
+  >
+    Don't have an account? Become a hummingbird!
+  </a>
+</div>
+`;

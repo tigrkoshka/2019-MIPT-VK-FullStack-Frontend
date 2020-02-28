@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chat list renders and acts correctly Should render normally 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="rectangle"
+  >
+    <div
+      className="leftHorizontal"
+    >
+      <a
+        className="leftButton"
+        href="/UserProfile/1"
+        onClick={[Function]}
+      >
+        <div
+          className="vertical"
+        >
+          <img
+            alt=""
+            height="25px"
+            src="burger.png"
+            width="height"
+          />
+        </div>
+      </a>
+    </div>
+    <div
+      className="horizontal"
+    >
+      <div
+        className="vertical"
+      >
+        <div
+          className="name"
+        >
+          Hummingbird
+        </div>
+      </div>
+    </div>
+    <div
+      className="rightHorizontal"
+    >
+      <div
+        className="rightButton"
+        onClick={[Function]}
+      >
+        <div
+          className="vertical"
+        >
+          <div
+            className="text"
+          >
+            Exit
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="chats"
+  />
+  <a
+    className="new_chat"
+    href="/CreateChat/1"
+    onClick={[Function]}
+  >
+    <img
+      alt=""
+      height="70px"
+      src="new-chat.png"
+    />
+  </a>
+</div>
+`;

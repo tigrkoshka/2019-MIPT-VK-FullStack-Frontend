@@ -150,5 +150,3 @@ jest_*/
 /web-components/false
 /.idea
 /src/.idea
-/src/tests/__snapshots__/
-.storybook/

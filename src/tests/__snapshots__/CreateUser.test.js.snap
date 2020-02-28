@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Registration page renders and acts correctly Should render normally 1`] = `
+<div
+  className="container createUserAnim"
+>
+  <div
+    className="rectangle"
+  >
+    <div
+      className="leftHorizontal"
+    >
+      <a
+        className="leftButton"
+        href="/"
+        onClick={[Function]}
+      >
+        <div
+          className="vertical"
+        >
+          <img
+            alt=""
+            height="25px"
+            src="back.png"
+            width="height"
+          />
+        </div>
+        <div
+          className="vertical"
+        >
+          <div
+            className="text"
+          >
+            Home
+          </div>
+        </div>
+      </a>
+    </div>
+    <div
+      className="horizontal"
+    >
+      <div
+        className="vertical"
+      >
+        <div
+          className="name"
+        >
+          Create an account
+        </div>
+      </div>
+    </div>
+    <div
+      className="rightHorizontal"
+    />
+  </div>
+  <div
+    className="horizontal"
+  >
+    <div
+      className="vertical"
+    >
+      <div
+        className="horizontalPhoto"
+      >
+        <div
+          className="photo"
+        >
+          <img
+            alt=""
+            className="pic"
+            height="130px"
+            src="profilePic.jpeg"
+            width="height"
+          />
+        </div>
+      </div>
+      <input
+        className="input inputName"
+        onChange={[Function]}
+        placeholder="Your name"
+        type="text"
+        value=""
+      />
+      <input
+        className="input inputTag"
+        onChange={[Function]}
+        placeholder="Your tag"
+        type="text"
+        value=""
+      />
+      <textarea
+        className="input inputBio"
+        onChange={[Function]}
+        placeholder="Tell something about yourself"
+        value=""
+      />
+      <div
+        className="horizontal"
+        style={
+          Object {
+            "flexGrow": 0,
+          }
+        }
+      >
+        <input
+          className="input inputPassword"
+          onChange={[Function]}
+          placeholder="Enter password"
+          type="text"
+          value=""
+        />
+        <div
+          className="empty"
+        />
+        <input
+          className="input inputPassword"
+          onChange={[Function]}
+          placeholder="Repeat password"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
