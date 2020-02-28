@@ -7,9 +7,10 @@
   "dependencies": {
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.22",
+    "cpa": "0.0.4",
     "cross-env": "^6.0.3",
     "history": "^4.10.1",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "latest",
     "react-animated-css": "^1.2.1",
@@ -18,11 +19,18 @@
     "react-redux": "^7.1.3",
     "react-scripts": "^3.3.0",
     "react-spring": "^8.0.27",
+    "react-test-renderer": "^16.13.0",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "test-js": "0.0.4"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.3.14",
+    "@storybook/addon-links": "^5.3.14",
+    "@storybook/addons": "^5.3.14",
+    "@storybook/preset-create-react-app": "^1.5.2",
+    "@storybook/react": "^5.3.14",
     "@wemake-services/stylelint-config-scss": "^0.1.4",
     "check-engine": "^1.8.0",
     "eslint": "^6.6.0",
@@ -40,6 +48,7 @@
     "pretty-quick": "^2.0.0",
     "react": "latest",
     "react-router-dom": "^5.1.2",
+    "react-test-renderer": "^1.0.0",
     "remark-cli": "^7.0.0",
     "remark-lint": "^6.0.5",
     "remark-preset-lint-markdown-style-guide": "^2.1.3",
@@ -76,7 +85,10 @@
     "test": "npm run test:engine && npm run lint",
     "test:engine": "check-engine",
     "test:sec": "npm audit || true",
-    "ci": "npm run test && npm run build && npm run test:sec"
+    "test:unit": "react-scripts test",
+    "ci": "npm run test && npm run build && npm run test:sec",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "husky": {
     "hooks": {

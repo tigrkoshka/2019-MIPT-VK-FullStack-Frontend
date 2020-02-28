@@ -10,6 +10,7 @@ import voice from '../images/voice.png'
 import stop from '../images/stopRecording.png'
 import messageStyles from '../styles/singleMessageStyles.module.scss'
 import formStyles from '../styles/messageFormStyles.module.scss'
+// import {messagesSuccess} from '../actions'
 
 function singleTextMessage({ userId, content, time, whose, key }) {
   return (
@@ -122,6 +123,8 @@ class MessageForm extends React.Component {
     fetch(`${baseServer}/chats/chat/?tag=${tag}`)
       .then((res) => res.json())
       .then((data) => {
+        // const { messages } = data
+        // this.props.addMessages(messages, this.state.tag)
         const { messages } = data
         const count = messages.length - this.state.messages.length - 1 // идем не по всему массиву, а по его части, поэтому for, а не foreach
         for (let i = count; i >= 0; i -= 1) {
@@ -362,5 +365,14 @@ MessageForm.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   match: PropTypes.object.isRequired,
 }
+
+// const mapDispatchToProps = (dispatch) => ({
+// 	addMessages: (messages, chatTag) => dispatch(messagesSuccess(messages, chatTag))
+// })
+//
+// const mapStateToProps = (state, ownProps) => {
+// 	const {tag} = ownProps.match.params
+// 	return {messages: state.messages.messages[tag]}
+// }
 
 export default MessageForm
