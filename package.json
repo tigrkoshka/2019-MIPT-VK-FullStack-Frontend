@@ -48,7 +48,7 @@
     "pretty-quick": "^2.0.0",
     "react": "latest",
     "react-router-dom": "^5.1.2",
-    "react-test-renderer": "^1.0.0",
+    "react-test-renderer": "^16.13.0",
     "remark-cli": "^7.0.0",
     "remark-lint": "^6.0.5",
     "remark-preset-lint-markdown-style-guide": "^2.1.3",
