@@ -1,6 +1,6 @@
 module.exports = {
   launch: {
-    headless: false, // для отображения в клиенте
+    headless: true,
   },
   server: {
     command: 'npm start',
