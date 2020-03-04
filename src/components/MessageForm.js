@@ -366,13 +366,4 @@ MessageForm.propTypes = {
   match: PropTypes.object.isRequired,
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-// 	addMessages: (messages, chatTag) => dispatch(messagesSuccess(messages, chatTag))
-// })
-//
-// const mapStateToProps = (state, ownProps) => {
-// 	const {tag} = ownProps.match.params
-// 	return {messages: state.messages.messages[tag]}
-// }
-
 export default MessageForm
