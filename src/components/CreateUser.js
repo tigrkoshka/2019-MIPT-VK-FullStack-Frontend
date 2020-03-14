@@ -6,6 +6,7 @@ import toWelcome from '../images/back.png'
 import tick from '../images/tick.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
+import { getCookie } from '../static/getCookie'
 
 class CreateUser extends React.Component {
   constructor(props) {
@@ -39,9 +40,14 @@ class CreateUser extends React.Component {
       password: this.state.firstPassword,
     }
 
+    const csrftoken = getCookie('csrftoken')
+
     fetch(`${baseServer}/users/create_user/`, {
       method: 'POST',
       body: JSON.stringify(toSend),
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
     }).then((res) => {
       if (res.ok) {
         res.json().then(({ id }) => {

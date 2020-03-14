@@ -7,6 +7,8 @@ import toChats from '../images/back.png'
 import tick from '../images/tick.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
+import { getCookie } from '../static/getCookie'
+import { checkAuth } from '../static/checkAuth'
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -41,6 +43,14 @@ class UserProfile extends React.Component {
     autoBind(this)
   }
 
+  componentDidMount() {
+    checkAuth(this.state.userId).then((auth) => {
+      if (!auth) {
+        window.location.hash = '#/'
+      }
+    })
+  }
+
   onTickClick(event) {
     event.preventDefault()
 
@@ -51,9 +61,14 @@ class UserProfile extends React.Component {
       old_tag: this.state.initialUserTag,
     }
 
+    const csrftoken = getCookie('csrftoken')
+
     fetch(`${baseServer}/users/set_user/`, {
       method: 'POST',
       body: JSON.stringify(toSend),
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
     })
       .then((res) => res.ok)
       .then((accept) => {
@@ -88,6 +103,9 @@ class UserProfile extends React.Component {
           fetch(`${baseServer}/users/change_password/`, {
             method: 'POST',
             body: JSON.stringify(forPassChange),
+            headers: {
+              'X-CSRFToken': csrftoken,
+            },
           }).then((result) => {
             this.setState({ newPassword: '', oldPassword: '', changePassword: result.ok ? 1 : 2 })
           })
@@ -135,6 +153,8 @@ class UserProfile extends React.Component {
   }
 
   render() {
+    checkAuth(this.state.userId)
+
     const containerStyles = `${profileStyles.container} ${profileStyles.profileAnim}`
     const nameInputClasses = `${profileStyles.input} ${profileStyles.inputName}`
     const tagInputClasses = `${profileStyles.input} ${profileStyles.inputTag}`

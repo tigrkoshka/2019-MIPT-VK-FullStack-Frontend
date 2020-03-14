@@ -10,7 +10,8 @@ import voice from '../images/voice.png'
 import stop from '../images/stopRecording.png'
 import messageStyles from '../styles/singleMessageStyles.module.scss'
 import formStyles from '../styles/messageFormStyles.module.scss'
-// import {messagesSuccess} from '../actions'
+import { getCookie } from '../static/getCookie'
+import { checkAuth } from '../static/checkAuth'
 
 function singleTextMessage({ userId, content, time, whose, key }) {
   return (
@@ -113,8 +114,14 @@ class MessageForm extends React.Component {
   }
 
   componentDidMount() {
-    this.getMessages(this.state.tag)
-    setInterval(() => this.getMessages(this.state.tag), 100)
+    checkAuth(this.state.userId).then((auth) => {
+      if (!auth) {
+        window.location.hash = '#/'
+      } else {
+        this.getMessages(this.state.tag)
+        setInterval(() => this.getMessages(this.state.tag), 100)
+      }
+    })
   }
 
   // ______________messages_________________
@@ -123,10 +130,8 @@ class MessageForm extends React.Component {
     fetch(`${baseServer}/chats/chat/?tag=${tag}`)
       .then((res) => res.json())
       .then((data) => {
-        // const { messages } = data
-        // this.props.addMessages(messages, this.state.tag)
         const { messages } = data
-        const count = messages.length - this.state.messages.length - 1 // идем не по всему массиву, а по его части, поэтому for, а не foreach
+        const count = messages.length - this.state.messages.length - 1
         for (let i = count; i >= 0; i -= 1) {
           const currProps = {}
           currProps.time = messages[i].time
@@ -168,9 +173,14 @@ class MessageForm extends React.Component {
   // _______________texts____________________
 
   sendTextMessage(content) {
+    const csrftoken = getCookie('csrftoken')
+
     fetch(`${baseServer}/chats/send_message/`, {
       method: 'POST',
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'text', content }),
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
     }).then(() => {})
   }
 
@@ -190,9 +200,14 @@ class MessageForm extends React.Component {
   // _______________images__________________
 
   sendImageMessage(url) {
+    const csrftoken = getCookie('csrftoken')
+
     fetch(`${baseServer}/chats/send_message/`, {
       method: 'POST',
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'image', url }),
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
     }).then(() => {})
   }
 
@@ -219,9 +234,14 @@ class MessageForm extends React.Component {
   // _______________audio____________________
 
   sendAudioMessage(url) {
+    const csrftoken = getCookie('csrftoken')
+
     fetch(`${baseServer}/chats/send_message/`, {
       method: 'POST',
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'audio', url }),
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
     }).then(() => {})
   }
 

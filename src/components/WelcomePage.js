@@ -3,6 +3,7 @@ import autoBind from 'react-autobind'
 import { Link } from 'react-router-dom'
 import { baseServer } from '../settings'
 import welcomePageStyles from '../styles/welcomePageStyles.module.scss'
+import { getCookie } from '../static/getCookie'
 
 class WelcomePage extends React.Component {
   constructor(props) {
@@ -16,6 +17,14 @@ class WelcomePage extends React.Component {
     autoBind(this)
 
     this.passwordInput = React.createRef()
+  }
+
+  componentDidMount() {
+    fetch(`${baseServer}/csrf/`)
+      .then((res) => res.json())
+      .then(({ csrfToken }) => {
+        document.cookie = `csrftoken=${csrfToken}`
+      })
   }
 
   getMessage() {
@@ -61,7 +70,21 @@ class WelcomePage extends React.Component {
 
   handleAuth(event) {
     event.preventDefault()
-    fetch(`${baseServer}/users/auth/?tag=${this.state.tag}&password=${this.state.password}`)
+
+    const toSend = {
+      tag: this.state.tag,
+      password: this.state.password,
+    }
+
+    const csrftoken = getCookie('csrftoken')
+
+    fetch(`${baseServer}/users/auth/`, {
+      method: 'POST',
+      body: JSON.stringify(toSend),
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
+    })
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then(({ id }) => {
         window.location.hash = `#/ChatList/${id}`

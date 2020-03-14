@@ -6,6 +6,8 @@ import { baseServer } from '../settings'
 import toChats from '../images/back.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
+import { getCookie } from '../static/getCookie'
+import { checkAuth } from '../static/checkAuth'
 
 class CreateChat extends React.Component {
   constructor(props) {
@@ -23,6 +25,14 @@ class CreateChat extends React.Component {
     }
 
     autoBind(this)
+  }
+
+  componentDidMount() {
+    checkAuth(this.state.userId).then((auth) => {
+      if (!auth) {
+        window.location.hash = '#/'
+      }
+    })
   }
 
   onFillInfo(event) {
@@ -58,9 +68,14 @@ class CreateChat extends React.Component {
       is_channel: isChannel,
     }
 
+    const csrftoken = getCookie('csrftoken')
+
     fetch(`${baseServer}/chats/create_chat/`, {
       method: 'POST',
       body: JSON.stringify(toSend),
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
     }).then((res) => {
       if (res.ok) {
         let realTag = this.state.chatTag.replace(' ', '')

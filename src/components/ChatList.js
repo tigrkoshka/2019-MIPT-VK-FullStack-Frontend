@@ -8,6 +8,8 @@ import profilePic from '../images/profilePic.jpeg'
 import newChat from '../images/new-chat.png'
 import chatStyles from '../styles/singleChatStyles.module.scss'
 import chatListStyles from '../styles/chatListStyles.module.scss'
+import { getCookie } from '../static/getCookie'
+import { checkAuth } from '../static/checkAuth'
 
 function SingleChat({ name, tag, userId, lastTime, lastMessage, indicator, key }) {
   return (
@@ -88,11 +90,24 @@ class ChatList extends React.Component {
   }
 
   componentDidMount() {
-    this.getChats()
+    checkAuth(this.state.userId).then((auth) => {
+      if (!auth) {
+        window.location.hash = '#/'
+      } else {
+        this.getChats()
+      }
+    })
   }
 
   getChats() {
-    fetch(`${baseServer}/chats/chat_list/?id=${this.state.userId}`)
+    const csrftoken = getCookie('csrftoken')
+
+    fetch(`${baseServer}/chats/chat_list/?id=${this.state.userId}`, {
+      method: 'GET',
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
+    })
       .then((res) => res.json())
       .then(({ chats }) => {
         chats.sort(this.compareNumber)
@@ -137,7 +152,11 @@ class ChatList extends React.Component {
           name="Hummingbird"
           onRightClick={(event) => {
             event.preventDefault()
-            window.location.hash = '#/'
+            fetch(`${baseServer}/users/logout/?id=${this.state.userId}`)
+              .then((res) => res.json())
+              .then(() => {
+                window.location.hash = '#/'
+              })
           }}
         />
         <div className={chatListStyles.chats}>{chatsToDisplay}</div>
