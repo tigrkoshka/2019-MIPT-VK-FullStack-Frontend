@@ -13,5 +13,9 @@ describe('Send message test', () => {
     await expect(page).toClick('table')
     await expect(page).toFill('[placeholder="Your message"]', 'Hello test')
     await page.keyboard.press('Enter')
+    await expect(page).toClick('[class="headerStyles_text__3zlfI"]')
+
+    await page.waitFor(1000)
+    await expect(page).toClick('[class="headerStyles_text__3zlfI"]')
   })
 })

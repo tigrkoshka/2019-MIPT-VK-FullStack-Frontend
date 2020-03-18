@@ -27,19 +27,6 @@ class UserProfile extends React.Component {
       isTick: false,
     }
 
-    fetch(`${baseServer}/users/profile/?id=${this.state.userId}`)
-      .then((res) => res.json())
-      .then((user) => {
-        this.setState({
-          initialUserName: user.name,
-          initialUserTag: user.tag,
-          initialUserBio: user.bio,
-          currentUserName: user.name,
-          currentUserTag: user.tag,
-          currentUserBio: user.bio,
-        })
-      })
-
     autoBind(this)
   }
 
@@ -47,6 +34,19 @@ class UserProfile extends React.Component {
     checkAuth(this.state.userId).then((auth) => {
       if (!auth) {
         window.location.hash = '#/'
+      } else {
+        fetch(`${baseServer}/users/profile/?id=${this.state.userId}`)
+          .then((res) => res.json())
+          .then((user) => {
+            this.setState({
+              initialUserName: user.name,
+              initialUserTag: user.tag,
+              initialUserBio: user.bio,
+              currentUserName: user.name,
+              currentUserTag: user.tag,
+              currentUserBio: user.bio,
+            })
+          })
       }
     })
   }
@@ -153,8 +153,6 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    checkAuth(this.state.userId)
-
     const containerStyles = `${profileStyles.container} ${profileStyles.profileAnim}`
     const nameInputClasses = `${profileStyles.input} ${profileStyles.inputName}`
     const tagInputClasses = `${profileStyles.input} ${profileStyles.inputTag}`

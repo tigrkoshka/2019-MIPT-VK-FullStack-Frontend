@@ -96,7 +96,7 @@
     "test:engine": "check-engine",
     "test:sec": "npm audit || true",
     "test:unit": "react-scripts test",
-    "test:endtoend": "jest -c endtoend/jest.config.js",
+    "test:endtoend": "jest --maxWorkers=1 -c endtoend/jest.config.js",
     "ci": "npm run test && npm run build && npm run test:sec",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
