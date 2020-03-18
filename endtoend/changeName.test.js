@@ -6,9 +6,13 @@ describe('Puppeteer tests', () => {
   })
 
   it('should change name without error', async () => {
+    // logging in
+
     await expect(page).toFill('[placeholder="Enter your tag"]', '@Tigran')
     await expect(page).toFill('[placeholder="Enter your password"]', '@Tigran')
     await expect(page).toClick('[class="welcomePageStyles_content__3EfBu"]')
+
+    // changing name
 
     await page.waitFor(2000)
     await expect(page).toClick('[class="headerStyles_vertical__HH6d5"]')
@@ -20,12 +24,8 @@ describe('Puppeteer tests', () => {
     await page.waitForSelector('[src$="/static/media/tick.9bf6c7db.png"]')
     await expect(page).toClick('[src$="/static/media/tick.9bf6c7db.png"]')
     await expect(page).toClick('[class="headerStyles_vertical__HH6d5"]')
-  })
 
-  it('should change name back without error', async () => {
-    await expect(page).toFill('[placeholder="Enter your tag"]', '@Tigran')
-    await expect(page).toFill('[placeholder="Enter your password"]', '@Tigran')
-    await expect(page).toClick('[class="welcomePageStyles_content__3EfBu"]')
+    // changing name back
 
     await page.waitFor(2000)
     await expect(page).toClick('[class="headerStyles_vertical__HH6d5"]')
@@ -37,5 +37,10 @@ describe('Puppeteer tests', () => {
     await page.waitForSelector('[src$="/static/media/tick.9bf6c7db.png"]')
     await expect(page).toClick('[src$="/static/media/tick.9bf6c7db.png"]')
     await expect(page).toClick('[class="headerStyles_vertical__HH6d5"]')
+
+    // logging out
+
+    await page.waitForSelector('[class="headerStyles_text__3zlfI"]')
+    await expect(page).toClick('[class="headerStyles_text__3zlfI"]')
   })
 })
