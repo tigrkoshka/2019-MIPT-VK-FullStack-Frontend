@@ -2,21 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import autoBind from 'react-autobind'
 import Header from './Header'
-import { baseServer } from '../settings'
+import { baseServer, emojiList } from '../settings'
 import toChats from '../images/back.png'
 import attach from '../images/attachment.png'
 import geo from '../images/geolocation.png'
 import voice from '../images/voice.png'
 import stop from '../images/stopRecording.png'
+import emoji from '../images/cowboy-hat-face.png'
 import messageStyles from '../styles/singleMessageStyles.module.scss'
 import formStyles from '../styles/messageFormStyles.module.scss'
-import { getCookie } from '../static/getCookie'
-import { checkAuth } from '../static/checkAuth'
+import emojiStyles from '../styles/emojiStyles.module.scss'
+import getCookie from '../static/getCookie'
+import checkAuth from '../static/checkAuth'
+import parseForEmoji from '../static/parseEmoji'
 
 function singleTextMessage({ userId, content, time, whose, key }) {
   return (
     <div className={whose === userId ? messageStyles.mine : messageStyles.yours} style={{ maxWidth: '75%' }} key={key}>
-      <div className={messageStyles.content}>{content}</div>
+      <div className={messageStyles.content}>{parseForEmoji(content, 0)}</div>
       <div className={messageStyles.time}>{time}</div>
     </div>
   )
@@ -90,6 +93,7 @@ class MessageForm extends React.Component {
       tag: this.props.match.params.tag,
       userId: Number(this.props.match.params.userId),
       notMyChannel: true,
+      emojiOpen: false,
       chatStyle: {},
       messages: [],
       chunks: [],
@@ -109,6 +113,8 @@ class MessageForm extends React.Component {
     this.fileManager = React.createRef()
     this.messages = React.createRef()
     this.manageFiles = () => this.fileManager.current.click()
+
+    this.emojiWindow = this.makeEmojiWindow()
 
     this.mediaRecorder = null
   }
@@ -319,8 +325,42 @@ class MessageForm extends React.Component {
 
   // ______________render____________________
 
+  makeEmojiWindow() {
+    const outerArray = []
+    const n = Math.min(Math.sqrt(emojiList.length), 10)
+    for (let i = 0; i < n; i += 1) {
+      const innerArray = []
+      for (let j = 0; j < n; j += 1) {
+        innerArray.push(
+          <div
+            key={j}
+            className={`${emojiStyles[emojiList[i * n + j]]} ${emojiStyles.in_menu}`}
+            onClick={(event) => {
+              event.stopPropagation()
+              this.setState((state) => {
+                return { value: state.value.concat(`:${emojiList[i * n + j]}:`) }
+              })
+              return false
+            }}
+          />,
+        )
+      }
+      outerArray.push(
+        <div key={i} className={emojiStyles.horizontal}>
+          {innerArray}
+        </div>,
+      )
+    }
+    return <div className={emojiStyles.emoji_window}>{outerArray}</div>
+  }
+
   render() {
     let formInput = null
+    let emojiWindow = null
+
+    if (this.state.emojiOpen) {
+      emojiWindow = this.emojiWindow
+    }
 
     if (!this.state.notMyChannel) {
       formInput = (
@@ -343,6 +383,18 @@ class MessageForm extends React.Component {
             onChange={this.handleTextChange}
           />
           <img
+            src={emoji}
+            alt="emoji"
+            className={formStyles.img}
+            onClick={(event) => {
+              event.stopPropagation()
+              this.setState((state) => {
+                return { emojiOpen: !state.emojiOpen }
+              })
+              return false
+            }}
+          />
+          <img
             src={this.state.audioFlag ? stop : voice}
             alt="voice message"
             style={{ maxWidth: '29px' }}
@@ -354,7 +406,13 @@ class MessageForm extends React.Component {
     }
 
     return (
-      <form className={formStyles.form} onSubmit={this.handleTextSubmit}>
+      <form
+        className={formStyles.form}
+        onSubmit={this.handleTextSubmit}
+        onClick={() => {
+          this.setState({ emojiOpen: false })
+        }}
+      >
         <Header
           leftImg={toChats}
           rightImg=""
@@ -374,6 +432,7 @@ class MessageForm extends React.Component {
         >
           {this.state.messages}
         </div>
+        {emojiWindow}
         {formInput}
         <div className={formStyles.empty} />
       </form>

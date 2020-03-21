@@ -13,7 +13,7 @@ describe('Puppeteer tests', () => {
     await page.waitFor(2000)
     await expect(page).toClick('[src$="/static/media/burger.c49120ed.png"]')
     await page.waitForSelector('[placeholder="Your name"]')
-    await page.click('[placeholder="Your name"]', { clickCount: 3 })
+    await page.click('[placeholder="Your name"]', { clickCount: 2 })
     await page.keyboard.press('Backspace')
     await page.waitFor(500)
     await expect(page).toFill('[placeholder="Your name"]', 'New test name')

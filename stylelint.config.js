@@ -29,9 +29,21 @@ module.exports = {
           'transforms2d',
           'css-animation',
           'object-fit',
+          'css-filters',
         ],
       },
     ],
+
+    'at-rule-no-unknown': null,
+
+    'scss/at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: ['each'],
+      },
+    ],
+
+    'scss/dollar-variable-pattern': '.+',
 
     'plugin/stylelint-no-indistinguishable-colors': null,
 

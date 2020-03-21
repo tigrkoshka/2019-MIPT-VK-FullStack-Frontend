@@ -6,7 +6,7 @@ import toWelcome from '../images/back.png'
 import tick from '../images/tick.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
 import profilePic from '../images/profilePic.jpeg'
-import { getCookie } from '../static/getCookie'
+import getCookie from '../static/getCookie'
 
 class CreateUser extends React.Component {
   constructor(props) {

@@ -65,6 +65,10 @@
   height: 100%;
   object-fit: contain;
   margin: 5px 5px 0 5px;
+
+  :hover:focus {
+    filter: invert(20%);
+  }
 }
 
 ::placeholder {

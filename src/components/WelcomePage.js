@@ -3,7 +3,7 @@ import autoBind from 'react-autobind'
 import { Link } from 'react-router-dom'
 import { baseServer } from '../settings'
 import welcomePageStyles from '../styles/welcomePageStyles.module.scss'
-import { getCookie } from '../static/getCookie'
+import getCookie from '../static/getCookie'
 
 class WelcomePage extends React.Component {
   constructor(props) {

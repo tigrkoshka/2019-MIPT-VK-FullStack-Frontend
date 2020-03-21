@@ -1,4 +1,22 @@
 {
   "baseServer": "http://127.0.0.1:8000",
-  "otherServer": "https://herokuhummingbird.herokuapp.com"
+  "otherServer": "https://herokuhummingbird.herokuapp.com",
+  "emojiList": [
+    "amphora",
+    "balloon",
+    "coffin",
+    "door",
+    "baby_chick",
+    "boar",
+    "butterfly",
+    "avocado",
+    "love_you_gesture",
+    "thumbs_up",
+    "thumbs_down",
+    "victory_hand",
+    "crying_face",
+    "face_with_medical_mask",
+    "face_with_rolling_eyes",
+    "face_blowing_a_kiss"
+  ]
 }

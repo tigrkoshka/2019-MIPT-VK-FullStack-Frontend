@@ -8,35 +8,26 @@ import profilePic from '../images/profilePic.jpeg'
 import newChat from '../images/new-chat.png'
 import chatStyles from '../styles/singleChatStyles.module.scss'
 import chatListStyles from '../styles/chatListStyles.module.scss'
-import { getCookie } from '../static/getCookie'
-import { checkAuth } from '../static/checkAuth'
+import getCookie from '../static/getCookie'
+import checkAuth from '../static/checkAuth'
+import parseForEmoji from '../static/parseEmoji'
 
 function SingleChat({ name, tag, userId, lastTime, lastMessage, indicator, key }) {
   return (
     <div key={key}>
-      <Link to={`/MessageForm/${tag}/${name}/${userId}`}>
+      <Link to={`/MessageForm/${tag}/${name}/${userId}`} className={chatStyles.link}>
         <div className={chatStyles.chat}>
-          <table>
-            <tbody>
-              <tr>
-                <td rowSpan="2" className={chatStyles.for_pic}>
-                  <div className={chatStyles.photo}>
-                    <img src={profilePic} alt="" className={chatStyles.pic} height="100px" width="height" />
-                  </div>
-                </td>
-                <td className={chatStyles.first}>
-                  <div className={chatStyles.name}>{name}</div>
-                  <div className={chatStyles.last_time}>{lastTime}</div>
-                </td>
-              </tr>
-              <tr>
-                <td className={chatStyles.second}>
-                  <div className={chatStyles.last_message}>{lastMessage}</div>
-                  <div className={chatStyles.indicator}>{indicator}</div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <img src={profilePic} alt="" className={chatStyles.photo} height="100px" width="height" />
+          <div className={chatStyles.vertical}>
+            <div className={chatStyles.horizontal}>
+              <div className={chatStyles.name}>{name}</div>
+              <div className={chatStyles.last_time}>{lastTime}</div>
+            </div>
+            <div className={chatStyles.horizontal}>
+              <div className={chatStyles.last_message}>{parseForEmoji(lastMessage, 1)}</div>
+              <div className={chatStyles.indicator}>{indicator}</div>
+            </div>
+          </div>
         </div>
       </Link>
       <hr />
