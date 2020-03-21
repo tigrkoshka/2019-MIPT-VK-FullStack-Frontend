@@ -45,6 +45,8 @@ module.exports = {
 
     'scss/dollar-variable-pattern': '.+',
 
+    'max-line-length': null,
+
     'plugin/stylelint-no-indistinguishable-colors': null,
 
     // a11y
