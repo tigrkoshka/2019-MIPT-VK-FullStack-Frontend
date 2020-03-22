@@ -1,6 +1,6 @@
 {
-  "otherServer": "http://herokuhummingbird.herokuapp.com",
-  "baseServer": "http://127.0.0.1:8000",
+  "baseServer": "http://herokuhummingbird.herokuapp.com",
+  "otherServer": "http://127.0.0.1:8000",
   "emojiList": [
     "amphora",
     "balloon",
