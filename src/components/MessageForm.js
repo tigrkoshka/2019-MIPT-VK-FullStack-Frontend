@@ -1,18 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import autoBind from 'react-autobind'
+import Cookies from 'js-cookie'
 import Header from './Header'
 import { baseServer, emojiList } from '../settings'
-import toChats from '../images/back.png'
-import attach from '../images/attachment.png'
-import geo from '../images/geolocation.png'
-import voice from '../images/voice.png'
-import stop from '../images/stopRecording.png'
-import emoji from '../images/cowboy-hat-face.png'
 import messageStyles from '../styles/singleMessageStyles.module.scss'
 import formStyles from '../styles/messageFormStyles.module.scss'
 import emojiStyles from '../styles/emojiStyles.module.scss'
-import getCookie from '../static/getCookie'
+import imagesStyles from '../styles/imagesStyles.module.scss'
 import checkAuth from '../static/checkAuth'
 import parseForEmoji from '../static/parseEmoji'
 
@@ -179,13 +174,11 @@ class MessageForm extends React.Component {
   // _______________texts____________________
 
   sendTextMessage(content) {
-    const csrftoken = getCookie('csrftoken')
-
     fetch(`${baseServer}/chats/send_message/`, {
       method: 'POST',
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'text', content }),
       headers: {
-        'X-CSRFToken': csrftoken,
+        'X-CSRFToken': Cookies.get('csrftoken'),
       },
     }).then(() => {})
   }
@@ -206,13 +199,11 @@ class MessageForm extends React.Component {
   // _______________images__________________
 
   sendImageMessage(url) {
-    const csrftoken = getCookie('csrftoken')
-
     fetch(`${baseServer}/chats/send_message/`, {
       method: 'POST',
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'image', url }),
       headers: {
-        'X-CSRFToken': csrftoken,
+        'X-CSRFToken': Cookies.get('csrftoken'),
       },
     }).then(() => {})
   }
@@ -240,13 +231,11 @@ class MessageForm extends React.Component {
   // _______________audio____________________
 
   sendAudioMessage(url) {
-    const csrftoken = getCookie('csrftoken')
-
     fetch(`${baseServer}/chats/send_message/`, {
       method: 'POST',
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'audio', url }),
       headers: {
-        'X-CSRFToken': csrftoken,
+        'X-CSRFToken': Cookies.get('csrftoken'),
       },
     }).then(() => {})
   }
@@ -373,8 +362,16 @@ class MessageForm extends React.Component {
             ref={this.fileManager}
             onChange={this.handleImageChange}
           />
-          <img src={attach} alt="attachment" className={formStyles.img} onClick={this.manageFiles} />
-          <img src={geo} alt="geolocation" className={formStyles.img} onClick={this.sendGeo} />
+          <div
+            className={`${imagesStyles.attachment} ${formStyles.img}`}
+            style={{ maxWidth: '40px' }}
+            onClick={this.manageFiles}
+          />
+          <div
+            className={`${imagesStyles.geolocation} ${formStyles.img}`}
+            style={{ maxWidth: '29px' }}
+            onClick={this.sendGeo}
+          />
           <input
             type="text"
             value={this.state.value}
@@ -382,10 +379,8 @@ class MessageForm extends React.Component {
             className={formStyles.input}
             onChange={this.handleTextChange}
           />
-          <img
-            src={emoji}
-            alt="emoji"
-            className={formStyles.img}
+          <div
+            className={`${imagesStyles.cowboy_hat_face} ${formStyles.img}`}
             onClick={(event) => {
               event.stopPropagation()
               this.setState((state) => {
@@ -394,11 +389,13 @@ class MessageForm extends React.Component {
               return false
             }}
           />
-          <img
-            src={this.state.audioFlag ? stop : voice}
-            alt="voice message"
+          <div
+            className={
+              this.state.audioFlag
+                ? `${imagesStyles.stopRecording} ${formStyles.img}`
+                : `${imagesStyles.voice} ${formStyles.img}`
+            }
             style={{ maxWidth: '29px' }}
-            className={formStyles.img}
             onClick={this.state.audioFlag ? this.handleEndRecording : this.handleStartRecording}
           />
         </div>
@@ -414,7 +411,7 @@ class MessageForm extends React.Component {
         }}
       >
         <Header
-          leftImg={toChats}
+          leftImg="back"
           rightImg=""
           rightText=""
           leftLink={`/ChatList/${this.state.userId}`}

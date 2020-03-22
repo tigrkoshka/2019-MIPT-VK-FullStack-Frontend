@@ -7,10 +7,6 @@ $emojiList: 'amphora' 'avocado' 'baby_chick' 'balloon' 'boar' 'butterfly' 'coffi
     margin: 5px;
     background: url('../emoji/#{$emoji}.png?sprite') no-repeat;
     background-size: 100%;
-
-    :hover:focus {
-      filter: hue-rotate(60deg);
-    }
   }
 }
 

@@ -1,14 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import Cookies from 'js-cookie'
 import Header from './Header'
 import { baseServer } from '../settings'
-import burger from '../images/burger.png'
-import profilePic from '../images/profilePic.jpeg'
-import newChat from '../images/new-chat.png'
+import profilePic from '../images/profilePic.png'
 import chatStyles from '../styles/singleChatStyles.module.scss'
 import chatListStyles from '../styles/chatListStyles.module.scss'
-import getCookie from '../static/getCookie'
+import imagesStyles from '../styles/imagesStyles.module.scss'
 import checkAuth from '../static/checkAuth'
 import parseForEmoji from '../static/parseEmoji'
 
@@ -91,12 +90,10 @@ class ChatList extends React.Component {
   }
 
   getChats() {
-    const csrftoken = getCookie('csrftoken')
-
     fetch(`${baseServer}/chats/chat_list/?id=${this.state.userId}`, {
       method: 'GET',
       headers: {
-        'X-CSRFToken': csrftoken,
+        'X-CSRFToken': Cookies.get('csrftoken'),
       },
     })
       .then((res) => res.json())
@@ -136,7 +133,7 @@ class ChatList extends React.Component {
     return (
       <div className={chatListStyles.container}>
         <Header
-          leftImg={burger}
+          leftImg="burger"
           leftLink={`/UserProfile/${this.state.userId}`}
           rightImg=""
           rightText="Exit"
@@ -151,8 +148,14 @@ class ChatList extends React.Component {
           }}
         />
         <div className={chatListStyles.chats}>{chatsToDisplay}</div>
-        <Link to={`/CreateChat/${this.state.userId}`} className={chatListStyles.new_chat}>
-          <img src={newChat} height="70px" alt="" />
+        <Link to={`/CreateChat/${this.state.userId}`} className={chatListStyles.new_chat_button}>
+          <div
+            className={`${imagesStyles.new_chat} ${chatListStyles.new_chat_button}`}
+            style={{
+              height: '70px',
+              width: '70px',
+            }}
+          />
         </Link>
       </div>
     )

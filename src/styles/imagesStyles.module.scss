@@ -1,0 +1,10 @@
+$imagesList: 'attachment' 'back' 'burger' 'cowboy_hat_face' 'geolocation' 'hummingbird' 'new_chat' 'tick'
+  'stopRecording' 'voice';
+
+@each $image in $imagesList {
+  .#{$image} {
+    margin: 5px;
+    background: url('../images/#{$image}.png?sprite') no-repeat;
+    background-size: 100%;
+  }
+}

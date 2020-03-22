@@ -1,13 +1,11 @@
 import React from 'react'
 import autoBind from 'react-autobind'
 import PropTypes from 'prop-types'
+import Cookies from 'js-cookie'
 import Header from './Header'
 import { baseServer } from '../settings'
-import toChats from '../images/back.png'
-import tick from '../images/tick.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
-import profilePic from '../images/profilePic.jpeg'
-import getCookie from '../static/getCookie'
+import profilePic from '../images/profilePic.png'
 import checkAuth from '../static/checkAuth'
 
 class UserProfile extends React.Component {
@@ -61,13 +59,11 @@ class UserProfile extends React.Component {
       old_tag: this.state.initialUserTag,
     }
 
-    const csrftoken = getCookie('csrftoken')
-
     fetch(`${baseServer}/users/set_user/`, {
       method: 'POST',
       body: JSON.stringify(toSend),
       headers: {
-        'X-CSRFToken': csrftoken,
+        'X-CSRFToken': Cookies.get('csrftoken'),
       },
     })
       .then((res) => res.ok)
@@ -104,7 +100,7 @@ class UserProfile extends React.Component {
             method: 'POST',
             body: JSON.stringify(forPassChange),
             headers: {
-              'X-CSRFToken': csrftoken,
+              'X-CSRFToken': Cookies.get('csrftoken'),
             },
           }).then((result) => {
             this.setState({ newPassword: '', oldPassword: '', changePassword: result.ok ? 1 : 2 })
@@ -198,9 +194,9 @@ class UserProfile extends React.Component {
     return (
       <div className={containerStyles}>
         <Header
-          leftImg={toChats}
+          leftImg="back"
           leftLink={`/ChatList/${this.state.userId}`}
-          rightImg={this.state.isTick ? tick : ''}
+          rightImg={this.state.isTick ? 'tick' : ''}
           rightText=""
           name="Edit Profile"
           onRightClick={this.state.isTick ? this.onTickClick : () => {}}

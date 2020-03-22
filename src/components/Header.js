@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import headerStyles from '../styles/headerStyles.module.scss'
+import imagesStyles from '../styles/imagesStyles.module.scss'
 
 function Header({ leftLink, leftImg, rightText, rightImg, name, onRightClick }) {
   let backName
@@ -23,7 +24,13 @@ function Header({ leftLink, leftImg, rightText, rightImg, name, onRightClick }) 
     rightButton = (
       <div className={headerStyles.rightButton} onClick={onRightClick}>
         <div className={headerStyles.vertical}>
-          <img src={rightImg} height="35px" width="height" alt="" />
+          <div
+            className={`${imagesStyles[rightImg]}`}
+            style={{
+              height: '35px',
+              width: '35px',
+            }}
+          />
         </div>
       </div>
     )
@@ -41,7 +48,13 @@ function Header({ leftLink, leftImg, rightText, rightImg, name, onRightClick }) 
       <div className={headerStyles.leftHorizontal}>
         <Link to={leftLink} className={headerStyles.leftButton}>
           <div className={headerStyles.vertical}>
-            <img src={leftImg} height="25px" width="height" alt="" />
+            <div
+              className={`${imagesStyles[leftImg]}`}
+              style={{
+                height: '25px',
+                width: '25px',
+              }}
+            />
           </div>
           {backName}
         </Link>

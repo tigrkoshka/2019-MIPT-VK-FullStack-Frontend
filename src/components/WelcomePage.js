@@ -1,9 +1,9 @@
 import React from 'react'
 import autoBind from 'react-autobind'
 import { Link } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import { baseServer } from '../settings'
 import welcomePageStyles from '../styles/welcomePageStyles.module.scss'
-import getCookie from '../static/getCookie'
 
 class WelcomePage extends React.Component {
   constructor(props) {
@@ -74,16 +74,16 @@ class WelcomePage extends React.Component {
     const toSend = {
       tag: this.state.tag,
       password: this.state.password,
+      // csrfmiddlewaretoken: Cookies.get('csrftoken')
     }
-
-    const csrftoken = getCookie('csrftoken')
 
     fetch(`${baseServer}/users/auth/`, {
       method: 'POST',
-      body: JSON.stringify(toSend),
+      // credentials: 'include',
       headers: {
-        'X-CSRFToken': csrftoken,
+        'X-CSRFToken': Cookies.get('csrftoken'),
       },
+      body: JSON.stringify(toSend),
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then(({ id }) => {

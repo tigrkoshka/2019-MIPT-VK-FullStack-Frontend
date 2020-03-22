@@ -1,12 +1,10 @@
 import React from 'react'
 import autoBind from 'react-autobind'
+import Cookies from 'js-cookie'
 import Header from './Header'
 import { baseServer } from '../settings'
-import toWelcome from '../images/back.png'
-import tick from '../images/tick.png'
 import profileStyles from '../styles/profileAndCreateStyles.module.scss'
-import profilePic from '../images/profilePic.jpeg'
-import getCookie from '../static/getCookie'
+import imagesStyles from '../styles/imagesStyles.module.scss'
 
 class CreateUser extends React.Component {
   constructor(props) {
@@ -40,13 +38,11 @@ class CreateUser extends React.Component {
       password: this.state.firstPassword,
     }
 
-    const csrftoken = getCookie('csrftoken')
-
     fetch(`${baseServer}/users/create_user/`, {
       method: 'POST',
       body: JSON.stringify(toSend),
       headers: {
-        'X-CSRFToken': csrftoken,
+        'X-CSRFToken': Cookies.get('csrftoken'),
       },
     }).then((res) => {
       if (res.ok) {
@@ -170,8 +166,8 @@ class CreateUser extends React.Component {
     return (
       <div className={containerStyles}>
         <Header
-          leftImg={toWelcome}
-          rightImg={this.state.isTick ? tick : ''}
+          leftImg="back"
+          rightImg={this.state.isTick ? 'tick' : ''}
           rightText=""
           leftLink="/"
           name="Create an account"
@@ -181,7 +177,7 @@ class CreateUser extends React.Component {
           <div className={profileStyles.vertical}>
             <div className={profileStyles.horizontalPhoto}>
               <div className={profileStyles.photo}>
-                <img src={profilePic} alt="" className="pic" height="130px" width="height" />
+                <div className={`${imagesStyles.profilePic} ${imagesStyles.profilePicSizeChatList} pic`} />
               </div>
             </div>
             <input
