@@ -8,6 +8,8 @@
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.22",
     "cross-env": "^6.0.3",
+    "css-sprite-loader": "^0.3.4",
+    "eject": "0.0.4",
     "history": "^4.10.1",
     "js-cookie": "^2.2.1",
     "node-sass": "^4.13.1",
