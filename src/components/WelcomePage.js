@@ -84,7 +84,7 @@ class WelcomePage extends React.Component {
       // credentials: 'include',
       headers: {
         'X-CSRFToken': csrftoken,
-        cookie: { csrftoken: csrftoken },
+        cookie: { csrftoken },
       },
       body: JSON.stringify(toSend),
     })
