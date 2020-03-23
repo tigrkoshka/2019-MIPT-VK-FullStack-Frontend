@@ -71,17 +71,20 @@ class WelcomePage extends React.Component {
   handleAuth(event) {
     event.preventDefault()
 
+    const csrftoken = Cookies.get('csrftoken')
+
     const toSend = {
       tag: this.state.tag,
       password: this.state.password,
-      // csrfmiddlewaretoken: Cookies.get('csrftoken')
+      csrfmiddlewaretoken: csrftoken,
     }
 
     fetch(`${baseServer}/users/auth/`, {
       method: 'POST',
       // credentials: 'include',
       headers: {
-        'X-CSRFToken': Cookies.get('csrftoken'),
+        'X-CSRFToken': csrftoken,
+        cookie: { csrftoken: csrftoken },
       },
       body: JSON.stringify(toSend),
     })
