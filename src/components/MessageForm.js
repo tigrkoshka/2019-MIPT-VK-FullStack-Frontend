@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import autoBind from 'react-autobind'
 import Cookies from 'js-cookie'
+import Centrifuge from 'centrifuge'
 import Header from './Header'
-import { baseServer, emojiList } from '../settings'
+import { baseServer, baseCentrifuge, emojiList } from '../settings'
 import messageStyles from '../styles/singleMessageStyles.module.scss'
 import formStyles from '../styles/messageFormStyles.module.scss'
 import emojiStyles from '../styles/emojiStyles.module.scss'
@@ -112,6 +113,7 @@ class MessageForm extends React.Component {
     this.emojiWindow = this.makeEmojiWindow()
 
     this.mediaRecorder = null
+    this.centrifuge = null
   }
 
   componentDidMount() {
@@ -119,10 +121,20 @@ class MessageForm extends React.Component {
       if (!auth) {
         window.location.hash = '#/'
       } else {
+        this.centrifuge = new Centrifuge(baseCentrifuge)
+        this.centrifuge.subscribe(`chat:${this.state.tag}`, (resp) => {
+          if (resp.data.status === 'ok') {
+            this.addMessage(resp.data.message, this.state.messages.length + 1)
+          }
+        })
+        this.centrifuge.connect()
         this.getMessages(this.state.tag)
-        setInterval(() => this.getMessages(this.state.tag), 100)
       }
     })
+  }
+
+  componentWillUnmount() {
+    this.centrifuge.disconnect()
   }
 
   // ______________messages_________________
@@ -134,28 +146,32 @@ class MessageForm extends React.Component {
         const { messages } = data
         const count = messages.length - this.state.messages.length - 1
         for (let i = count; i >= 0; i -= 1) {
-          const currProps = {}
-          currProps.time = messages[i].time
-          currProps.whose = messages[i].whose
-          currProps.userId = this.state.userId
-          currProps.key = messages.length - i
-          let currMessage
-          if (messages[i].type === 'text') {
-            currProps.content = messages[i].content
-            currMessage = singleTextMessage(currProps)
-          } else {
-            currProps.url = messages[i].url
-            if (messages[i].type === 'image') {
-              currMessage = singleImageMessage(currProps)
-            } else {
-              currMessage = singleAudioMessage(currProps)
-            }
-          }
-          this.setState((state) => {
-            return { messages: [currMessage, ...state.messages] }
-          })
+          this.addMessage(messages[i], messages.length - i)
         }
       })
+  }
+
+  addMessage(message, key) {
+    const currProps = {}
+    currProps.time = message.time
+    currProps.whose = message.whose
+    currProps.userId = this.state.userId
+    currProps.key = key
+    let currMessage
+    if (message.type === 'text') {
+      currProps.content = message.content
+      currMessage = singleTextMessage(currProps)
+    } else {
+      currProps.url = message.url
+      if (message.type === 'image') {
+        currMessage = singleImageMessage(currProps)
+      } else {
+        currMessage = singleAudioMessage(currProps)
+      }
+    }
+    this.setState((state) => {
+      return { messages: [currMessage, ...state.messages] }
+    })
   }
 
   // _____________geolocation_______________
