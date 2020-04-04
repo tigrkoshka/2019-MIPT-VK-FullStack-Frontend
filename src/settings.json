@@ -3,6 +3,8 @@
   "baseServer": "https://herokuhummingbird.herokuapp.com",
   "baseCentrifuge": "ws://hummingbirdcentrifugo.herokuapp.com/connection/websocket",
   "otherCentrifuge": "ws://localhost:9000/connection/websocket",
+  "firstPeerId": "4hyjk34hnjbdgbxfgbsfbAEWkntg2459jg9ojtg89jeiofj2948jtg3iotjgf3906uh",
+  "secondPeerId": "asmdbdgbxgvlkejrthiej54j38984ujfio24RTHTYntbl38rthjg3984jrfiojt93utj2p0",
   "emojiList": [
     "amphora",
     "balloon",
