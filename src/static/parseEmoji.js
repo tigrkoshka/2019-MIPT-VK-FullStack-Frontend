@@ -9,11 +9,11 @@ export default function parseForEmoji(text, mode) {
   let addStyles
   switch (mode) {
     case 0: {
-      addStyles = emojiStyles.in_message
+      addStyles = '_in_message'
       break
     }
     case 1: {
-      addStyles = emojiStyles.in_chat
+      addStyles = '_in_chat'
       break
     }
     default: {
@@ -27,7 +27,7 @@ export default function parseForEmoji(text, mode) {
         1,
         // eslint-disable-next-line react/no-array-index-key
         <div key={key} className={messageStyles.content_vert}>
-          <div className={`${emojiStyles[part]} ${addStyles}`} />
+          <div className={`${emojiStyles[`${part}${addStyles}`]}`} />
         </div>,
       )
     } else {

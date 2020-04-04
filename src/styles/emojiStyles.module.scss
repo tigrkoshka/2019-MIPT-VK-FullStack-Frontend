@@ -3,26 +3,29 @@ $emojiList: 'amphora' 'avocado' 'baby_chick' 'balloon' 'boar' 'butterfly' 'coffi
   'victory_hand';
 
 @each $emoji in $emojiList {
-  .#{$emoji} {
+  .#{$emoji}_in_message {
     margin: 5px;
     background: url('../emoji/#{$emoji}.png?sprite') no-repeat;
-    background-size: 100%;
+    background-size: 32px;
+    width: 32px;
+    height: 32px;
   }
-}
 
-.in_message {
-  width: 32px;
-  height: 32px;
-}
+  .#{$emoji}_in_chat {
+    margin: 5px;
+    background: url('../emoji/#{$emoji}.png?sprite') no-repeat;
+    background-size: 25px;
+    width: 25px;
+    height: 25px;
+  }
 
-.in_menu {
-  width: 40px;
-  height: 40px;
-}
-
-.in_chat {
-  width: 25px;
-  height: 25px;
+  .#{$emoji}_in_menu {
+    margin: 5px;
+    background: url('../emoji/#{$emoji}.png?sprite') no-repeat;
+    background-size: 40px;
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .emoji_window {

@@ -103,7 +103,6 @@
     "gh-pages": "^2.1.1",
     "husky": "^3.0.9",
     "jest-puppeteer": "^4.4.0",
-    "jquery": "^3.4.1",
     "jscpd": "^2.0.15",
     "lodash": "^4.17.15",
     "peerjs": "^1.2.0",

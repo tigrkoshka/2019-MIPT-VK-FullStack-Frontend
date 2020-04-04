@@ -122,12 +122,17 @@ class MessageForm extends React.Component {
         window.location.hash = '#/'
       } else {
         this.centrifuge = new Centrifuge(baseCentrifuge)
-        this.centrifuge.subscribe(`chat:${this.state.tag}`, (resp) => {
-          if (resp.data.status === 'ok') {
-            this.addMessage(resp.data.message, this.state.messages.length + 1)
-          }
-        })
-        this.centrifuge.connect()
+        fetch(`${baseServer}/centrifugo/?id=${this.state.userId}`)
+          .then((res) => res.json())
+          .then(({ token }) => {
+            this.centrifuge.setToken(token)
+            this.centrifuge.subscribe(`chat:${this.state.tag}`, (resp) => {
+              if (resp.data.status === 'ok') {
+                this.addMessage(resp.data.message, this.state.messages.length + 1)
+              }
+            })
+            this.centrifuge.connect()
+          })
         this.getMessages(this.state.tag)
       }
     })
@@ -195,6 +200,7 @@ class MessageForm extends React.Component {
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'text', content }),
       headers: {
         'X-CSRFToken': Cookies.get('csrftoken'),
+        'Content-Type': 'application/json',
       },
     }).then(() => {})
   }
@@ -220,6 +226,7 @@ class MessageForm extends React.Component {
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'image', url }),
       headers: {
         'X-CSRFToken': Cookies.get('csrftoken'),
+        'Content-Type': 'application/json',
       },
     }).then(() => {})
   }
@@ -252,6 +259,7 @@ class MessageForm extends React.Component {
       body: JSON.stringify({ chat_tag: this.state.tag, user_id: this.state.userId, type: 'audio', url }),
       headers: {
         'X-CSRFToken': Cookies.get('csrftoken'),
+        'Content-Type': 'application/json',
       },
     }).then(() => {})
   }
@@ -339,7 +347,7 @@ class MessageForm extends React.Component {
         innerArray.push(
           <div
             key={j}
-            className={`${emojiStyles[emojiList[i * n + j]]} ${emojiStyles.in_menu}`}
+            className={`${emojiStyles[`${emojiList[i * n + j]}_in_menu`]}`}
             onClick={(event) => {
               event.stopPropagation()
               this.setState((state) => {
@@ -397,6 +405,7 @@ class MessageForm extends React.Component {
           />
           <div
             className={`${imagesStyles.cowboy_hat_face} ${formStyles.img}`}
+            style={{ maxWidth: '50px' }}
             onClick={(event) => {
               event.stopPropagation()
               this.setState((state) => {

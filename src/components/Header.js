@@ -24,13 +24,7 @@ function Header({ leftLink, leftImg, rightText, rightImg, name, onRightClick }) 
     rightButton = (
       <div className={headerStyles.rightButton} onClick={onRightClick}>
         <div className={headerStyles.vertical}>
-          <div
-            className={`${imagesStyles[rightImg]}`}
-            style={{
-              height: '35px',
-              width: '35px',
-            }}
-          />
+          <div className={`${imagesStyles[rightImg]}`} />
         </div>
       </div>
     )
@@ -48,13 +42,7 @@ function Header({ leftLink, leftImg, rightText, rightImg, name, onRightClick }) 
       <div className={headerStyles.leftHorizontal}>
         <Link to={leftLink} className={headerStyles.leftButton}>
           <div className={headerStyles.vertical}>
-            <div
-              className={`${imagesStyles[leftImg]}`}
-              style={{
-                height: '25px',
-                width: '25px',
-              }}
-            />
+            <div className={`${imagesStyles[leftImg]}`} />
           </div>
           {backName}
         </Link>

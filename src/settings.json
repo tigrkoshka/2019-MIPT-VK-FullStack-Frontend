@@ -1,7 +1,8 @@
 {
-  "baseServer": "http://127.0.0.1:8000",
-  "otherServer": "https://herokuhummingbird.herokuapp.com",
-  "baseCentrifuge": "ws://localhost:9000/connection/websocket",
+  "otherServer": "http://127.0.0.1:8000",
+  "baseServer": "https://herokuhummingbird.herokuapp.com",
+  "baseCentrifuge": "ws://hummingbirdcentrifugo.herokuapp.com/connection/websocket",
+  "otherCentrifuge": "ws://localhost:9000/connection/websocket",
   "emojiList": [
     "amphora",
     "balloon",

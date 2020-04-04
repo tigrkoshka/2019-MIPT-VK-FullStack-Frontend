@@ -1,10 +1,53 @@
 $imagesList: 'attachment' 'back' 'burger' 'cowboy_hat_face' 'geolocation' 'hummingbird' 'new_chat' 'tick'
   'stopRecording' 'voice';
 
-@each $image in $imagesList {
-  .#{$image} {
-    margin: 5px;
-    background: url('../images/#{$image}.png?sprite') no-repeat;
-    background-size: 100%;
-  }
+.attachment {
+  margin: 20px;
+  background: url('../images/attachment.png?sprite') no-repeat;
+  background-size: 43px;
+}
+
+.geolocation {
+  margin: 20px;
+  background: url('../images/geolocation.png?sprite') no-repeat;
+  background-size: 29px;
+}
+
+.cowboy_hat_face {
+  margin: 20px;
+  background: url('../images/cowboy_hat_face.png?sprite') no-repeat;
+  background-size: 45px;
+}
+
+.voice {
+  margin: 20px;
+  background: url('../images/voice.png?sprite') no-repeat;
+  background-size: 27px;
+}
+
+.stopRecording {
+  margin: 20px;
+  background: url('../images/stopRecording.png?sprite') no-repeat;
+  background-size: 50px;
+}
+
+.tick {
+  background: url('../images/tick.png?sprite') no-repeat;
+  background-size: 45px;
+  height: 45px;
+  width: 45px;
+}
+
+.back {
+  background: url('../images/back.png?sprite') no-repeat;
+  background-size: 25px;
+  height: 25px;
+  width: 25px;
+}
+
+.burger {
+  background: url('../images/burger.png?sprite') no-repeat;
+  background-size: 25px;
+  height: 25px;
+  width: 25px;
 }
