@@ -2,7 +2,7 @@
 
 describe('Send message test', () => {
   beforeEach(async () => {
-    await page.goto('http://localhost:3000/#/', { waitUntil: 'load' })
+    await page.goto('https://localhost:3000/#/', { waitUntil: 'load' })
   })
 
   it('should send message without error', async () => {
