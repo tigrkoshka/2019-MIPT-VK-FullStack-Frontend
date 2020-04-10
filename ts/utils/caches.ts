@@ -1,6 +1,6 @@
-export class Caches {
+export class Caches<T> {
   readonly capacity: number = 1000
-  private caches: Map<string, string> = new Map<string, string>()
+  private caches: Map<string, T> = new Map<string, T>()
   private keys: string[] = []
 
   constructor(capacity?: number) {
@@ -11,7 +11,7 @@ export class Caches {
     return this.caches.has(key)
   }
 
-  public get(key: string): string | undefined {
+  public get(key: string): T | undefined {
     return this.caches.get(key)
   }
 
@@ -21,7 +21,7 @@ export class Caches {
     else this.keys.splice(this.keys.indexOf(key), 1)
   }
 
-  private simpleAdd(key: string, value: string): void {
+  private simpleAdd(key: string, value: T): void {
     this.caches.set(key, value)
     this.keys.push(key)
   }
@@ -30,7 +30,7 @@ export class Caches {
     this.delete(this.keys[0], 0)
   }
 
-  public add(key: string, value: string): void {
+  public add(key: string, value: T): void {
     // The values are defined by the keys
     if (this.caches.has(key)) return
     else if (this.keys.length === this.capacity) this.deleteOldest()
