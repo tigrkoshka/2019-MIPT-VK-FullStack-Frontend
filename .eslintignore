@@ -5,3 +5,4 @@ build/
 src/registerServiceWorker.js
 src/utils/serviceWorker.js
 src/**/__tests__/**
+ts/
