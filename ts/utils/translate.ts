@@ -1,6 +1,6 @@
-import fetch from 'node-fetch'
+import fetch, { Response } from 'node-fetch'
 import { Caches } from './caches'
-import { SmartText } from './types'
+import { APIResponse, SmartText } from './types'
 import { buildResponse, cacheableErrors } from './errors'
 
 const API_KEY = 'trnsl.1.1.20200409T160333Z.290a8b263dd428ba.1a8a9b6ff2f5f0d509800d3409ce8172e31818f8'
@@ -19,8 +19,8 @@ export async function translate(text: string, to: string, from?: string): Promis
       from ? `${from}-${to}` : to
     }&format=plain&options=${from ? '0' : '1'}`,
   )
-    .then((response) => response.json())
-    .then((data) => {
+    .then((response: Response) => response.json())
+    .then((data: APIResponse) => {
       if (data.code !== 200) {
         if (cacheableErrors.indexOf(data.code) !== -1) errors.add(req.getEncoded(), buildResponse(data.code))
         throw buildResponse(data.code)

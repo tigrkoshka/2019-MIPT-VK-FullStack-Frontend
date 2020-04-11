@@ -1,6 +1,8 @@
-export const cacheableErrors = [413, 422, 501]
+import { TErrorResponse } from './types'
 
-export function buildResponse(code: number): {} {
+export const cacheableErrors: number[] = [413, 422, 501]
+
+export function buildResponse(code: number): TErrorResponse {
   switch (code) {
     case 401:
       return { status: 'error', message: 'API key troubles. Report or try later.' }
@@ -15,6 +17,6 @@ export function buildResponse(code: number): {} {
     case 501:
       return { status: 'error', message: 'Translation direction is not supported.' }
     default:
-      return { status: 'ok' }
+      return { status: 'ok', message: 'ok' }
   }
 }
