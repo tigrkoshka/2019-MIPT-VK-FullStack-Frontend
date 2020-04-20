@@ -4,9 +4,9 @@
   "jsRules": {},
   "rules": {
     "no-console": false,
-    "quotemark": [true, "single"],
+    "quotemark": [true, "single", "jsx-double"],
     "semicolon": [true, "never"],
-    "indent": [true, "tabs", 2],
+    "indent": [true, "spaces", 2],
     "no-shadowed-variable": false
   },
   "rulesDirectory": []
