@@ -3,6 +3,8 @@ language: node_js
 node_js:
   - 'stable'
 
+before_install: cd ts2
+
 dist: trusty
 
 cache:
@@ -28,4 +30,3 @@ deploy:
     branch:
       - master
       - devel
-      - hometask5

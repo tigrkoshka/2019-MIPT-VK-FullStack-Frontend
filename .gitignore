@@ -125,9 +125,7 @@ typings/
 .env
 
 #### yeoman ####
-node_modules/
 bower_components/
-*.log
 
 dist/
 build/
@@ -151,3 +149,19 @@ jest_*/
 /.idea
 /src/.idea
 /ts/utils/*.js
+
+#### ts2 ####
+/ts2/node_modules
+/ts2/.pnp
+/ts2/.pnp.js
+/ts2/coverage
+/ts2/build/
+/ts2/.DS_Store
+/ts2/.env.local
+/ts2/.env.development.local
+/ts2/.env.test.local
+/ts2/.env.production.local
+/ts2/npm-debug.log*
+/ts2/yarn-debug.log*
+/ts2/yarn-error.log*
+/ts2/.idea/
