@@ -23,7 +23,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "npm run test && react-scripts build",
-    "test": "tslint ./src/**/*.ts* && react-scripts test",
+    "lint": "tslint ./src/**/*.ts*",
+    "test": "npm run lint",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
