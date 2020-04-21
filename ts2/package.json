@@ -1,6 +1,8 @@
 {
   "name": "ts2",
+  "homepage": "https://tigran02.github.io/2019-2-Track-Frontend-T-Koshkelian/",
   "version": "0.1.0",
+  "repository": "https://github.com/TIGRAN02/2019-2-Track-Frontend-T-Koshkelian",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
