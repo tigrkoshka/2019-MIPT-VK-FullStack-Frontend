@@ -22,7 +22,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "deploy": "gh-pages -d build",
     "build": "npm run test && react-scripts build",
     "lint": "tslint ./src/**/*.ts*",
     "test": "npm run lint",
@@ -44,8 +43,6 @@
     ]
   },
   "devDependencies": {
-    "@types/gh-pages": "^2.2.0",
-    "gh-pages": "^2.2.0",
     "tslint": "^6.1.1"
   }
 }
