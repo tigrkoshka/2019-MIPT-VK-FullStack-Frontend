@@ -30,10 +30,8 @@ function manageData(): UsefulData {
   )
 
   const data: { [x: string]: GraphData[] } = {}
-  for (const key in extendedData) {
-    if (extendedData.hasOwnProperty(key)) {
-      data[key] = extendedData[key].map((gr: DailyRecord): GraphData => gr.graph)
-    }
+  for (const [key, value] of Object.entries(extendedData)) {
+    data[key] = value.map((gr: DailyRecord): GraphData => gr.graph)
   }
 
   return { dateRange, data, maxCases }
@@ -55,7 +53,7 @@ function getAxisCalculations(dateRange: Date[], maxCases: number, size: Size, ma
 }
 
 function getAxis(calc: AxisCalc, size: Size, margin: Margin): Axis {
-  const xAxis: (g: any) => D3Short = (g: any): D3Short =>
+  const xAxis: (g: D3Short) => D3Short = (g: D3Short): D3Short =>
     g.attr('transform', `translate(0,${size.height - margin.bottom})`).call(
       d3
         .axisBottom(calc.xCalc)
@@ -63,7 +61,7 @@ function getAxis(calc: AxisCalc, size: Size, margin: Margin): Axis {
         .tickSizeOuter(0),
     )
 
-  const yAxis: (g: any) => D3Short = (g: any): D3Short =>
+  const yAxis: (g: D3Short) => D3Short = (g: D3Short): D3Short =>
     g
       .attr('transform', `translate(${margin.left},0)`)
       .call(
@@ -114,11 +112,11 @@ class App extends React.Component {
 
     svg.append('g').call(yAxis)
 
-    for (const key in data) {
-      if (data.hasOwnProperty(key) && data[key].length > 45) {
+    for (const value of Object.values(data)) {
+      if (value.length > 45) {
         svg
           .append('path')
-          .datum(data[key])
+          .datum(value)
           .attr('fill', 'none')
           .attr('stroke', 'black')
           .attr('stroke-width', 1.5)
@@ -129,7 +127,7 @@ class App extends React.Component {
     }
   }
 
-  render(): any {
+  render(): React.ReactElement {
     return (
       <svg
         className="container"

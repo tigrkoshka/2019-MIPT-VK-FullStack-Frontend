@@ -38,4 +38,4 @@ export type Size = {
   width: number
 }
 
-export type D3Short = d3.Selection<d3.BaseType, any, d3.BaseType, any>
+export type D3Short = d3.Selection<any, any, any, any> // более точно  не удаётся задать
