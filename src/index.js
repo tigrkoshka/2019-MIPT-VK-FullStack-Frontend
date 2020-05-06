@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, HashRouter as Router, Switch } from 'react-router-dom'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
+import * as Sentry from '@sentry/browser'
 import store from './store/index'
 import './styles/globalStyles.css'
 import * as serviceWorker from './utils/serviceWorker'
@@ -11,6 +12,8 @@ import UserProfile from './components/UserProfile'
 import WelcomePage from './components/WelcomePage'
 import CreateUser from './components/CreateUser'
 import CreateChat from './components/CreateChat'
+
+Sentry.init({ dsn: 'https://b0b762b80c4f4b6483a00e55349a665d@o388306.ingest.sentry.io/5224990' })
 
 render(
   <Provider store={store}>

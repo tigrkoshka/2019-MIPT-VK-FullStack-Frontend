@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:alpine as build-stage
 
 ARG NODE_ENV
 ENV NODE_ENV "$NODE_ENV"
@@ -6,6 +6,7 @@ ENV NODE_ENV "$NODE_ENV"
 # System deps:
 
 RUN npm --version && apk add --no-cache \
+		python \
     autoconf \
     automake \
     bash \
@@ -27,15 +28,18 @@ RUN npm --version && apk add --no-cache \
 
 # Installing dependencies:
 WORKDIR /code
-COPY package.json package-lock.json /code/
-
-# We do not need to tweak this command, `$NODE_ENV` does it for us.
-RUN npm install
-
-
-# Creating folders, and files for a project:
 COPY . /code
 
+# We do not need to tweak this command, `$NODE_ENV` does it for us.
+RUN npm i
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=build-stage /code/build /usr/share/nginx/html/2019-2-Track-Frontend-T-Koshkelian
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Creating folders, and files for a project:
+# COPY . /code
 
 # Project initialization:
-EXPOSE 4000
+EXPOSE 3000
