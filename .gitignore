@@ -165,3 +165,19 @@ jest_*/
 /ts2/yarn-debug.log*
 /ts2/yarn-error.log*
 /ts2/.idea/
+
+#### exam2 ####
+exam_2/node_modules
+exam_2/.pnp
+exam_2/.pnp.js
+exam_2/coverage
+exam_2/build
+exam_2/.DS_Store
+exam_2/.env.local
+exam_2/.env.development.local
+exam_2/.env.test.local
+exam_2/.env.production.local
+exam_2/npm-debug.log*
+exam_2/yarn-debug.log*
+exam_2/yarn-error.log*
+
