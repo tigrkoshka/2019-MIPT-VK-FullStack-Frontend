@@ -64,6 +64,13 @@ class App extends React.Component<{}, TranslateState> {
             </div>
           </div>
         </div>
+        <div className={appStyles.horizontalSmall}>
+          <div className={appStyles.verticalSmall}>
+            <div className={appStyles.button} onClick={this.handleLangChange}>
+              To: English
+            </div>
+          </div>
+        </div>
         <div className={appStyles.horizontalBig}>
           <div className={appStyles.verticalBig}>
             <textarea
