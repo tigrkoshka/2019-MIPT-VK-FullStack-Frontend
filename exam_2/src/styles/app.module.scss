@@ -6,3 +6,50 @@
   flex-direction: column;
   overflow-x: hidden;
 }
+
+.horizontalBig {
+  display: flex;
+  flex-direction: row;
+  flex-basis: 80%;
+}
+
+.horizontalSmall {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.verticalSmall {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.button {
+  display: flex;
+  align-self: center;
+}
+
+.verticalBig {
+  display: flex;
+  flex-basis: 50%;
+  justify-content: center;
+}
+
+.textField {
+  display: flex;
+  align-self: center;
+  border-width: 0;
+  outline: none;
+  word-break: break-all;
+  font-size: 20px;
+  background-color: rgb(100, 101, 102);
+  color: rgb(255, 255, 255);
+  line-height: 30px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+  height: 50%;
+  width: 80%;
+  margin: 40px 10px;
+}

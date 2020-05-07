@@ -19,8 +19,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "npm run test && react-scripts build",
+    "lint": "tslint ./src/**/*.ts*",
+    "test": "npm run lint",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
