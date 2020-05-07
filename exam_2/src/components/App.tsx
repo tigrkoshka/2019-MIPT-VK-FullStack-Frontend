@@ -22,12 +22,14 @@ class App extends React.Component<{}, TranslateState> {
 
     this.handleChangeUserText = this.handleChangeUserText.bind(this)
     this.handleTranslate = this.handleTranslate.bind(this)
+    this.handleLangChange = this.handleLangChange.bind(this)
   }
 
   componentWillMount() {
     this.setState({
       userText: '',
       translated: '',
+      unknown: true,
     })
   }
 
@@ -39,13 +41,29 @@ class App extends React.Component<{}, TranslateState> {
   handleTranslate(event: React.MouseEvent<HTMLDivElement>): void {
     event.preventDefault()
 
-    TranslateUtil.translate(this.state.userText, 'en').then((str) => this.setState({ translated: str }))
+    if (this.state.unknown) {
+      TranslateUtil.translate(this.state.userText, 'en').then((str) => this.setState({ translated: str }))
+    } else {
+      TranslateUtil.translate(this.state.userText, 'en', 'ru').then((str) => this.setState({ translated: str }))
+    }
+  }
+
+  handleLangChange(event: React.MouseEvent<HTMLDivElement>): void {
+    event.preventDefault()
+    this.setState({ unknown: !this.state.unknown })
   }
 
   render(): React.ReactElement {
     return (
       <div className={appStyles.container}>
         {Header('TechnoTrack Translator')}
+        <div className={appStyles.horizontalSmall}>
+          <div className={appStyles.verticalSmall}>
+            <div className={appStyles.button} onClick={this.handleLangChange}>
+              {`From: ${this.state.unknown ? 'Unknown' : 'Russian'} (click to change)`}
+            </div>
+          </div>
+        </div>
         <div className={appStyles.horizontalBig}>
           <div className={appStyles.verticalBig}>
             <textarea

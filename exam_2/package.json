@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run test && react-scripts build",
+    "build": "npm run test && CI=false react-scripts build",
     "lint": "tslint ./src/**/*.ts*",
     "test": "npm run lint",
     "eject": "react-scripts eject"
