@@ -19,18 +19,15 @@ function Header(name: string): React.ReactElement {
 class App extends React.Component<{}, TranslateState> {
   constructor(props: Readonly<{}>) {
     super(props)
+    this.state = {
+      userText: '',
+      translated: '',
+      unknown: true,
+    }
 
     this.handleChangeUserText = this.handleChangeUserText.bind(this)
     this.handleTranslate = this.handleTranslate.bind(this)
     this.handleLangChange = this.handleLangChange.bind(this)
-  }
-
-  componentWillMount() {
-    this.setState({
-      userText: '',
-      translated: '',
-      unknown: true,
-    })
   }
 
   handleChangeUserText(event: React.ChangeEvent<HTMLTextAreaElement>): void {
@@ -42,9 +39,9 @@ class App extends React.Component<{}, TranslateState> {
     event.preventDefault()
 
     if (this.state.unknown) {
-      TranslateUtil.translate(this.state.userText, 'en').then((str) => this.setState({ translated: str }))
+      TranslateUtil.translate(this.state.userText, 'en').then((text) => this.setState({ translated: text }))
     } else {
-      TranslateUtil.translate(this.state.userText, 'en', 'ru').then((str) => this.setState({ translated: str }))
+      TranslateUtil.translate(this.state.userText, 'en', 'ru').then((text) => this.setState({ translated: text }))
     }
   }
 

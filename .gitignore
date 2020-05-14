@@ -180,4 +180,5 @@ exam_2/.env.production.local
 exam_2/npm-debug.log*
 exam_2/yarn-debug.log*
 exam_2/yarn-error.log*
+exam_2/.env
 

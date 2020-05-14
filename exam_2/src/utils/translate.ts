@@ -3,7 +3,7 @@ import { Caches } from './caches'
 import { APIResponse, SmartText } from './types'
 import { buildResponse, cacheableErrors } from './errors'
 
-const API_KEY = 'trnsl.1.1.20200409T160333Z.290a8b263dd428ba.1a8a9b6ff2f5f0d509800d3409ce8172e31818f8'
+const API_KEY = process.env.REACT_APP_API_KEY
 
 const translated = new Caches<string>()
 const errors = new Caches<{}>()
