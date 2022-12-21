@@ -228,11 +228,14 @@ class MessageForm extends React.Component {
   sendGeo(event) {
     event.preventDefault()
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords
-        const toSend = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`
-        this.sendTextMessage(toSend)
-      })
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords
+          const toSend = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`
+          this.sendTextMessage(toSend)
+        },
+        (err) => console.log(err),
+      )
     }
   }
 
@@ -257,7 +260,9 @@ class MessageForm extends React.Component {
           'X-CSRFToken': Cookies.get('csrftoken'),
           'Content-Type': 'application/json',
         },
-      }).then(() => {})
+      }).then(() => {
+        this.getMessages(this.state.tag)
+      })
     }
   }
 
@@ -294,7 +299,9 @@ class MessageForm extends React.Component {
           'X-CSRFToken': Cookies.get('csrftoken'),
           'Content-Type': 'application/json',
         },
-      }).then(() => {})
+      }).then(() => {
+        this.getMessages(this.state.tag)
+      })
     }
   }
 

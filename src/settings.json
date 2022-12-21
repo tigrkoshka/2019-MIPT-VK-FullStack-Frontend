@@ -1,6 +1,6 @@
 {
   "otherServer": "http://127.0.0.1:8000",
-  "baseServer": "https://herokuhummingbird.herokuapp.com",
+  "baseServer": "http://127.0.0.1:8000",
   "baseCentrifuge": "wss://hummingbirdcentrifugo.herokuapp.com/connection/websocket",
   "otherCentrifuge": "ws://localhost:9000/connection/websocket",
   "firstPeerId": "4hyjk34hnjbdgbxfgbsfbAEWkntg2459jg9ojtg89jeiofj2948jtg3iotjgf3906uh",
